@@ -1,0 +1,3 @@
+[submodule "libft_v2"]
+	path = libft_v2
+	url = https://github.com/lgandarillas/libft_v2.git
