@@ -52,4 +52,6 @@ Mkfile.old
 dkms.conf
 
 minishell
+minishell_lg
+minishell_aq
 .DS_Store
