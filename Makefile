@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lgandari_aquinter <marvin@42.fr>           +#+  +:+       +#+         #
+#    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/06/07 00:00:00 by lgandari_aquinter #+#    #+#              #
-#    Updated: 2024/07/02 18:30:02 by lgandari         ###   ########.fr        #
+#    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
+#    Updated: 2024/07/03 23:05:06 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ GREEN	= \033[0;32m
 NC		= \033[0m 
 
 CFLAGS	= -Wall -Werror -Wextra -g3 -fsanitize=address
+RLFLAG 	= -lreadline
 CC		= cc
 RM		= rm -f
 
@@ -43,17 +44,17 @@ aq : $(NAME_AQ)
 
 $(NAME) : $(OBJS)
 	@make all -sC $(LIBFT_PATH)
-	@$(CC) $(CFLAGS) $(OBJS) -I ../../inc/minishell.h $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) -I ../../inc/minishell.h $(LIBFT) $(RLFLAG) -o $(NAME)
 	@echo "$(GREEN)Compiling minishell...$(NC)"
 
 $(NAME_LG) : $(OBJS_LG)
 	@make all -sC $(LIBFT_PATH)
-	@$(CC) $(CFLAGS) $(OBJS_LG) -I ../../inc/minishell.h $(LIBFT) -o $(NAME_LG)
+	@$(CC) $(CFLAGS) $(OBJS_LG) -I ../../inc/minishell.h $(LIBFT) $(RLFLAG) -o $(NAME_LG)
 	@echo "$(GREEN)Compiling minishell...$(NC)"
 
 $(NAME_AQ) : $(OBJS_AQ)
 	@make all -sC $(LIBFT_PATH)
-	@$(CC) $(CFLAGS) $(OBJS_AQ) -I ../../inc/minishell.h $(LIBFT) -o $(NAME_AQ)
+	@$(CC) $(CFLAGS) $(OBJS_AQ) -I ../../inc/minishell.h $(LIBFT) $(RLFLAG) -o $(NAME_AQ)
 	@echo "$(GREEN)Compiling minishell...$(NC)"
 
 clean:
