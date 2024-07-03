@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/02 16:44:19 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/03 23:07:19 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int	main(void)
 {
-	printf("Test\n");
+	char	*line;
+	line = readline("$>");
+	printf("%s\n", line);
+	free(line);
 	return (0);
 }
