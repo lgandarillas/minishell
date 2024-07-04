@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:01:05 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/04 19:37:52 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/04 19:49:34 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,14 @@ static char	**create_env(void)
 		print_error("Error. Malloc failed.\n");
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
-	{
-		free_matrix(env);
-		print_error("Error. getcwd() failed.\n");
-	}
+		exit_matrix("Error. getcwd() failed.\n", env);
 	env[0] = ft_strjoin("PWD=", cwd);
 	free(cwd);
 	if (!env[0])
-	{
-		free_matrix(env);
-		print_error("Error. Malloc failed.\n");
-	}
+		exit_matrix("Error. Malloc failed.\n", env);
 	env[1] = ft_strdup("SHLVL=1");
 	if (!env[1])
-	{
-		free_matrix(env);
-		print_error("Error. Malloc failed.\n");
-	}
+		exit_matrix("Error. Malloc failed.\n", env);
 	printf("%s\n%s\n", env[0], env[1]);
 	return (env);
 }
@@ -61,8 +52,8 @@ void	init_env(t_shell *shell, char **envp)
 	{
 		shell->env = create_env();
 	}
-	//else
-	//{
-	//	//shell->env = manage_env()
-	//}
+	else
+	{
+		//	//shell->env = manage_env()
+	}
 }

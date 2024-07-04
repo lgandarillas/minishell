@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/04 19:36:22 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/04 19:45:23 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # include "../libft_v2/inc/ft_printf.h"
 # include "../libft_v2/inc/extra.h"
 
-typedef struct	s_game
+typedef struct s_game
 {
 	int		status;
 	char	**env;
@@ -44,5 +44,6 @@ typedef struct	s_game
 void	init_shell(t_shell *shell);
 void	init_env(t_shell *shell, char **envp);
 void	free_shell(t_shell *shell);
+void	exit_matrix(char *msg, char **matrix);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/04 19:36:43 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/04 19:39:55 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	shell_loop(void)
 	int		loops;
 
 	loops = 0;
-	//while (1)
 	while (loops < 3)
 	{
 		prompt = readline("msh>");
