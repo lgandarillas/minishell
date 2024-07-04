@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/04 18:14:02 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/04 18:19:44 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,13 @@ static void	shell_loop(void)
 
 int	main(int argc, char **argv)//, char **envp)
 {
-	t_shell	*shell;
+	t_shell	shell;
 
-	if (argc != 1|| argv[1] != NULL)
+	if (argc != 1)
 		print_error("Error. Exec minishell with no arguments.\n");
-	shell = ft_calloc(1, sizeof(t_shell));
-	if (!shell)
-		print_error("Malloc failed.\n");
-	init_shell(shell);
+	init_shell(&shell);
+	//init_envp(&envp);
 	shell_loop();
-	printf("Test\n");
+	(void)argv;
 	return (0);
 }
