@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/07/04 19:55:07 by lgandari         ###   ########.fr        #
+#    Updated: 2024/07/04 22:00:16 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRC_AQ		= src_aq/
 
 SRCS	= $(addprefix $(SRC_DIR), main.c)
 SRCS_LG	= $(addprefix $(SRC_LG), main.c init_shell.c error.c exit.c)
-SRCS_AQ	= $(addprefix $(SRC_AQ), main.c)
+SRCS_AQ	= $(addprefix $(SRC_AQ), main.c init_shell.c error.c exit.c cd.c)
 
 OBJS	= $(SRCS:.c=.o)
 OBJS_LG	= $(SRCS_LG:.c=.o)
@@ -56,6 +56,7 @@ $(NAME_AQ) : $(OBJS_AQ)
 	@make all -sC $(LIBFT_PATH)
 	@$(CC) $(CFLAGS) $(OBJS_AQ) -I ../../inc/minishell.h $(LIBFT) $(RLFLAG) -o $(NAME_AQ)
 	@echo "$(GREEN)Compiling minishell...$(NC)"
+	@echo "$(GREEN)Enjoy!$(NC)"
 
 clean:
 	@$(RM) $(OBJS)
