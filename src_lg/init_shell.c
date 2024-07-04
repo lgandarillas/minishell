@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:01:05 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/04 19:00:26 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/04 19:27:00 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static char	**create_env(void)
 		free_matrix(env);
 		print_error("Error. Malloc failed.\n");
 	}
+	printf("%s\n%s\n", env[0], env[1]);
 	return (env);
 }
 
