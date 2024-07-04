@@ -6,17 +6,11 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:01:05 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/04 19:49:34 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/04 19:54:43 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	free_shell(t_shell *shell)
-{
-	if (shell->env != NULL)
-		free_matrix(shell->env);
-}
 
 void	init_shell(t_shell *shell)
 {
