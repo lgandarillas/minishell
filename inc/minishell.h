@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/03 23:01:17 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/04 20:25:18 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,22 @@
 # include <sys/ioctl.h>
 # include <termios.h>
 # include <termcap.h>
+# include <stdbool.h>
 
 # include "../libft_v2/inc/libft.h"
 # include "../libft_v2/inc/get_next_line.h"
 # include "../libft_v2/inc/ft_printf.h"
 # include "../libft_v2/inc/extra.h"
+
+typedef struct s_shell
+{
+	int		status;
+	char	**env;
+}		t_shell;
+
+void	init_shell(t_shell *shell);
+void	init_env(t_shell *shell, char **envp);
+void	free_shell(t_shell *shell);
+void	exit_matrix(char *msg, char **matrix);
 
 #endif

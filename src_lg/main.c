@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/04 16:34:14 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/04 19:39:55 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,30 @@
 static void	shell_loop(void)
 {
 	char	*prompt;
+	int		loops;
 
-	while (1)
+	loops = 0;
+	while (loops < 3)
 	{
 		prompt = readline("msh>");
 		if (!prompt)
-			print_error("Malloc failed.\n", -1);
+			print_error("Malloc failed.\n");
 		printf("%s\n", prompt);
 		free(prompt);
+		loops++;
 	}
 }
 
-int	main(int argc, char **argv)//, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	if (argc != 1|| argv[1] != NULL)
-		print_error("Error. Exec minishell with no arguments.\n", -1);
+	t_shell	shell;
+
+	if (argc != 1)
+		print_error("Error. Exec minishell with no arguments.\n");
+	init_shell(&shell);
+	init_env(&shell, envp);
 	shell_loop();
-	printf("Test\n");
+	free_shell(&shell);
+	(void)argv;
 	return (0);
 }
