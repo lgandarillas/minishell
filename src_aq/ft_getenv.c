@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/04 15:31:40 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/07 15:15:58 by aquinter         ###   ########.fr       */
+/*   Created: 2024/07/05 19:41:42 by aquinter          #+#    #+#             */
+/*   Updated: 2024/07/07 15:17:30 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "../inc/minishell.h"
 
-typedef struct s_builtins
+char	*ft_getenv(char **env, char *var)
 {
-	/* data */
-}	t_builtins;
+	int	i;
+	int	len;
 
-typedef struct s_shell	t_shell;
-
-bool	cd(char **env, char **cmd);
-bool	pwd(char **env);
-
-#endif
+	i = 0;
+	len = ft_strlen(var);
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], var, len) == 0)
+			return (env[i] + len);
+		i++;
+	}
+	return (NULL);
+}
