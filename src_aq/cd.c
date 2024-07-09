@@ -6,11 +6,23 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 21:38:38 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/07 15:19:48 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:21:47 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+bool	chdir_error(char **cmd)
+{
+	ft_putstr_fd("msh: cd: ", STDERR_FILENO);
+	if (!cmd[1])
+		ft_putstr_fd("HOME not set\n", STDERR_FILENO);
+	else if (ft_strcmp("-", cmd[1]) == 0)
+		ft_putstr_fd("OLDPWD not set\n", STDERR_FILENO);
+	else
+		perror(cmd[1]);
+	return (false);
+}
 
 bool	update_dirs(char **env)
 {
@@ -21,7 +33,7 @@ bool	update_dirs(char **env)
 		ft_putstr_fd("msh: malloc error", STDERR_FILENO);
 		return (false);
 	}
-	cwd = getcwd(NULL, sizeof(NULL));
+	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{
 		perror("msh: getcwd: ");
@@ -39,25 +51,21 @@ bool	update_dirs(char **env)
 
 bool	cd(char **env, char **cmd)
 {
-	int		ret_chdir;
+	int	ret;
 
-	if (!cmd[1])
-		ret_chdir = chdir(ft_getenv(env, "HOME="));
-	else if (ft_strcmp("-", cmd[1]) == 0)
-		ret_chdir = chdir(ft_getenv(env, "OLDPWD="));
-	else
-		ret_chdir = chdir(cmd[1]);
-	if (ret_chdir == -1)
+	if (ft_arrlen((void **)cmd) > 2)
 	{
-		ft_putstr_fd("msh: cd: ", STDERR_FILENO);
-		if (!cmd[1])
-			ft_putstr_fd("HOME not set\n", STDERR_FILENO);
-		else if (ft_strcmp("-", cmd[1]) == 0)
-			ft_putstr_fd("OLDPWD not set\n", STDERR_FILENO);
-		else
-			perror(cmd[1]);
+		ft_putstr_fd("msh: cd: too many arguments\n", STDERR_FILENO);
 		return (false);
 	}
+	if (!cmd[1])
+		ret = chdir(ft_getenv(env, "HOME="));
+	else if (ft_strcmp("-", cmd[1]) == 0)
+		ret = chdir(ft_getenv(env, "OLDPWD="));
+	else
+		ret = chdir(cmd[1]);
+	if (ret == -1)
+		return (chdir_error(cmd));
 	if (!update_dirs(env))
 		return (false);
 	if (cmd[1] && ft_strcmp("-", cmd[1]) == 0)
