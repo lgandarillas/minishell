@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/07/07 14:49:06 by aquinter         ###   ########.fr        #
+#    Updated: 2024/07/07 16:36:57 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,10 @@ SRC_AQ		= src_aq/
 
 SRCS	= $(addprefix $(SRC_DIR), main.c)
 SRCS_LG	= $(addprefix $(SRC_LG), main.c init_shell.c error.c exit.c)
-SRCS_AQ	= $(addprefix $(SRC_AQ), main.c init_shell.c error.c exit.c cd.c ft_getenv.c ft_setenv.c pwd.c)
+SRCS_AQ	= $(addprefix $(SRC_AQ), \
+			main.c		init_shell.c	error.c		exit.c 	\
+			cd.c 		ft_getenv.c 	ft_setenv.c pwd.c	\
+			export.c)
 
 OBJS	= $(SRCS:.c=.o)
 OBJS_LG	= $(SRCS_LG:.c=.o)
