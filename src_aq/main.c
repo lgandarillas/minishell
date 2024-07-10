@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/10 20:58:05 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:10:37 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,12 @@ bool	execute_builtin(t_shell *shell)
 
 static void	shell_loop(t_shell *shell)
 {
-	const char 	*msg;
 	char		*prompt;
 	char		**cmd;
 
-	msg = CYAN "msh>" RESET;
 	while (true)
 	{
-		prompt = readline(msg);
+		prompt = readline(CYAN "msh> " RESET);
 		if (!prompt)
 			print_error("Malloc failed.\n");
 		cmd = ft_split(prompt, ' ');

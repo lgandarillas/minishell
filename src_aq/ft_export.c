@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:03:56 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/10 20:57:33 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:11:44 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static bool	export_error(char *var)
 	ft_putstr_fd("msh: export: `", STDERR_FILENO);
 	ft_putstr_fd(var, STDERR_FILENO);
 	ft_putstr_fd("\': not a valid identifier\n", STDERR_FILENO);
-	return(false);
+	return (false);
 }
 
 static bool	valid_id(char *var)
@@ -48,7 +48,7 @@ bool	ft_export(t_shell *shell, char **env, char **cmd)
 	i = 1;
 	value = NULL;
 	if (!cmd[1])
-		return ft_env(env);
+		return (ft_env(env));
 	else
 	{
 		while (cmd[i] != NULL)
@@ -61,7 +61,7 @@ bool	ft_export(t_shell *shell, char **env, char **cmd)
 				return (false);
 			}
 			if (valid_id(cmd[i]))
-				ft_addenv(shell, var, value);
+				ft_addenv(shell, shell->env, var, value);
 			free(var);
 			i++;
 		}

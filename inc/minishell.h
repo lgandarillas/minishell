@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/10 20:55:43 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:06:56 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	free_shell(t_shell *shell);
 void	exit_matrix(char *msg, char **matrix);
 char	*ft_getenv(char **env, char *var);
 bool	ft_setenv(char **env, char *var, char *val);
-void	ft_addenv(t_shell	*shell, char *var, char *val);
+void	ft_addenv(t_shell *shell, char **env, char *var, char *val);
 void	update_env(t_shell *shell, char **env, char *new_var);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:01:05 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/04 20:07:36 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:13:15 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	manage_env(t_shell *shell, char **envp)
 	i = 0;
 	while (envp[i] != NULL)
 		i++;
-	env_cpy = ft_calloc(sizeof(char *), i+1);
+	env_cpy = ft_calloc(sizeof(char *), i + 1);
 	if (!env_cpy)
 		print_error("Error. Malloc failed.\n");
 	i = 0;

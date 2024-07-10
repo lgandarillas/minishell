@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 20:34:17 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/10 20:53:45 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/10 21:07:46 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,11 @@ void	update_env(t_shell *shell, char **env, char *new_var)
 		i++;
 	}
 	if (new_var != NULL)
-	{
 		env_cpy[len - line] = new_var;
-		free_matrix(env);	
-	}
 	shell->env = env_cpy;
 }
 
-void	ft_addenv(t_shell *shell, char *var, char *val)
+void	ft_addenv(t_shell *shell, char **env, char *var, char *val)
 {
 	char	*new_var;
 
@@ -54,4 +51,5 @@ void	ft_addenv(t_shell *shell, char *var, char *val)
 			return ;
 	}
 	update_env(shell, shell->env, new_var);
+	free_matrix(env);
 }
