@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 21:38:38 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/09 17:21:47 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:58:05 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ bool	update_dirs(char **env)
 	return (true);
 }
 
-bool	cd(char **env, char **cmd)
+bool	ft_cd(char **env, char **cmd)
 {
 	int	ret;
 

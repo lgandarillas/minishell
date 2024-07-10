@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/08 17:13:55 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:58:05 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ bool	execute_builtin(t_shell *shell)
 	if (ft_strcmp(*(shell->cmd), "echo") == 0)
 		return (true);
 	else if (ft_strcmp(*(shell->cmd), "cd") == 0)
-		return (cd(shell->env, shell->cmd));
+		return (ft_cd(shell->env, shell->cmd));
 	else if (ft_strcmp(*(shell->cmd), "pwd") == 0)
-		return (pwd(shell->env));
+		return (ft_pwd(shell->env));
 	else if (ft_strcmp(*(shell->cmd), "export") == 0)
-		return (export(shell->env, shell->cmd));
+		return (ft_export(shell, shell->env, shell->cmd));
 	else if (ft_strcmp(*(shell->cmd), "unset") == 0)
 		return (true);
 	else if (ft_strcmp(*(shell->cmd), "env") == 0)
-		return (true);
+		return (ft_env(shell->env));
 	else if (ft_strcmp(*(shell->cmd), "exit") == 0)
 		return (true);
 	return (false);
@@ -33,12 +33,14 @@ bool	execute_builtin(t_shell *shell)
 
 static void	shell_loop(t_shell *shell)
 {
-	char	*prompt;
-	char	**cmd;
+	const char 	*msg;
+	char		*prompt;
+	char		**cmd;
 
+	msg = CYAN "msh>" RESET;
 	while (true)
 	{
-		prompt = readline("msh>");
+		prompt = readline(msg);
 		if (!prompt)
 			print_error("Malloc failed.\n");
 		cmd = ft_split(prompt, ' ');

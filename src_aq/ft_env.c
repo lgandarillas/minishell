@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/05 19:30:46 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/07 15:19:08 by aquinter         ###   ########.fr       */
+/*   Created: 2024/07/09 20:19:21 by aquinter          #+#    #+#             */
+/*   Updated: 2024/07/09 20:24:17 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-bool	pwd(char **env)
+bool	ft_env(char **env)
 {
-	printf("%s\n", ft_getenv(env, "PWD="));
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		printf("%s\n", env[i]);
+		i++;
+	}
 	return (true);
 }

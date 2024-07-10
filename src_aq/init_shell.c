@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:01:05 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/07 15:17:58 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:42:12 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,32 +40,32 @@ static char	**create_env(void)
 	return (env);
 }
 
-static void	manage_env(t_shell *shell, char **envp)
-{
-	char	**env_cpy;
-	size_t	i;
+// static void	update_env(t_shell *shell, char **envp)
+// {
+// 	char	**env_cpy;
+// 	size_t	i;
 
-	i = 0;
-	while (envp[i] != NULL)
-		i++;
-	env_cpy = ft_calloc(sizeof(char *), i + 1);
-	if (!env_cpy)
-		print_error("Error. Malloc failed.\n");
-	i = 0;
-	while (envp[i] != NULL)
-	{
-		env_cpy[i] = ft_strdup(envp[i]);
-		if (!env_cpy[i])
-			exit_matrix("Error. Malloc failed.\n", env_cpy);
-		i++;
-	}
-	shell->env = env_cpy;
-}
+// 	i = 0;
+// 	while (envp[i] != NULL)
+// 		i++;
+// 	env_cpy = ft_calloc(sizeof(char *), i + 1);
+// 	if (!env_cpy)
+// 		print_error("Error. Malloc failed.\n");
+// 	i = 0;
+// 	while (envp[i] != NULL)
+// 	{
+// 		env_cpy[i] = ft_strdup(envp[i]);
+// 		if (!env_cpy[i])
+// 			exit_matrix("Error. Malloc failed.\n", env_cpy);
+// 		i++;
+// 	}
+// 	shell->env = env_cpy;
+// }
 
 void	init_env(t_shell *shell, char **envp)
 {
 	if (!*envp)
 		shell->env = create_env();
 	else
-		manage_env(shell, envp);
+		update_env(shell, envp, NULL);
 }
