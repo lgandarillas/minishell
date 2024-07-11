@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/04 19:54:47 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/04 19:54:53 by lgandari         ###   ########.fr       */
+/*   Created: 2024/07/05 19:30:46 by aquinter          #+#    #+#             */
+/*   Updated: 2024/07/10 20:57:49 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	free_shell(t_shell *shell)
+bool	ft_pwd(char **env)
 {
-	if (shell->env != NULL)
-		free_matrix(shell->env);
+	printf("%s\n", ft_getenv(env, "PWD="));
+	return (true);
 }

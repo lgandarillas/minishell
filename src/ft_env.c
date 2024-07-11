@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/04 19:43:21 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/04 19:44:37 by lgandari         ###   ########.fr       */
+/*   Created: 2024/07/09 20:19:21 by aquinter          #+#    #+#             */
+/*   Updated: 2024/07/09 20:24:17 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	exit_matrix(char *msg, char **matrix)
+bool	ft_env(char **env)
 {
-	if (matrix != NULL)
-		free_matrix(matrix);
-	print_error(msg);
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		printf("%s\n", env[i]);
+		i++;
+	}
+	return (true);
 }
