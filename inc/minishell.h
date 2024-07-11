@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/11 19:18:40 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/11 20:53:36 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ char	*ft_getenv(char **env, char *var);
 bool	ft_setenv(char **env, char *var, char *val);
 void	ft_addenv(t_shell *shell, char **env, char *var, char *val);
 void	update_env(t_shell *shell, char **env, char *new_var);
+char	**parser(char *prompt);
 
 #endif

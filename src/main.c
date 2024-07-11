@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/11 20:28:31 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/11 21:00:41 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,10 @@ static void	shell_loop(t_shell *shell)
 	while (true)
 	{
 		prompt = readline(CYAN "msh> " RESET);
-		add_history(prompt);
 		if (!prompt)
-			print_error("Malloc failed.\n");
-		cmd = ft_split(prompt, ' ');
+			print_error("Prompt failed.\n");
+		cmd = parser(prompt);
 		free(prompt);
-		if (!cmd)
-			print_error("Malloc failed.\n");
 		if (ft_strcmp("break", *cmd) != 0)
 		{
 			shell->cmd = cmd;
