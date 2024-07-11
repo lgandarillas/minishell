@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/10 21:06:56 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/11 19:18:40 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,11 @@
 # include <stdbool.h>
 
 # include "builtins.h"
+# include "constants.h"
 # include "../libft_v2/inc/libft.h"
 # include "../libft_v2/inc/get_next_line.h"
 # include "../libft_v2/inc/ft_printf.h"
 # include "../libft_v2/inc/extra.h"
-
-# define CYAN  "\033[1;36m"
-# define RESET "\x1b[0m"
 
 typedef struct s_shell
 {
