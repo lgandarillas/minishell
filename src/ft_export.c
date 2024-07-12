@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:03:56 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/10 21:11:44 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/12 09:20:08 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,12 @@ bool	ft_export(t_shell *shell, char **env, char **cmd)
 				return (false);
 			}
 			if (valid_id(cmd[i]))
-				ft_addenv(shell, shell->env, var, value);
+			{
+				if (ft_getenv(shell->env, var) != NULL)
+					ft_setenv(shell->env, var, value);
+				else
+					ft_addenv(shell, shell->env, var, value);
+			}	
 			free(var);
 			i++;
 		}

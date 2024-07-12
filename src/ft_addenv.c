@@ -6,13 +6,13 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 20:34:17 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/10 21:07:46 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/12 09:20:54 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	update_env(t_shell *shell, char **env, char *new_var)
+bool	update_env(t_shell *shell, char **env, char *new_var)
 {
 	char	**env_cpy;
 	size_t	len;
@@ -20,26 +20,27 @@ void	update_env(t_shell *shell, char **env, char *new_var)
 	size_t	i;
 
 	line = 2;
-	len = ft_arrlen((void **)env) + 1;
+	len = ft_arrlen((void **)env);
 	if (new_var == NULL)
 		line--;
 	env_cpy = ft_calloc(sizeof(char *), len + line);
 	if (!env_cpy)
-		print_error("Error. Malloc failed.\n");
+		return (false);
 	i = 0;
-	while (i < len - line)
+	while (i < len)
 	{
 		env_cpy[i] = ft_strdup(env[i]);
 		if (!env_cpy[i])
-			exit_matrix("Error. Malloc failed.\n", env_cpy);
+			return (free_matrix(env_cpy), false);
 		i++;
 	}
 	if (new_var != NULL)
-		env_cpy[len - line] = new_var;
+		env_cpy[len] = new_var;
 	shell->env = env_cpy;
+	return (true);
 }
 
-void	ft_addenv(t_shell *shell, char **env, char *var, char *val)
+bool	ft_addenv(t_shell *shell, char **env, char *var, char *val)
 {
 	char	*new_var;
 
@@ -48,8 +49,14 @@ void	ft_addenv(t_shell *shell, char **env, char *var, char *val)
 	{
 		new_var = ft_strjoin(var, val);
 		if (!new_var)
-			return ;
+			return (false);
 	}
-	update_env(shell, shell->env, new_var);
+	if (!update_env(shell, env, new_var))
+	{
+		if (new_var != NULL)
+			free(new_var);
+		return (false);
+	}
 	free_matrix(env);
+	return (true);
 }

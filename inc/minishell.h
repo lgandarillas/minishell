@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/10 21:06:56 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/12 09:23:33 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,11 @@
 # include <stdbool.h>
 
 # include "builtins.h"
+# include "constants.h"
 # include "../libft_v2/inc/libft.h"
 # include "../libft_v2/inc/get_next_line.h"
 # include "../libft_v2/inc/ft_printf.h"
 # include "../libft_v2/inc/extra.h"
-
-# define CYAN  "\033[1;36m"
-# define RESET "\x1b[0m"
 
 typedef struct s_shell
 {
@@ -52,7 +50,8 @@ void	free_shell(t_shell *shell);
 void	exit_matrix(char *msg, char **matrix);
 char	*ft_getenv(char **env, char *var);
 bool	ft_setenv(char **env, char *var, char *val);
-void	ft_addenv(t_shell *shell, char **env, char *var, char *val);
-void	update_env(t_shell *shell, char **env, char *new_var);
+bool	ft_addenv(t_shell **shell, char **env, char *var, char *val);
+bool	update_env(t_shell *shell, char **env, char *new_var);
+void	exit_error();
 
 #endif
