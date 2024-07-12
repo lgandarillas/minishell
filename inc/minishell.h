@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/12 09:25:45 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/12 16:02:51 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ bool	ft_setenv(char **env, char *var, char *val);
 bool	ft_addenv(t_shell *shell, char **env, char *var, char *val);
 bool	update_env(t_shell *shell, char **env, char *new_var);
 char	**parser(char *prompt);
+void	malloc_error(void);
 
 #endif

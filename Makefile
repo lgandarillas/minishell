@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/07/11 20:55:43 by lgandari         ###   ########.fr        #
+#    Updated: 2024/07/12 18:33:42 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ RED		= \033[0;31m
 GREEN	= \033[0;32m
 NC		= \033[0m 
 
-CFLAGS	= -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS	= -Wall -Werror -Wextra #-g3 -fsanitize=address
 RLFLAG 	= -lreadline
 CC		= cc
 RM		= rm -f
@@ -27,9 +27,9 @@ LIBFT_PATH	= libft_v2/
 SRC_DIR		= src/
 
 SRCS	= $(addprefix $(SRC_DIR), \
-	main.c		init_shell.c	error.c	parser.c		\
-	ft_cd.c 	ft_getenv.c 	ft_setenv.c ft_pwd.c	\
-	ft_export.c	ft_env.c	ft_addenv.c)
+	main.c					init_shell.c			error.c				parser.c	\
+	ft_addenv.c				ft_getenv.c 			ft_setenv.c 		builtins/ft_pwd.c	\
+	builtins/ft_export.c	builtins/ft_env.c 		builtins/ft_cd.c)
 
 OBJS	= $(SRCS:.c=.o)
 

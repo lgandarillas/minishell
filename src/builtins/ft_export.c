@@ -6,11 +6,11 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:03:56 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/12 09:20:08 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/12 18:18:31 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 static bool	export_error(char *var)
 {
@@ -39,37 +39,50 @@ static bool	valid_id(char *var)
 	return (true);
 }
 
-bool	ft_export(t_shell *shell, char **env, char **cmd)
+static bool	manage_var(t_shell *shell, char *input)
+{
+	char	*var;
+	char	*value;
+
+	if (valid_id(input))
+	{
+		value = ft_strchr(input, '=') + 1;
+		var = ft_substr(input, 0, value - input);
+		if (!var)
+			malloc_error();
+		if (ft_getenv(shell->env, var) != NULL)
+		{
+			if (!ft_setenv(shell->env, var, value))
+				malloc_error();
+		}
+		else
+		{
+			if (!ft_addenv(shell, shell->env, var, value))
+				malloc_error();
+		}
+		free(var);
+		return (true);
+	}
+	return (false);
+}
+
+bool	ft_export(t_shell *shell)
 {
 	int		i;
-	char	*value;
-	char	*var;
+	bool	ret;
 
 	i = 1;
-	value = NULL;
-	if (!cmd[1])
-		return (ft_env(env));
+	ret = true;
+	if (!shell->cmd[1])
+		return (ft_env(shell->env));
 	else
 	{
-		while (cmd[i] != NULL)
+		while (shell->cmd[i] != NULL)
 		{
-			value = ft_strchr(cmd[i], '=');
-			var = ft_substr(cmd[i], 0, (value) - cmd[i]);
-			if (!var)
-			{
-				ft_putstr_fd("msh: malloc error", STDERR_FILENO);
-				return (false);
-			}
-			if (valid_id(cmd[i]))
-			{
-				if (ft_getenv(shell->env, var) != NULL)
-					ft_setenv(shell->env, var, value);
-				else
-					ft_addenv(shell, shell->env, var, value);
-			}	
-			free(var);
+			if (!manage_var(shell, shell->cmd[i]))
+				ret = false;
 			i++;
 		}
 	}
-	return (true);
+	return (ret);
 }

@@ -1,30 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 21:38:38 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/10 20:58:05 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/12 20:17:35 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
-bool	chdir_error(char **cmd)
+static bool	cd_error(char **env, char **cmd)
 {
+	char	*var;
+	char	*error_msg;
+
 	ft_putstr_fd("msh: cd: ", STDERR_FILENO);
 	if (!cmd[1])
-		ft_putstr_fd("HOME not set\n", STDERR_FILENO);
+	{
+		var = "HOME=";
+		error_msg = "HOME not set\n";
+	}
 	else if (ft_strcmp("-", cmd[1]) == 0)
-		ft_putstr_fd("OLDPWD not set\n", STDERR_FILENO);
+	{
+		var = "OLDPWD=";
+		error_msg = "OLDPWD not set\n";
+	}
 	else
+	{
 		perror(cmd[1]);
+		return (false);
+	}
+	if (!ft_getenv(env, var))
+		ft_putstr_fd(error_msg, STDERR_FILENO);
+	else
+		perror(ft_getenv(env, var));
 	return (false);
 }
 
-bool	update_dirs(char **env)
+static bool	update_dirs(char **env)
 {
 	char	*cwd;
 
@@ -65,7 +81,7 @@ bool	ft_cd(char **env, char **cmd)
 	else
 		ret = chdir(cmd[1]);
 	if (ret == -1)
-		return (chdir_error(cmd));
+		return (cd_error(env, cmd));
 	if (!update_dirs(env))
 		return (false);
 	if (cmd[1] && ft_strcmp("-", cmd[1]) == 0)

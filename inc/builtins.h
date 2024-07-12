@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 15:31:40 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/10 20:58:05 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:43:44 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_shell	t_shell;
 
 bool	ft_cd(char **env, char **cmd);
 bool	ft_pwd(char **env);
-bool	ft_export(t_shell *shell, char **env, char **cmd);
+bool	ft_export(t_shell *shell);
 bool	ft_env(char **env);
 
 #endif

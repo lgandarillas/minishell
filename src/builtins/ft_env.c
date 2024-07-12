@@ -6,11 +6,11 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 20:19:21 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/09 20:24:17 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:34:06 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 bool	ft_env(char **env)
 {
