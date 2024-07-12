@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/12 19:31:45 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/12 20:11:12 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_shell
 	char	**env;
 	char	**cmd;
 	char	**path;
+	char	*pwd;
+	char	*oldpwd;
 }		t_shell;
 
 void	init_shell(t_shell *shell, char **envp);
@@ -54,5 +56,7 @@ bool	ft_setenv(char **env, char *var, char *val);
 void	ft_addenv(t_shell *shell, char **env, char *var, char *val);
 void	update_env(t_shell *shell, char **env, char *new_var);
 char	**parser(char *prompt);
+void	get_pwd(t_shell *shell, char **env);
+void	get_oldpwd(t_shell *shell, char **env);
 
 #endif
