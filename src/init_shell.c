@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:01:05 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/12 20:07:31 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/12 20:25:10 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	init_env(t_shell *shell, char **envp)
 		shell->env = create_env();
 	else
 		update_env(shell, envp, NULL);
-	get_path(shell, shell->env);
 }
 
 void	init_shell(t_shell *shell, char **envp)
@@ -52,6 +51,7 @@ void	init_shell(t_shell *shell, char **envp)
 	shell->pwd = NULL;
 	shell->oldpwd = NULL;
 	init_env(shell, envp);
+	get_path(shell, shell->env);
 	get_pwd(shell, envp);
 	get_oldpwd(shell, envp);
 }
