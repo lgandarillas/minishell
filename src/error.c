@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:43:21 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/11 19:20:19 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/12 19:33:10 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	free_shell(t_shell *shell)
 {
 	if (shell->env != NULL)
 		free_matrix(shell->env);
+	if (shell->path != NULL)
+		free_matrix(shell->path);
 }
 
 void	exit_matrix(char *msg, char **matrix)

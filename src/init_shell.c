@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:01:05 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/12 18:41:19 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/12 19:32:35 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,14 @@ static void	init_env(t_shell *shell, char **envp)
 		shell->env = create_env();
 	else
 		update_env(shell, envp, NULL);
+	get_path(shell, shell->env);
 }
 
 void	init_shell(t_shell *shell, char **envp)
 {
 	shell->status = 0;
 	shell->env = NULL;
+	shell->cmd = NULL;
+	shell->path = NULL;
 	init_env(shell, envp);
 }
