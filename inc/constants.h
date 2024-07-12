@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   constants.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/04 19:43:21 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/11 19:20:19 by lgandari         ###   ########.fr       */
+/*   Created: 2024/07/11 19:17:03 by lgandari          #+#    #+#             */
+/*   Updated: 2024/07/11 19:18:00 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#ifndef CONSTANTS_H
+# define CONSTANTS_H
 
-void	free_shell(t_shell *shell)
-{
-	if (shell->env != NULL)
-		free_matrix(shell->env);
-}
+# define CYAN  "\033[1;36m"
+# define RESET "\x1b[0m"
 
-void	exit_matrix(char *msg, char **matrix)
-{
-	if (matrix != NULL)
-		free_matrix(matrix);
-	print_error(msg);
-}
+#endif
