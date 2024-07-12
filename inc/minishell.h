@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/11 20:53:36 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/12 18:40:47 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ typedef struct s_shell
 	char	**cmd;
 }		t_shell;
 
-void	init_shell(t_shell *shell);
-void	init_env(t_shell *shell, char **envp);
+void	init_shell(t_shell *shell, char **envp);
 void	free_shell(t_shell *shell);
 void	exit_matrix(char *msg, char **matrix);
 char	*ft_getenv(char **env, char *var);
