@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/07/11 20:55:43 by lgandari         ###   ########.fr        #
+#    Updated: 2024/07/12 20:15:21 by lgandari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC_DIR		= src/
 SRCS	= $(addprefix $(SRC_DIR), \
 	main.c		init_shell.c	error.c	parser.c		\
 	ft_cd.c 	ft_getenv.c 	ft_setenv.c ft_pwd.c	\
-	ft_export.c	ft_env.c	ft_addenv.c)
+	ft_export.c	ft_env.c	ft_addenv.c	path.c)
 
 OBJS	= $(SRCS:.c=.o)
 

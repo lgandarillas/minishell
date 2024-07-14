@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/11 20:53:36 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/12 20:11:12 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,13 @@ typedef struct s_shell
 	int		status;
 	char	**env;
 	char	**cmd;
+	char	**path;
+	char	*pwd;
+	char	*oldpwd;
 }		t_shell;
 
-void	init_shell(t_shell *shell);
-void	init_env(t_shell *shell, char **envp);
+void	init_shell(t_shell *shell, char **envp);
+void	get_path(t_shell *shell, char **env);
 void	free_shell(t_shell *shell);
 void	exit_matrix(char *msg, char **matrix);
 char	*ft_getenv(char **env, char *var);
@@ -53,5 +56,7 @@ bool	ft_setenv(char **env, char *var, char *val);
 void	ft_addenv(t_shell *shell, char **env, char *var, char *val);
 void	update_env(t_shell *shell, char **env, char *new_var);
 char	**parser(char *prompt);
+void	get_pwd(t_shell *shell, char **env);
+void	get_oldpwd(t_shell *shell, char **env);
 
 #endif
