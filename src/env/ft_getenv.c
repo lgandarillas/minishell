@@ -6,11 +6,11 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 19:41:42 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/07 15:17:30 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:37:19 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 char	*ft_getenv(char **env, char *var)
 {

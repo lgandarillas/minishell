@@ -6,11 +6,11 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:43:21 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/15 15:33:50 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:36:16 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 void	free_shell(t_shell *shell)
 {

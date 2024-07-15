@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path.c                                             :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/12 18:54:04 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/15 17:05:58 by lgandari         ###   ########.fr       */
+/*   Created: 2024/07/11 20:41:15 by lgandari          #+#    #+#             */
+/*   Updated: 2024/07/15 17:05:31 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
-/*
 int	get_index(char **env, const char *var)
 {
 	int	i;
@@ -27,24 +26,16 @@ int	get_index(char **env, const char *var)
 	}
 	return (print_error("Var not found.\n"));
 }
-*/
 
-void	get_path(t_shell *shell, char **env)
+char	**parser(char *prompt)
 {
-	int		index;
-	char	**directories;
-	char	*path;
-	int		i;
+	char	**cmd;
 
-	index = get_index(env, "PATH=");
-	directories = ft_split(env[index] + 5, ':');
-	i = 0;
-	while (directories[i])
-	{
-		path = ft_strjoin(directories[i], "/");
-		free(directories[i]);
-		directories[i] = path;
-		i++;
-	}
-	shell->path = directories;
+	add_history(prompt);
+	prompt = ft_strtrim(prompt, " ");
+	cmd = ft_split(prompt, ' ');
+	free(prompt);
+	if (!cmd)
+		print_error("Malloc failed.\n");
+	return (cmd);
 }

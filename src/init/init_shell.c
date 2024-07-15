@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 static char	**create_env(void)
 {
@@ -46,6 +46,7 @@ static void	print_welcome(void)
 {
 	printf("█▀▄▀█ █ █▄░█ █ █▀ █░█ █▀▀ █░░ █░░\n");
 	printf("█░▀░█ █ █░▀█ █ ▄█ █▀█ ██▄ █▄▄ █▄▄\n");
+	printf("By: @aquinter && @lgandari\n");
 }
 
 void	init_shell(t_shell *shell, char **envp)
