@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/07/15 15:46:26 by lgandari         ###   ########.fr        #
+#    Updated: 2024/07/15 17:09:12 by lgandari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ RED		= \033[0;31m
 GREEN	= \033[0;32m
 NC		= \033[0m 
 
-CFLAGS	= -Wall -Werror -Wextra #-g3 -fsanitize=address
+CFLAGS	= -Wall -Werror -Wextra -g3 -fsanitize=address
 RLFLAG 	= -lreadline
 CC		= cc
 RM		= rm -f

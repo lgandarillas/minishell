@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/15 15:32:58 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:55:42 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,22 @@ typedef struct s_shell
 }		t_shell;
 
 void	init_shell(t_shell *shell, char **envp);
+
+int	get_index(char **env, const char *var);
 void	get_path(t_shell *shell, char **env);
-void	free_shell(t_shell *shell);
-void	exit_matrix(char *msg, char **matrix);
-char	*ft_getenv(char **env, char *var);
-bool	ft_setenv(char **env, char *var, char *val);
-bool	ft_addenv(t_shell *shell, char **env, char *var, char *val);
-bool	ft_delenv(t_shell *shell, char **env, char *var);
-bool	update_env(t_shell *shell, char **env, char *new_var);
-char	**parser(char *prompt);
-void	malloc_error(void);
 void	get_pwd(t_shell *shell, char **env);
 void	get_oldpwd(t_shell *shell, char **env);
+
+bool	update_env(t_shell *shell, char **env, char *new_var);
+bool	ft_setenv(char **env, char *var, char *val);
+char	*ft_getenv(char **env, char *var);
+bool	ft_addenv(t_shell *shell, char **env, char *var, char *val);
+bool	ft_delenv(t_shell *shell, char **env, char *var);
+
+char	**parser(char *prompt);
+
+void	free_shell(t_shell *shell);
+void	exit_matrix(char *msg, char **matrix);
+void	malloc_error(void);
 
 #endif

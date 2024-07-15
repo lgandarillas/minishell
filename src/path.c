@@ -6,26 +6,28 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 18:54:04 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/12 19:34:25 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:05:58 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static int	get_path_index(char **env)
+/*
+int	get_index(char **env, const char *var)
 {
 	int	i;
 
 	i = 0;
 	while (env[i] != NULL)
 	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
+		if (ft_strncmp(env[i], var, ft_strlen(var)) == 0)
 			return (i);
 		else
 			i++;
 	}
-	return (print_error("Path not found.\n"));
+	return (print_error("Var not found.\n"));
 }
+*/
 
 void	get_path(t_shell *shell, char **env)
 {
@@ -34,7 +36,7 @@ void	get_path(t_shell *shell, char **env)
 	char	*path;
 	int		i;
 
-	index = get_path_index(env);
+	index = get_index(env, "PATH=");
 	directories = ft_split(env[index] + 5, ':');
 	i = 0;
 	while (directories[i])

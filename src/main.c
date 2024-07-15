@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/15 16:03:04 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:11:55 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,9 @@ static void	shell_loop(t_shell *shell)
 				return ;
 			}
 		}
+		else
+			free(prompt);
 	}
-}
-
-static void	print_welcome(void)
-{
-	printf("█▀▄▀█ █ █▄░█ █ █▀ █░█ █▀▀ █░░ █░░\n");
-	printf("█░▀░█ █ █░▀█ █ ▄█ █▀█ ██▄ █▄▄ █▄▄\n");
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -71,7 +67,6 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 1 || !argv[0])
 		print_error("Error. Exec minishell with no arguments.\n");
-	print_welcome();
 	init_shell(&shell, envp);
 	shell_loop(&shell);
 	free_shell(&shell);

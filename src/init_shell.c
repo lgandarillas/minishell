@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:01:05 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/12 20:25:10 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:48:28 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ static void	init_env(t_shell *shell, char **envp)
 		update_env(shell, envp, NULL);
 }
 
+static void	print_welcome(void)
+{
+	printf("█▀▄▀█ █ █▄░█ █ █▀ █░█ █▀▀ █░░ █░░\n");
+	printf("█░▀░█ █ █░▀█ █ ▄█ █▀█ ██▄ █▄▄ █▄▄\n");
+}
+
 void	init_shell(t_shell *shell, char **envp)
 {
 	shell->status = 0;
@@ -50,6 +56,7 @@ void	init_shell(t_shell *shell, char **envp)
 	shell->path = NULL;
 	shell->pwd = NULL;
 	shell->oldpwd = NULL;
+	print_welcome();
 	init_env(shell, envp);
 	get_path(shell, shell->env);
 	get_pwd(shell, envp);
