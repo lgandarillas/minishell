@@ -6,28 +6,11 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 18:54:04 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/15 17:05:58 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:24:22 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-/*
-int	get_index(char **env, const char *var)
-{
-	int	i;
-
-	i = 0;
-	while (env[i] != NULL)
-	{
-		if (ft_strncmp(env[i], var, ft_strlen(var)) == 0)
-			return (i);
-		else
-			i++;
-	}
-	return (print_error("Var not found.\n"));
-}
-*/
 
 void	get_path(t_shell *shell, char **env)
 {
