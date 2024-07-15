@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/15 17:11:55 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/15 21:35:32 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	shell_loop(t_shell *shell)
 		{
 			cmd = parser(prompt);
 			free(prompt);
-			if (ft_strcmp("break", *cmd) != 0)
+			if (ft_strcmp("exit", *cmd) != 0)
 			{
 				shell->cmd = cmd;
 				shell->status = execute_builtin(shell);
