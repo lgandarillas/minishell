@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:40:32 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/15 22:05:38 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:16:57 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool	valid_id(char *var)
 	return (true);
 }
 
-bool ft_unset(t_shell *shell)
+bool	ft_unset(t_shell *shell)
 {
 	int		i;
 	int		ret;
@@ -60,5 +60,5 @@ bool ft_unset(t_shell *shell)
 		}
 		i++;
 	}
-	return (ret);	
+	return (ret);
 }
