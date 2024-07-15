@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:03:56 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/12 18:18:31 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:04:44 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,16 @@ static bool	manage_var(t_shell *shell, char *input)
 		value = ft_strchr(input, '=') + 1;
 		var = ft_substr(input, 0, value - input);
 		if (!var)
-			malloc_error();
+			print_error(MEM_ERROR);
 		if (ft_getenv(shell->env, var) != NULL)
 		{
 			if (!ft_setenv(shell->env, var, value))
-				malloc_error();
+				print_error(MEM_ERROR);
 		}
 		else
 		{
 			if (!ft_addenv(shell, shell->env, var, value))
-				malloc_error();
+				print_error(MEM_ERROR);
 		}
 		free(var);
 		return (true);

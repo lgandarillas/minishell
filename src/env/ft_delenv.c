@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 14:02:25 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/15 16:37:13 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:06:14 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ bool	ft_delenv(t_shell *shell, char **env, char *var)
 		i++;
 	}
 	if (!unset_env(shell, env, line))
-		malloc_error();
+		print_error(MEM_ERROR);
 	free_matrix(env);
 	return (true);
 }

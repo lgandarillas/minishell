@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/15 16:55:42 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:06:52 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,5 @@ char	**parser(char *prompt);
 
 void	free_shell(t_shell *shell);
 void	exit_matrix(char *msg, char **matrix);
-void	malloc_error(void);
 
 #endif
