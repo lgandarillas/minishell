@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/15 15:34:06 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:03:04 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,22 @@ static void	shell_loop(t_shell *shell)
 	while (true)
 	{
 		prompt = readline(CYAN "msh> " RESET);
-		if (!prompt)
-			print_error("Prompt failed.\n");
-		cmd = parser(prompt);
-		free(prompt);
-		if (ft_strcmp("break", *cmd) != 0)
+		if (*prompt != '\0')
 		{
-			shell->cmd = cmd;
-			shell->status = execute_builtin(shell);
-			free_matrix(cmd);
-			shell->cmd = NULL;
-		}
-		else
-		{
-			free_matrix(cmd);
-			return ;
+			cmd = parser(prompt);
+			free(prompt);
+			if (ft_strcmp("break", *cmd) != 0)
+			{
+				shell->cmd = cmd;
+				shell->status = execute_builtin(shell);
+				free_matrix(cmd);
+				shell->cmd = NULL;
+			}
+			else
+			{
+				free_matrix(cmd);
+				return ;
+			}
 		}
 	}
 }
