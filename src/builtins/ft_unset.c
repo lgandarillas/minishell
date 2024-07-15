@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:40:32 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/15 19:14:38 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:31:14 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_unset(t_shell *shell)
 		{
 			var = ft_strjoin(shell->cmd[i], "=");
 			if (!var)
-				malloc_error();
+				print_error(MEM_ERROR);
 			if (ft_getenv(shell->env, var))
 				ft_delenv(shell, shell->env, var);
 			free(var);

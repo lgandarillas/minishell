@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:01:05 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/15 16:48:28 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/15 21:55:44 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ static char	**create_env(void)
 
 	env = ft_calloc(3, sizeof(char *));
 	if (env == NULL)
-		print_error("Error. Malloc failed.\n");
+		print_error(MEM_ERROR);
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
-		exit_matrix("Error. getcwd() failed.\n", env);
+		exit_matrix(MEM_ERROR, env);
 	env[0] = ft_strjoin("PWD=", cwd);
 	free(cwd);
 	if (!env[0])
-		exit_matrix("Error. Malloc failed.\n", env);
+		exit_matrix(MEM_ERROR, env);
 	env[1] = ft_strdup("SHLVL=1");
 	if (!env[1])
-		exit_matrix("Error. Malloc failed.\n", env);
+		exit_matrix(MEM_ERROR, env);
 	printf("%s\n%s\n", env[0], env[1]);
 	return (env);
 }

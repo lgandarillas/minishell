@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/15 18:01:31 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:29:50 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	shell_loop(t_shell *shell)
 		{
 			cmd = parser(prompt);
 			free(prompt);
-			if (ft_strcmp("break", *cmd) != 0)
+			if (ft_strcmp("exit", *cmd) != 0)
 			{
 				shell->cmd = cmd;
 				shell->status = execute_builtin(shell);
@@ -51,10 +51,7 @@ static void	shell_loop(t_shell *shell)
 				shell->cmd = NULL;
 			}
 			else
-			{
-				free_matrix(cmd);
-				return ;
-			}
+				return (free_matrix(cmd));
 		}
 		else
 			free(prompt);
@@ -66,7 +63,7 @@ int	main(int argc, char **argv, char **envp)
 	t_shell	shell;
 
 	if (argc != 1 || !argv[0])
-		print_error("Error. Exec minishell with no arguments.\n");
+		print_error("Error. Usage: ./minishell\n");
 	init_shell(&shell, envp);
 	shell_loop(&shell);
 	free_shell(&shell);

@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 19:17:03 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/15 18:45:24 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:29:42 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,7 @@
 # define RESET "\x1b[0m"
 # define SUCCESS 0
 # define FAILURE 1
+
+# define MEM_ERROR "msh: malloc error.\n"
 
 #endif
