@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:43:21 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/12 20:16:53 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/15 15:33:50 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ void	free_shell(t_shell *shell)
 {
 	if (shell->env != NULL)
 		free_matrix(shell->env);
-	if (shell->cmd != NULL)
-		free_matrix(shell->cmd);
+	if (shell->path != NULL)
+		free_matrix(shell->path);
+	if (shell->pwd)
+		free(shell->pwd);
+	if (shell->oldpwd)
+		free(shell->oldpwd);
 }
 
 void	exit_matrix(char *msg, char **matrix)

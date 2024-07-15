@@ -6,17 +6,11 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:01:05 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/10 20:42:12 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/12 20:25:10 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	init_shell(t_shell *shell)
-{
-	shell->status = 0;
-	shell->env = NULL;
-}
 
 static char	**create_env(void)
 {
@@ -40,32 +34,24 @@ static char	**create_env(void)
 	return (env);
 }
 
-// static void	update_env(t_shell *shell, char **envp)
-// {
-// 	char	**env_cpy;
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (envp[i] != NULL)
-// 		i++;
-// 	env_cpy = ft_calloc(sizeof(char *), i + 1);
-// 	if (!env_cpy)
-// 		print_error("Error. Malloc failed.\n");
-// 	i = 0;
-// 	while (envp[i] != NULL)
-// 	{
-// 		env_cpy[i] = ft_strdup(envp[i]);
-// 		if (!env_cpy[i])
-// 			exit_matrix("Error. Malloc failed.\n", env_cpy);
-// 		i++;
-// 	}
-// 	shell->env = env_cpy;
-// }
-
-void	init_env(t_shell *shell, char **envp)
+static void	init_env(t_shell *shell, char **envp)
 {
 	if (!*envp)
 		shell->env = create_env();
 	else
 		update_env(shell, envp, NULL);
+}
+
+void	init_shell(t_shell *shell, char **envp)
+{
+	shell->status = 0;
+	shell->env = NULL;
+	shell->cmd = NULL;
+	shell->path = NULL;
+	shell->pwd = NULL;
+	shell->oldpwd = NULL;
+	init_env(shell, envp);
+	get_path(shell, shell->env);
+	get_pwd(shell, envp);
+	get_oldpwd(shell, envp);
 }
