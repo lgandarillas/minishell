@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:03:56 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/12 18:18:31 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:02:02 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ static bool	manage_var(t_shell *shell, char *input)
 	return (false);
 }
 
-bool	ft_export(t_shell *shell)
+int	ft_export(t_shell *shell)
 {
 	int		i;
 	bool	ret;
 
 	i = 1;
-	ret = true;
+	ret = SUCCESS;
 	if (!shell->cmd[1])
 		return (ft_env(shell->env));
 	else
@@ -80,7 +80,7 @@ bool	ft_export(t_shell *shell)
 		while (shell->cmd[i] != NULL)
 		{
 			if (!manage_var(shell, shell->cmd[i]))
-				ret = false;
+				ret = FAILURE;
 			i++;
 		}
 	}

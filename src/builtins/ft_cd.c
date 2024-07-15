@@ -6,13 +6,13 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 21:38:38 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/12 20:17:35 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/15 17:54:25 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static bool	cd_error(char **env, char **cmd)
+static int	cd_error(char **env, char **cmd)
 {
 	char	*var;
 	char	*error_msg;
@@ -31,13 +31,13 @@ static bool	cd_error(char **env, char **cmd)
 	else
 	{
 		perror(cmd[1]);
-		return (false);
+		return (FAILURE);
 	}
 	if (!ft_getenv(env, var))
 		ft_putstr_fd(error_msg, STDERR_FILENO);
 	else
 		perror(ft_getenv(env, var));
-	return (false);
+	return (FAILURE);
 }
 
 static bool	update_dirs(char **env)
@@ -65,14 +65,14 @@ static bool	update_dirs(char **env)
 	return (true);
 }
 
-bool	ft_cd(char **env, char **cmd)
+int	ft_cd(char **env, char **cmd)
 {
 	int	ret;
 
 	if (ft_arrlen((void **)cmd) > 2)
 	{
 		ft_putstr_fd("msh: cd: too many arguments\n", STDERR_FILENO);
-		return (false);
+		return (FAILURE);
 	}
 	if (!cmd[1])
 		ret = chdir(ft_getenv(env, "HOME="));
@@ -83,8 +83,8 @@ bool	ft_cd(char **env, char **cmd)
 	if (ret == -1)
 		return (cd_error(env, cmd));
 	if (!update_dirs(env))
-		return (false);
+		return (FAILURE);
 	if (cmd[1] && ft_strcmp("-", cmd[1]) == 0)
 		printf("%s\n", ft_getenv(env, "PWD="));
-	return (true);
+	return (SUCCESS);
 }

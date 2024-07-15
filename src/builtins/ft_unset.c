@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:40:32 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/14 14:23:35 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:02:06 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,18 @@ static bool	valid_id(char *var)
 	return (true);
 }
 
-bool ft_unset(t_shell *shell)
+int	ft_unset(t_shell *shell)
 {
 	int		i;
 	int		ret;
 	char	*var;
 
 	i = 1;
-	ret = true;
+	ret = SUCCESS;
 	while (shell->cmd[i] != NULL)
 	{
 		if (!valid_id(shell->cmd[i]))
-			ret = false;
+			ret = FAILURE;
 		else
 		{
 			var = ft_strjoin(shell->cmd[i], "=");

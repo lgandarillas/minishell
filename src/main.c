@@ -6,13 +6,13 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/15 17:11:55 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:01:31 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-bool	execute_builtin(t_shell *shell)
+int	execute_builtin(t_shell *shell)
 {
 	if (ft_strcmp(*(shell->cmd), "echo") == 0)
 		return (ft_echo(shell));
@@ -27,8 +27,8 @@ bool	execute_builtin(t_shell *shell)
 	else if (ft_strcmp(*(shell->cmd), "env") == 0)
 		return (ft_env(shell->env));
 	else if (ft_strcmp(*(shell->cmd), "exit") == 0)
-		return (true);
-	return (false);
+		return (SUCCESS);
+	return (FAILURE);
 }
 
 static void	shell_loop(t_shell *shell)
