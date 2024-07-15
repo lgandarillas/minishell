@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 20:41:15 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/15 17:05:31 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/15 18:49:11 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	get_index(char **env, const char *var)
 		else
 			i++;
 	}
-	return (print_error("Var not found.\n"));
+	return (-1);
 }
 
 char	**parser(char *prompt)

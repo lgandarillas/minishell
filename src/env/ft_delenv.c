@@ -6,13 +6,13 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 14:02:25 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/15 16:37:13 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/15 20:25:56 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-bool	unset_env(t_shell *shell, char **env, char *var)
+bool	unset_env(t_shell *shell, char **env, size_t index)
 {
 	char	**env_cpy;
 	size_t	len;
@@ -27,7 +27,7 @@ bool	unset_env(t_shell *shell, char **env, char *var)
 	j = 0;
 	while (i < len)
 	{
-		if (ft_strcmp(env[i], var) != 0)
+		if (i != index)
 		{
 			env_cpy[j] = ft_strdup(env[i]);
 			if (!env_cpy[j])
@@ -42,19 +42,10 @@ bool	unset_env(t_shell *shell, char **env, char *var)
 
 bool	ft_delenv(t_shell *shell, char **env, char *var)
 {
-	int		i;
-	int		len;
-	char	*line;
+	int	index;
 
-	i = 0;
-	len = ft_strlen(var);
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], var, len) == 0)
-			line = env[i];
-		i++;
-	}
-	if (!unset_env(shell, env, line))
+	index = get_index(env, var);
+	if (!unset_env(shell, env, index))
 		malloc_error();
 	free_matrix(env);
 	return (true);

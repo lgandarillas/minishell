@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/15 16:55:42 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/15 19:03:01 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ typedef struct s_shell
 	char	**env;
 	char	**cmd;
 	char	**path;
-	char	*pwd;
-	char	*oldpwd;
+	char	*pwd;		//OJO
+	char	*oldpwd;	//OJO, ft_pwd.c
 }		t_shell;
 
 void	init_shell(t_shell *shell, char **envp);
 
-int	get_index(char **env, const char *var);
+int		get_index(char **env, const char *var);
 void	get_path(t_shell *shell, char **env);
 void	get_pwd(t_shell *shell, char **env);
 void	get_oldpwd(t_shell *shell, char **env);
