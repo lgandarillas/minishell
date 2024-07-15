@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/07/15 15:46:26 by lgandari         ###   ########.fr        #
+#    Updated: 2024/07/15 16:38:39 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ RED		= \033[0;31m
 GREEN	= \033[0;32m
 NC		= \033[0m 
 
-CFLAGS	= -Wall -Werror -Wextra #-g3 -fsanitize=address
+CFLAGS	= -Wall -Werror -Wextra -g3 -fsanitize=address
 RLFLAG 	= -lreadline
 CC		= cc
 RM		= rm -f
@@ -27,10 +27,22 @@ LIBFT_PATH	= libft_v2/
 SRC_DIR		= src/
 
 SRCS	= $(addprefix $(SRC_DIR), \
-	main.c					init_shell.c			error.c				parser.c	\
-	ft_addenv.c				ft_getenv.c 			ft_setenv.c			ft_delenv.c \
-	builtins/ft_pwd.c		builtins/ft_export.c	builtins/ft_env.c 	builtins/ft_cd.c \
-	builtins/ft_unset.c		builtins/ft_echo.c		path.c)
+	main.c \
+	init/init_shell.c \
+	init/error.c \
+	parser/parser.c \
+	parser/path.c \
+	env/ft_addenv.c \
+	env/ft_getenv.c \
+	env/ft_setenv.c \
+	env/ft_delenv.c \
+	builtins/ft_pwd.c \
+	builtins/ft_export.c \
+	builtins/ft_env.c \
+	builtins/ft_cd.c \
+	builtins/ft_unset.c \
+	builtins/ft_echo.c \
+	)
 
 OBJS	= $(SRCS:.c=.o)
 

@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getenv.c                                        :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/05 19:41:42 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/07 15:17:30 by aquinter         ###   ########.fr       */
+/*   Created: 2024/07/11 20:41:15 by lgandari          #+#    #+#             */
+/*   Updated: 2024/07/15 16:36:44 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
-char	*ft_getenv(char **env, char *var)
+char	**parser(char *prompt)
 {
-	int	i;
-	int	len;
+	char	**cmd;
 
-	i = 0;
-	len = ft_strlen(var);
-	while (env[i])
-	{
-		if (ft_strncmp(env[i], var, len) == 0)
-			return (env[i] + len);
-		i++;
-	}
-	return (NULL);
+	add_history(prompt);
+	prompt = ft_strtrim(prompt, " ");
+	cmd = ft_split(prompt, ' ');
+	free(prompt);
+	if (!cmd)
+		print_error("Malloc failed.\n");
+	return (cmd);
 }
