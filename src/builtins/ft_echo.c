@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/04 15:31:40 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/14 15:18:31 by aquinter         ###   ########.fr       */
+/*   Created: 2024/07/14 13:40:38 by aquinter          #+#    #+#             */
+/*   Updated: 2024/07/14 15:16:53 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "../../inc/minishell.h"
 
-typedef struct s_builtins
+bool	ft_echo(t_shell *shell)
 {
-	/* data */
-}	t_builtins;
-
-typedef struct s_shell	t_shell;
-
-bool	ft_cd(char **env, char **cmd);
-bool	ft_pwd(char **env);
-bool	ft_export(t_shell *shell);
-bool	ft_env(char **env);
-bool	ft_unset(t_shell *shell);
-bool	ft_echo(t_shell *shell);
-
-#endif
+	if (ft_strcmp(shell->cmd[1], "$?") == 0)
+		printf("%d\n", shell->status);
+	else
+		printf("%s\n", shell->cmd[1]);
+	return (true);
+}

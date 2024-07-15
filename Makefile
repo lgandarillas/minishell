@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/07/12 18:33:42 by aquinter         ###   ########.fr        #
+#    Updated: 2024/07/14 15:18:20 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,9 @@ SRC_DIR		= src/
 
 SRCS	= $(addprefix $(SRC_DIR), \
 	main.c					init_shell.c			error.c				parser.c	\
-	ft_addenv.c				ft_getenv.c 			ft_setenv.c 		builtins/ft_pwd.c	\
-	builtins/ft_export.c	builtins/ft_env.c 		builtins/ft_cd.c)
+	ft_addenv.c				ft_getenv.c 			ft_setenv.c			ft_delenv.c \
+	builtins/ft_pwd.c		builtins/ft_export.c	builtins/ft_env.c 	builtins/ft_cd.c \
+	builtins/ft_unset.c		builtins/ft_echo.c)
 
 OBJS	= $(SRCS:.c=.o)
 

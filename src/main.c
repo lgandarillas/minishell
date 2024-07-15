@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/12 15:43:54 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/14 15:18:09 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	execute_builtin(t_shell *shell)
 {
 	if (ft_strcmp(*(shell->cmd), "echo") == 0)
-		return (true);
+		return (ft_echo(shell));
 	else if (ft_strcmp(*(shell->cmd), "cd") == 0)
 		return (ft_cd(shell->env, shell->cmd));
 	else if (ft_strcmp(*(shell->cmd), "pwd") == 0)
@@ -23,7 +23,7 @@ bool	execute_builtin(t_shell *shell)
 	else if (ft_strcmp(*(shell->cmd), "export") == 0)
 		return (ft_export(shell));
 	else if (ft_strcmp(*(shell->cmd), "unset") == 0)
-		return (true);
+		return (ft_unset((shell)));
 	else if (ft_strcmp(*(shell->cmd), "env") == 0)
 		return (ft_env(shell->env));
 	else if (ft_strcmp(*(shell->cmd), "exit") == 0)
@@ -46,7 +46,7 @@ static void	shell_loop(t_shell *shell)
 		if (ft_strcmp("break", *cmd) != 0)
 		{
 			shell->cmd = cmd;
-			execute_builtin(shell);
+			shell->status = execute_builtin(shell);
 			free_matrix(cmd);
 			shell->cmd = NULL;
 		}
