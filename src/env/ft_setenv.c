@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 19:41:42 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/15 20:56:14 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:13:18 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ bool	ft_setenv(char **env, char *var, char *val)
 
 	i = 0;
 	len = ft_strlen(var);
-	if (val != NULL)
-		printf("%s\n", val);
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], var, len) == 0)
