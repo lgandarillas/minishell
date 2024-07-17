@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 16:03:56 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/17 18:25:19 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/17 19:20:13 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_export(t_shell *shell)
 	i = 1;
 	ret = SUCCESS;
 	if (!shell->cmd[1])
-		return (ft_env(shell->env));
+		return (ft_env(shell->env, NULL));
 	else
 	{
 		while (shell->cmd[i] != NULL)

@@ -6,16 +6,21 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 20:19:21 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/15 17:57:56 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/17 19:19:45 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	ft_env(char **env)
+int	ft_env(char **env, char **cmd)
 {
 	int	i;
 
+	if (cmd && ft_arrlen((void **)cmd) > 1)
+	{
+		ft_putstr_fd("msh: env: too many arguments\n", STDERR_FILENO);
+		return (FAILURE);
+	}
 	i = 0;
 	while (env[i])
 	{
