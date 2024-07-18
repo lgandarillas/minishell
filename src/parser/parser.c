@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 20:41:15 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/18 18:14:08 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:32:07 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,10 @@ static bool	check_quotes(char *prompt)
 	while (prompt[i])
 	{
 		if ((prompt[i] == 34 || prompt[i] == 39) && quote == 0)
-		{
 			quote = prompt[i];
-			i++;
-		}
 		else if (prompt[i] == quote)
-		{
 			quote = 0;
-			i++;
-		}
-		else
-			i++;
+		i++;
 	}
 	if (quote != 0)
 		return (false);
