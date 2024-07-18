@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/18 23:31:30 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/18 23:43:03 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	execute_builtin(t_shell *shell)
 	else if (ft_strcmp(*(shell->cmd), "cd") == 0)
 		return (ft_cd(shell->env, shell->cmd));
 	else if (ft_strcmp(*(shell->cmd), "pwd") == 0)
-		return (ft_pwd(shell->env));
+		return (ft_pwd(shell->cmd));
 	else if (ft_strcmp(*(shell->cmd), "export") == 0)
 		return (ft_export(shell));
 	else if (ft_strcmp(*(shell->cmd), "unset") == 0)
