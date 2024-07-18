@@ -6,11 +6,11 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:06:55 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/18 19:07:54 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/18 20:51:20 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 static bool	check_quotes(char *prompt)
 {
@@ -43,7 +43,8 @@ static bool	check_closing_tokens(char *prompt)
 	len = ft_strlen(prompt);
 	if (prompt[0] == '|')
 		return (false);
-	if (prompt[len-1] == '|' || prompt[len - 1] == '<' || prompt[len - 1] == '>')
+	if (prompt[len - 1] == '|' || prompt[len - 1] == '<' \
+		|| prompt[len - 1] == '>')
 		return (false);
 	return (true);
 }
