@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 20:41:15 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/18 17:38:56 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:14:08 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,20 @@ static bool	check_quotes(char *prompt)
 	return (true);
 }
 
+static bool	check_closing_tokens(char *prompt)
+{
+	int	len;
+
+	if (!prompt || !*prompt)
+		return (false);
+	len = ft_strlen(prompt);
+	if (prompt[0] == '|')
+		return (false);
+	if (prompt[len-1] == '|' || prompt[len - 1] == '<' || prompt[len - 1] == '>')
+		return (false);
+	return (true);
+}
+
 char	**parser(char *prompt)
 {
 	char	**cmd;
@@ -64,6 +78,8 @@ char	**parser(char *prompt)
 	prompt = ft_strtrim(prompt, " ");
 	if (!check_quotes(prompt))
 		printf("Error. Invalid quotes.\n");
+	if (!check_closing_tokens(prompt))
+		printf("Error. Invalid closing tokens.\n");
 	cmd = ft_split(prompt, ' ');
 	free(prompt);
 	if (!cmd)
