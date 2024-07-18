@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 20:34:17 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/15 16:37:08 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/18 22:07:51 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,29 @@
 bool	update_env(t_shell *shell, char **env, char *new_var)
 {
 	char	**env_cpy;
+	char	**new_env;
 	size_t	len;
-	size_t	line;
 	size_t	i;
 
-	line = 2;
 	len = ft_arrlen((void **)env);
-	if (new_var == NULL)
-		line--;
-	env_cpy = ft_calloc(sizeof(char *), len + line);
+	env_cpy = ft_matrixdup(env);
 	if (!env_cpy)
 		return (false);
-	i = 0;
-	while (i < len)
+	if (new_var)
 	{
-		env_cpy[i] = ft_strdup(env[i]);
-		if (!env_cpy[i])
+		new_env = ft_calloc(sizeof(char *), len + 2);
+		if (!new_env)
 			return (free_matrix(env_cpy), false);
-		i++;
+		i = 0;
+		while (i < len)
+		{
+			new_env[i] = env_cpy[i];
+			i++;
+		}
+		new_env[len] = new_var;
+		free(env_cpy);
+		env_cpy = new_env;
 	}
-	if (new_var != NULL)
-		env_cpy[len] = new_var;
 	shell->env = env_cpy;
 	return (true);
 }
