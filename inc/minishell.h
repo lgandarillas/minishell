@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/18 20:51:47 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/18 20:57:41 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 
 # include "builtins.h"
 # include "constants.h"
+# include "parser.h"
 # include "executor.h"
 
 # include "../libft_v2/inc/libft.h"
@@ -50,6 +51,8 @@ typedef struct s_shell
 }		t_shell;
 
 void	init_shell(t_shell *shell, char **envp);
+void	free_shell(t_shell *shell);
+void	exit_matrix(char *msg, char **matrix);
 
 int		get_index(char **env, const char *var);
 void	get_path(t_shell *shell, char **env);
@@ -61,11 +64,5 @@ bool	ft_setenv(char **env, char *var, char *val);
 char	*ft_getenv(char **env, char *var);
 bool	ft_addenv(t_shell *shell, char **env, char *var, char *val);
 bool	ft_delenv(t_shell *shell, char **env, char *var);
-
-char	**parser(char *prompt);
-bool	check_prompt_errors(char *prompt);
-
-void	free_shell(t_shell *shell);
-void	exit_matrix(char *msg, char **matrix);
 
 #endif
