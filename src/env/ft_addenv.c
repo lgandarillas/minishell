@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 20:34:17 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/18 22:07:51 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/18 22:13:22 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,9 @@ bool	update_env(t_shell *shell, char **env, char *new_var)
 		new_env = ft_calloc(sizeof(char *), len + 2);
 		if (!new_env)
 			return (free_matrix(env_cpy), false);
-		i = 0;
-		while (i < len)
-		{
+		i = -1;
+		while (++i < len)
 			new_env[i] = env_cpy[i];
-			i++;
-		}
 		new_env[len] = new_var;
 		free(env_cpy);
 		env_cpy = new_env;
