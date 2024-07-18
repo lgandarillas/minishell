@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:40:43 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/18 19:09:43 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/18 20:08:53 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@
 	
 	*/
 
-long long	ft_atolonglong(const char *nptr)
+unsigned long long	ft_atoulonglong(const char *nptr)
 {
-	long long int res;
+	unsigned long long 	res;
 	int			sign;
 
 	res = 0;
@@ -59,17 +59,33 @@ long long	ft_atolonglong(const char *nptr)
 
 int	ft_exit(t_shell *shell)
 {
-	long long	nbr;
+	unsigned long long	nbr;
+	bool negative;
+	char	*str;
 
-	nbr = ft_atolonglong(shell->cmd[1]);
-	printf("%lld\n", nbr);
-	if (nbr < LONG_MIN || nbr > LONG_MAX)
+	negative = false;
+	str = shell->cmd[1];
+	if (str[0] == '-')
+	{
+		if (ft_strlen(str) > 20)
+		{
+			printf("Error\n");
+			return (FAILURE);
+		}
+		negative = true;
+		str++;
+	}
+	else if (ft_strlen(str) > 19)
 	{
 		printf("Error\n");
+		return (FAILURE);
 	}
+	nbr = ft_atolonglong((const char *) str);
+	if (negative == true && nbr > (unsigned long long)LLONG_MIN)
+		printf("Error\n");
+	else if (!negative && nbr > (unsigned long long)LLONG_MAX)
+		printf("Error\n");
 	else
-	{
 		printf("Success\n");
-	}
 	return (SUCCESS);
 }
