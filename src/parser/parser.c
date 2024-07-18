@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 20:41:15 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/18 18:39:48 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:58:47 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,18 +89,43 @@ static bool	check_angle_brackets(char *prompt)
 	return (true);
 }
 
+bool	check_prompt_errors(char *prompt)
+{
+	if (!check_quotes(prompt))
+	{
+		ft_putstr_fd("Error. Invalid quotes.\n", STDERR_FILENO);
+		return (false);
+	}
+	if (!check_closing_tokens(prompt))
+	{
+		ft_putstr_fd("Error. Invalid closing tokens.\n", STDERR_FILENO);
+		return (false);
+	}
+	if (!check_angle_brackets(prompt))
+	{
+		ft_putstr_fd("Error. Invalid angle brackets.\n", STDERR_FILENO);
+		return (false);
+	}
+	return (true);
+}
+
 char	**parser(char *prompt)
 {
 	char	**cmd;
 
 	add_history(prompt);
 	prompt = ft_strtrim(prompt, " ");
+	if (!check_prompt_errors(prompt))
+		return (NULL);
+		//  LOQUESEA
+	/*
 	if (!check_quotes(prompt))
-		printf("Error. Invalid quotes.\n");
+		ft_putstr_fd("Error. Invalid quotes.\n", STDERR_FILENO);
 	if (!check_closing_tokens(prompt))
-		printf("Error. Invalid closing tokens.\n");
+		ft_putstr_fd("Error. Invalid closing tokens.\n", STDERR_FILENO);
 	if (!check_angle_brackets(prompt))
-		printf("Error. Invalid angle brackets.\n");
+		ft_putstr_fd("Error. Invalid angle brackets.\n", STDERR_FILENO);
+	*/
 	cmd = ft_split(prompt, ' ');
 	free(prompt);
 	if (!cmd)
