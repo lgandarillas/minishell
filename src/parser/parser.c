@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 20:41:15 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/18 18:32:07 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:39:48 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,32 @@ static bool	check_closing_tokens(char *prompt)
 	return (true);
 }
 
+static bool	check_angle_brackets(char *prompt)
+{
+	int	i;
+	int	quote;
+	int	brackets;
+
+	if (!prompt || !*prompt)
+		return (false);
+	i = 0;
+	quote = 0;
+	brackets = 0;
+	while (prompt[i])
+	{
+		if ((prompt[i] == 34 || prompt[i] == 39) && quote == 0)
+			quote = prompt[i];
+		else if (prompt[i] == quote)
+			quote = 0;
+		if ((prompt[i] == '<' || prompt[i] == '>') && quote == 0)
+			brackets++;
+		i++;
+	}
+	if (brackets > 2)
+		return (false);
+	return (true);
+}
+
 char	**parser(char *prompt)
 {
 	char	**cmd;
@@ -73,6 +99,8 @@ char	**parser(char *prompt)
 		printf("Error. Invalid quotes.\n");
 	if (!check_closing_tokens(prompt))
 		printf("Error. Invalid closing tokens.\n");
+	if (!check_angle_brackets(prompt))
+		printf("Error. Invalid angle brackets.\n");
 	cmd = ft_split(prompt, ' ');
 	free(prompt);
 	if (!cmd)
