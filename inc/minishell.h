@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/18 17:35:39 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/18 19:09:06 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ bool	ft_addenv(t_shell *shell, char **env, char *var, char *val);
 bool	ft_delenv(t_shell *shell, char **env, char *var);
 
 char	**parser(char *prompt);
+bool	check_prompt_errors(char  *prompt);
 
 void	free_shell(t_shell *shell);
 void	exit_matrix(char *msg, char **matrix);
