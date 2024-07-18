@@ -6,30 +6,11 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/18 18:37:42 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/18 23:29:19 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-int	execute_builtin(t_shell *shell)
-{
-	if (ft_strcmp(*(shell->cmd), "echo") == 0)
-		return (ft_echo(shell));
-	if (ft_strcmp(*(shell->cmd), "cd") == 0)
-		return (ft_cd(shell->env, shell->cmd));
-	if (ft_strcmp(*(shell->cmd), "pwd") == 0)
-		return (ft_pwd(shell->cmd));
-	if (ft_strcmp(*(shell->cmd), "export") == 0)
-		return (ft_export(shell));
-	if (ft_strcmp(*(shell->cmd), "unset") == 0)
-		return (ft_unset((shell)));
-	if (ft_strcmp(*(shell->cmd), "env") == 0)
-		return (ft_env(shell->env, shell->cmd));
-	if (ft_strcmp(*(shell->cmd), "exit") == 0)
-		return (ft_exit(shell));
-	return (FAILURE);
-}
 
 static void	shell_loop(t_shell *shell)
 {
@@ -50,7 +31,7 @@ static void	shell_loop(t_shell *shell)
 				free_matrix(cmd);
 				shell->cmd = NULL;
 			}
-			else
+			else if (cmd != NULL)
 				return (free_matrix(cmd));
 		}
 		else

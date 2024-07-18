@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 20:41:15 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/15 18:49:11 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/18 19:08:38 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ char	**parser(char *prompt)
 
 	add_history(prompt);
 	prompt = ft_strtrim(prompt, " ");
+	if (!check_prompt_errors(prompt))
+		return (free(prompt), NULL);
 	cmd = ft_split(prompt, ' ');
 	free(prompt);
 	if (!cmd)

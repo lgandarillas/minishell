@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    	#
+#    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/07/15 17:09:12 by lgandari         ###   ########.fr        #
+#    Updated: 2024/07/18 23:28:33 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS	= $(addprefix $(SRC_DIR), \
 	init/error.c \
 	parser/parser.c \
 	parser/path.c \
+	parser/check_prompt.c \
 	env/ft_addenv.c \
 	env/ft_getenv.c \
 	env/ft_setenv.c \
@@ -43,6 +44,8 @@ SRCS	= $(addprefix $(SRC_DIR), \
 	builtins/ft_unset.c \
 	builtins/ft_echo.c \
 	builtins/ft_exit.c \
+	builtins/utils.c \
+	executor/executor.c \
 	)
 
 OBJS	= $(SRCS:.c=.o)
