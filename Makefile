@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/07/18 19:10:02 by lgandari         ###   ########.fr        #
+#    Updated: 2024/07/18 20:44:14 by lgandari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRCS	= $(addprefix $(SRC_DIR), \
 	builtins/ft_cd.c \
 	builtins/ft_unset.c \
 	builtins/ft_echo.c \
+	executor/executor.c \
 	)
 
 OBJS	= $(SRCS:.c=.o)
