@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 20:41:15 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/15 18:49:11 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:38:56 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,43 @@ int	get_index(char **env, const char *var)
 	return (-1);
 }
 
+static bool	check_quotes(char *prompt)
+{
+	int	i;
+	int	quote;
+
+	if (!prompt || !*prompt)
+		return (false);
+	i = 0;
+	quote = 0;
+	while (prompt[i])
+	{
+		if ((prompt[i] == 34 || prompt[i] == 39) && quote == 0)
+		{
+			quote = prompt[i];
+			i++;
+		}
+		else if (prompt[i] == quote)
+		{
+			quote = 0;
+			i++;
+		}
+		else
+			i++;
+	}
+	if (quote != 0)
+		return (false);
+	return (true);
+}
+
 char	**parser(char *prompt)
 {
 	char	**cmd;
 
 	add_history(prompt);
 	prompt = ft_strtrim(prompt, " ");
+	if (!check_quotes(prompt))
+		printf("Error. Invalid quotes.\n");
 	cmd = ft_split(prompt, ' ');
 	free(prompt);
 	if (!cmd)
