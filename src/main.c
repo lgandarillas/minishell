@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/17 19:22:31 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:37:42 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	execute_builtin(t_shell *shell)
 	if (ft_strcmp(*(shell->cmd), "env") == 0)
 		return (ft_env(shell->env, shell->cmd));
 	if (ft_strcmp(*(shell->cmd), "exit") == 0)
-		return (SUCCESS);
+		return (ft_exit(shell));
 	return (FAILURE);
 }
 
@@ -43,7 +43,7 @@ static void	shell_loop(t_shell *shell)
 		{
 			cmd = parser(prompt);
 			free(prompt);
-			if (ft_strcmp("exit", *cmd) != 0)
+			if (ft_strcmp("break", *cmd) != 0)
 			{
 				shell->cmd = cmd;
 				shell->status = execute_builtin(shell);

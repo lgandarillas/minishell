@@ -42,6 +42,7 @@ SRCS	= $(addprefix $(SRC_DIR), \
 	builtins/ft_cd.c \
 	builtins/ft_unset.c \
 	builtins/ft_echo.c \
+	builtins/ft_exit.c \
 	)
 
 OBJS	= $(SRCS:.c=.o)

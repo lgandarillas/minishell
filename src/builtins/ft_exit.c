@@ -6,14 +6,12 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:40:43 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/17 20:03:44 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/18 19:09:43 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	ft_exit(t_shell *shell)
-{
 	/*
 	Sintaxis: exit N
 
@@ -32,5 +30,46 @@ int	ft_exit(t_shell *shell)
         Mostrar mensaje de error "numeric argument required".
 	
 	*/
+
+long long	ft_atolonglong(const char *nptr)
+{
+	long long int res;
+	int			sign;
+
+	res = 0;
+	sign = 1;
+	while (*nptr == 32 || (*nptr >= 9 && *nptr <= 13))
+		nptr++;
+	if (*nptr == '+')
+		nptr++;
+	else if (*nptr == '-')
+	{
+		sign = -1;
+		nptr++;
+	}
+	if (*nptr == '+' || *nptr == '-')
+		return (0);
+	while (*nptr >= '0' && *nptr <= '9')
+	{
+		res = res * 10 + *nptr - '0';
+		nptr++;
+	}
+	return (res * sign);
+}
+
+int	ft_exit(t_shell *shell)
+{
+	long long	nbr;
+
+	nbr = ft_atolonglong(shell->cmd[1]);
+	printf("%lld\n", nbr);
+	if (nbr < LONG_MIN || nbr > LONG_MAX)
+	{
+		printf("Error\n");
+	}
+	else
+	{
+		printf("Success\n");
+	}
 	return (SUCCESS);
 }
