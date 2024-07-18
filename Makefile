@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/07/18 23:28:33 by aquinter         ###   ########.fr        #
+#    Updated: 2024/07/18 23:54:20 by lgandari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,3 +73,4 @@ reaq: fclean aq
 
 .PHONY: all clean fclean re reaq
 .SILENT:
+
