@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:40:43 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/18 22:55:56 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/20 12:47:36 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	exit_status(char *str)
 	if (sign == 1 && nbr > (unsigned long long)LLONG_MAX)
 		exit_error(str);
 	nbr *= sign;
-	if (nbr >= 0 && nbr <= 255)
+	if ((long long) nbr >= 0 && (long long) nbr <= 255)
 		exit(nbr);
 	exit(nbr % 256);
 }

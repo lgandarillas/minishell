@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/18 23:29:19 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/20 12:48:38 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,10 @@ static void	shell_loop(t_shell *shell)
 		{
 			cmd = parser(prompt);
 			free(prompt);
-			if (ft_strcmp("break", *cmd) != 0)
-			{
-				shell->cmd = cmd;
-				shell->status = execute_builtin(shell);
-				free_matrix(cmd);
-				shell->cmd = NULL;
-			}
-			else if (cmd != NULL)
-				return (free_matrix(cmd));
+			shell->cmd = cmd;
+			shell->status = execute_builtin(shell);
+			free_matrix(cmd);
+			shell->cmd = NULL;
 		}
 		else
 			free(prompt);
