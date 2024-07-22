@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/07/19 01:05:32 by lgandari         ###   ########.fr        #
+#    Updated: 2024/07/22 18:10:36 by lgandari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,25 +27,26 @@ LIBFT_PATH	= libft_v2/
 SRC_DIR		= src/
 
 SRCS	= $(addprefix $(SRC_DIR), \
-	main.c \
-	init/init_shell.c \
-	init/error.c \
-	parser/parser.c \
-	parser/path.c \
-	parser/check_prompt.c \
-	env/ft_addenv.c \
-	env/ft_getenv.c \
-	env/ft_setenv.c \
-	env/ft_delenv.c \
-	builtins/ft_pwd.c \
-	builtins/ft_export.c \
-	builtins/ft_env.c \
-	builtins/ft_cd.c \
-	builtins/ft_unset.c \
-	builtins/ft_echo.c \
-	builtins/ft_exit.c \
-	builtins/utils.c \
-	executor/executor.c \
+	main.c					\
+	init/init_shell.c		\
+	init/error.c			\
+	parser/parser.c			\
+	parser/path.c			\
+	parser/check_prompt.c	\
+	parser/utils.c 			\
+	env/ft_addenv.c 		\
+	env/ft_getenv.c 		\
+	env/ft_setenv.c 		\
+	env/ft_delenv.c 		\
+	builtins/ft_pwd.c 		\
+	builtins/ft_export.c 	\
+	builtins/ft_env.c 		\
+	builtins/ft_cd.c 		\
+	builtins/ft_unset.c 	\
+	builtins/ft_echo.c		\
+	builtins/ft_exit.c		\
+	builtins/utils.c		\
+	executor/executor.c		\
 	)
 
 OBJS	= $(SRCS:.c=.o)
