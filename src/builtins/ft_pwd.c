@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 20:14:49 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/17 19:17:30 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:33:53 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	get_oldpwd(t_shell *shell, char **env)
 	shell->oldpwd = ft_strdup(env[index] + 7);
 }
 
-int	ft_pwd(char **cmd)
+int	ft_pwd(t_shell *shell)
 {
 	char	*cwd;
 
-	if (ft_arrlen((void **)cmd) > 1)
+	if (ft_arrlen((void **)shell->cmd) > 1)
 	{
 		ft_putstr_fd("msh: pwd: too many arguments\n", STDERR_FILENO);
 		return (FAILURE);

@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 21:38:38 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/15 17:54:25 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:40:12 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,26 +65,26 @@ static bool	update_dirs(char **env)
 	return (true);
 }
 
-int	ft_cd(char **env, char **cmd)
+int	ft_cd(t_shell *shell)
 {
 	int	ret;
 
-	if (ft_arrlen((void **)cmd) > 2)
+	if (ft_arrlen((void **)shell->cmd) > 2)
 	{
 		ft_putstr_fd("msh: cd: too many arguments\n", STDERR_FILENO);
 		return (FAILURE);
 	}
-	if (!cmd[1])
-		ret = chdir(ft_getenv(env, "HOME="));
-	else if (ft_strcmp("-", cmd[1]) == 0)
-		ret = chdir(ft_getenv(env, "OLDPWD="));
+	if (!shell->cmd[1])
+		ret = chdir(ft_getenv(shell->env, "HOME="));
+	else if (ft_strcmp("-", shell->cmd[1]) == 0)
+		ret = chdir(ft_getenv(shell->env, "OLDPWD="));
 	else
-		ret = chdir(cmd[1]);
+		ret = chdir(shell->cmd[1]);
 	if (ret == -1)
-		return (cd_error(env, cmd));
-	if (!update_dirs(env))
+		return (cd_error(shell->env, shell->cmd));
+	if (!update_dirs(shell->env))
 		return (FAILURE);
-	if (cmd[1] && ft_strcmp("-", cmd[1]) == 0)
-		printf("%s\n", ft_getenv(env, "PWD="));
+	if (shell->cmd[1] && ft_strcmp("-", shell->cmd[1]) == 0)
+		printf("%s\n", ft_getenv(shell->env, "PWD="));
 	return (SUCCESS);
 }
