@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:06:55 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/18 20:51:20 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:49:32 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,16 @@ bool	check_prompt_errors(char *prompt)
 		ft_putstr_fd("Error. Invalid quotes.\n", STDERR_FILENO);
 		return (false);
 	}
-	if (!check_closing_tokens(prompt))
+	else if (!check_closing_tokens(prompt))
 	{
 		ft_putstr_fd("Error. Invalid closing tokens.\n", STDERR_FILENO);
 		return (false);
 	}
-	if (!check_angle_brackets(prompt))
+	else if (!check_angle_brackets(prompt))
 	{
 		ft_putstr_fd("Error. Invalid angle brackets.\n", STDERR_FILENO);
 		return (false);
 	}
-	return (true);
+	else
+		return (true);
 }
