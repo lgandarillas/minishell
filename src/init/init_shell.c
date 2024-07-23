@@ -6,11 +6,38 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:01:05 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/23 20:21:00 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/23 23:31:20 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+static bool	update_shlvl(t_shell *shell)
+{
+	char	*new_shlvl;
+	char	*shlvl_str;
+	int		shlvl;
+
+	shlvl_str = ft_getenv(shell->env, "SHLVL=");
+	if (shlvl_str == NULL)
+	{
+		if (!ft_setenv(shell->env, "SHLVL=", "1"))
+			return (false);
+		return (true);
+	}
+	shlvl = ft_atoi(shlvl_str);
+	shlvl++;
+	new_shlvl = ft_itoa(shlvl);
+	if (!*new_shlvl)
+		return (false);
+	if (!ft_setenv(shell->env, "SHLVL=", new_shlvl))
+	{
+		free(new_shlvl);
+		return (false);
+	}
+	free(new_shlvl);
+	return (true);
+}
 
 static char	**create_env(void)
 {
@@ -41,7 +68,10 @@ static void	init_env(t_shell *shell, char **envp)
 	if (!*envp)
 		shell->env = create_env();
 	else
+	{
 		update_env(shell, envp, NULL);
+		update_shlvl(shell);
+	}
 }
 
 static void	print_welcome(void)
