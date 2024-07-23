@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:01:05 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/23 19:50:03 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/23 20:21:00 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	**create_env(void)
 	char	**env;
 	char	*cwd;
 
-	env = ft_calloc(3, sizeof(char *));
+	env = ft_calloc(4, sizeof(char *));
 	if (!env)
 		print_error(MEM_ERROR);
 	cwd = getcwd(NULL, 0);
@@ -30,7 +30,9 @@ static char	**create_env(void)
 	env[1] = ft_strdup("SHLVL=1");
 	if (!env[1])
 		exit_matrix(MEM_ERROR, env);
-	printf("%s\n%s\n", env[0], env[1]);
+	env[2] = ft_strdup("PATH=");
+	if (!env[2])
+		exit_matrix(MEM_ERROR, env);
 	return (env);
 }
 
