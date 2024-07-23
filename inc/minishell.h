@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/18 20:57:41 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:48:06 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	free_shell(t_shell *shell);
 void	exit_matrix(char *msg, char **matrix);
 
 int		get_index(char **env, const char *var);
-void	get_path(t_shell *shell, char **env);
+void	get_path(t_shell *shell);
 void	get_pwd(t_shell *shell, char **env);
 void	get_oldpwd(t_shell *shell, char **env);
 
