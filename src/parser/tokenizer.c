@@ -6,13 +6,11 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 18:48:56 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/24 20:01:20 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:20:52 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //#include "../inc/minishell.h"
-
-// DELETE down
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -35,7 +33,24 @@ bool	is_space(char c)
 	return (false);
 }
 
-// DELETE up
+static int	skip_tokens(char *prompt, int i)
+{
+	while (is_token(prompt[i]))
+		i++;
+	return (i);
+}
+
+static int	skip_quoted_section(char *prompt, int i, int *quote)
+{
+	*quote = prompt[i];
+	i++;
+	while (prompt[i] && prompt[i] != *quote)
+		i++;
+	if (prompt[i] == *quote)
+		*quote = 0;
+	i++;
+	return (i);
+}
 
 static int	next_token_end(char *prompt, int i)
 {
@@ -44,52 +59,28 @@ static int	next_token_end(char *prompt, int i)
 
 	quote = 0;
 	start_token = -1;
+	if (is_token(prompt[i]))
+		return (skip_tokens(prompt, i));
 	while (prompt[i])
 	{
 		if ((prompt[i] == 34 || prompt[i] == 39) && quote == 0)
-		{
-			quote = prompt[i];
-			i++;
-			while (prompt[i] && prompt[i] != quote)
-				i++;
-			if (prompt[i] == quote)
-				quote = 0;
-			i++;
-		}
-		if (!quote)
-		{
-			if (is_space(prompt[i]))
-			{
-				while (is_space(prompt[i]))
-					i++;
-				continue ;
-			}
-			if (is_token(prompt[i]))
-			{
-				if (start_token == -1)
-					start_token = i;
-				while (is_token(prompt[i]))
-					i++;
-			}
-			else if (start_token != -1)
-				return (i);
-		}
+			i = skip_quoted_section(prompt, i, &quote);
+		if (is_token(prompt[i]))
+			return (i);
 		i++;
 	}
 	return (i);
 }
 
-// DELETE down
 int	main(int argc, char **argv)
 {
 	(void)argc;
 	(void)argv;
 
 	printf("%s\n", argv[1]);
-	printf("i = %d\n", next_token_end(argv[1], 13));
+	printf("i = %d\n", next_token_end(argv[1], 0));
 	return (0);
 }
-// DELETE up
 
 /*
 bool	tokenize_prompt(char *prompt)
