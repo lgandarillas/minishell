@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/07/25 15:47:59 by lgandari         ###   ########.fr        #
+#    Updated: 2024/07/25 16:58:38 by lgandari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS	= $(addprefix $(SRC_DIR), \
 	init/path.c			\
 	lexer/check_prompt.c		\
 	lexer/lexer_utils.c 		\
+	lexer/lexer.c			\
 	env/ft_addenv.c 		\
 	env/ft_getenv.c 		\
 	env/ft_setenv.c 		\

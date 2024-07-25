@@ -6,11 +6,11 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/25 16:29:12 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:59:28 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#include "../../inc/minishell.h"
 
 static void	print_tokens(t_token *head)
 {
