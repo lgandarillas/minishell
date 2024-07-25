@@ -27,5 +27,8 @@ int		skip_tokens(char *prompt, int i);
 int		skip_quoted_section(char *prompt, int i, int *quote);
 
 bool	lexer(char *prompt);
+void	print_tokens(t_token *head);
+void	free_tokens(t_token *head);
+void	append_node(t_token **head, char *str);
 
 #endif
