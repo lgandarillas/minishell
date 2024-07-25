@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:06:55 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/25 14:50:50 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:53:40 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static bool	check_prompt_errors(char *prompt)
 		return (true);
 }
 
-char	**parser(char *prompt)
+char	**check_prompt(char *prompt)
 {
 	char	**cmd;
 
