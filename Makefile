@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/07/22 18:10:36 by lgandari         ###   ########.fr        #
+#    Updated: 2024/07/25 14:52:11 by lgandari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,10 +30,9 @@ SRCS	= $(addprefix $(SRC_DIR), \
 	main.c					\
 	init/init_shell.c		\
 	init/error.c			\
-	parser/parser.c			\
 	parser/path.c			\
 	parser/check_prompt.c	\
-	parser/utils.c 			\
+	parser/lexer_utils.c 			\
 	env/ft_addenv.c 		\
 	env/ft_getenv.c 		\
 	env/ft_setenv.c 		\

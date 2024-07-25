@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:06:55 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/22 16:49:32 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:50:50 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static bool	check_angle_brackets(char *prompt)
 	return (true);
 }
 
-bool	check_prompt_errors(char *prompt)
+static bool	check_prompt_errors(char *prompt)
 {
 	if (!check_quotes(prompt))
 	{
@@ -94,4 +94,19 @@ bool	check_prompt_errors(char *prompt)
 	}
 	else
 		return (true);
+}
+
+char	**parser(char *prompt)
+{
+	char	**cmd;
+
+	add_history(prompt);
+	prompt = ft_strtrim(prompt, " ");
+	if (!check_prompt_errors(prompt))
+		return (free(prompt), NULL);
+	cmd = ft_split(prompt, ' ');
+	free(prompt);
+	if (!cmd)
+		print_error("Malloc failed.\n");
+	return (cmd);
 }

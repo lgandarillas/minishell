@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:56:25 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/25 14:24:09 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:51:40 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ typedef struct	s_token
 }	t_token;
 
 char	**parser(char *prompt);
-bool	check_prompt_errors(char *prompt);
 
 bool	is_token(char c);
 bool	is_space(char c);
