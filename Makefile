@@ -34,6 +34,7 @@ SRCS	= $(addprefix $(SRC_DIR), \
 	lexer/check_prompt.c		\
 	lexer/lexer_utils.c 		\
 	lexer/lexer.c			\
+	lexer/token_list.c		\
 	env/ft_addenv.c 		\
 	env/ft_getenv.c 		\
 	env/ft_setenv.c 		\
