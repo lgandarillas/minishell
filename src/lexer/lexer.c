@@ -6,11 +6,37 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/25 14:44:17 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:07:33 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+static void	print_tokens(t_token *head)
+{
+	t_token	*current;
+
+	current=node;
+	while (current != NULL)
+	{
+		printf(">%s\n", current->str);
+		current = current->next;
+	}
+}
+
+static void	free_tokens(t_token *head)
+{
+	t_token	current;
+	t_token	current_next;
+
+	current = head;
+	while (current != NULL)
+	{
+		current_next = current->next;
+		free(current);
+		current = current_next;
+	}
+}
 
 static int	next_token_end(char *prompt, int i)
 {
