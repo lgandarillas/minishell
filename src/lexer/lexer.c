@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/25 17:29:45 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:38:19 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	append_node(t_token **head, char *str)
 	node = malloc(sizeof(t_token));
 	if (!node)
 		return ;
-	node->str = ft_strdup(str);
+	node->str = ft_strtrim(str, " ");
 	if (!node->str)
 	{
 		free(node);
