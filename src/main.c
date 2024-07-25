@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/24 19:03:17 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/25 14:43:13 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	shell_loop(t_shell *shell)
 			if (cmd != NULL)
 			{
 				// New
-				// tokenize_prompt(prompt);
+				// lexer(prompt);
 				// New
 				shell->cmd = cmd;
 				shell->status = execute_builtin(shell);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/24 18:48:56 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/25 13:20:52 by lgandari         ###   ########.fr       */
+/*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
+/*   Updated: 2024/07/25 14:44:17 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	next_token_end(char *prompt, int i)
 }
 
 /*
-bool	tokenize_prompt(char *prompt)
+bool	lexer(char *prompt)
 {
 	t_token	*token;
 	int		i;
