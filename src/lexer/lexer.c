@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/25 17:38:19 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:07:59 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,35 @@ static int	next_token_end(char *prompt, int i)
 	return (i);
 }
 
+static bool	process_token(char *prompt, int *i, t_token **head)
+{
+	char	*token_str;
+	int		start;
+	int		end;
+
+	start = *i;
+	end = next_token_end(prompt, start);
+	if (end > start)
+	{
+		token_str = ft_strndup(prompt + start, end - start);
+		if (!token_str)
+			return (false);
+		append_node(head, token_str);
+		free(token_str);
+		*i = end;
+		return (true);
+	}
+	return (false);
+}
+
 bool	lexer(char *prompt)
 {
 	t_token	*head;
-	t_token	*current;
-	char	*token_str;
 	int		i;
-	int		start;
-	int		end;
 
 	if (prompt == NULL)
 		return (false);
 	head = NULL;
-	current = NULL;
 	i = 0;
 	while (prompt[i])
 	{
@@ -107,17 +123,8 @@ bool	lexer(char *prompt)
 			i++;
 		if (prompt[i] == '\0')
 			break ;
-		start = i;
-		end = next_token_end(prompt, i);
-		if (end > start)
-		{
-			token_str = ft_strndup(prompt + start, end - start);
-			if (!token_str)
-				return (false);
-			append_node(&head, token_str);
-			free(token_str);
-			i = end;
-		}
+		if (!process_token(prompt, &i, &head))
+			return (false);
 	}
 	print_tokens(head);
 	free_tokens(head);
