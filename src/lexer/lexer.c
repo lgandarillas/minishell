@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/25 16:07:33 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:24:39 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void	print_tokens(t_token *head)
 
 static void	free_tokens(t_token *head)
 {
-	t_token	current;
-	t_token	current_next;
+	t_token	*current;
+	t_token	*current_next;
 
 	current = head;
 	while (current != NULL)
@@ -35,6 +35,29 @@ static void	free_tokens(t_token *head)
 		current_next = current->next;
 		free(current);
 		current = current_next;
+	}
+}
+
+static void	append_node(t_token **head, char *str)
+{
+	t_token	*node;
+	t_token	*last_node;
+
+	if (!head)
+		return ;
+	node = malloc(sizeof(t_token));
+	if (!node)
+		return ;
+	node->next = NULL;
+	node->str = str;
+	if (!(*head))
+		*head = node;
+	else
+	{
+		last_node = *head;
+		while (last_node->next)
+			last_node = last_node->next;
+		last_node->next = node;
 	}
 }
 
