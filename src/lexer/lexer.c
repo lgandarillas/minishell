@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/25 16:59:28 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/25 17:29:45 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	print_tokens(t_token *head)
 	current = head;
 	while (current != NULL)
 	{
-		printf(">%s\n", current->str);
+		printf("$%s$\n", current->str);
 		current = current->next;
 	}
 }
