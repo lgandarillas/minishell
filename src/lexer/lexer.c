@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/25 16:24:39 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/25 16:29:12 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	print_tokens(t_token *head)
 {
 	t_token	*current;
 
-	current=node;
+	current = head;
 	while (current != NULL)
 	{
 		printf(">%s\n", current->str);
@@ -33,6 +33,7 @@ static void	free_tokens(t_token *head)
 	while (current != NULL)
 	{
 		current_next = current->next;
+		free(current->str);
 		free(current);
 		current = current_next;
 	}
@@ -48,8 +49,13 @@ static void	append_node(t_token **head, char *str)
 	node = malloc(sizeof(t_token));
 	if (!node)
 		return ;
+	node->str = ft_strdup(str);
+	if (!node->str)
+	{
+		free(node);
+		return ;
+	}
 	node->next = NULL;
-	node->str = str;
 	if (!(*head))
 		*head = node;
 	else
@@ -81,18 +87,39 @@ static int	next_token_end(char *prompt, int i)
 	return (i);
 }
 
-/*
 bool	lexer(char *prompt)
 {
-	t_token	*token;
+	t_token	*head;
+	t_token	*current;
+	char	*token_str;
 	int		i;
+	int		start;
+	int		end;
 
 	if (prompt == NULL)
 		return (false);
+	head = NULL;
+	current = NULL;
 	i = 0;
 	while (prompt[i])
 	{
-	
+		while (prompt[i] && is_space(prompt[i]))
+			i++;
+		if (prompt[i] == '\0')
+			break ;
+		start = i;
+		end = next_token_end(prompt, i);
+		if (end > start)
+		{
+			token_str = ft_strndup(prompt + start, end - start);
+			if (!token_str)
+				return (false);
+			append_node(&head, token_str);
+			free(token_str);
+			i = end;
+		}
 	}
+	print_tokens(head);
+	free_tokens(head);
+	return (true);
 }
-*/
