@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/25 18:07:59 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/07/26 09:27:52 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 static int	next_token_end(char *prompt, int i)
 {
 	int	quote;
-	int	start_token;
+	//int	start_token;
 
 	quote = 0;
-	start_token = -1;
+	//start_token = -1;
 	if (is_token(prompt[i]))
 		return (skip_tokens(prompt, i));
 	while (prompt[i])
