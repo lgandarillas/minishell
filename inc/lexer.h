@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:45:53 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/03 14:44:17 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:20:01 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 typedef struct s_token
 {
 	struct s_token	*next;
-	char		**str;
-	bool		is_pipe;
-	bool		is_redirect_in;
-	bool		is_redirect_out;
-	bool		is_append;
-	bool		is_heredoc;
-	bool		is_command;
+	char			**str;
+	bool			is_pipe;
+	bool			is_redirect_in;
+	bool			is_redirect_out;
+	bool			is_append;
+	bool			is_heredoc;
+	bool			is_command;
+	bool			expand;
 }	t_token;
 
 char	**check_prompt(char *prompt);
