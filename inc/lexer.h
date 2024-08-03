@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:45:53 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/03 13:05:01 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/03 13:28:28 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef struct s_token
 {
-	char			*str;
+	char		**str;
 	struct s_token	*next;
 }	t_token;
 
