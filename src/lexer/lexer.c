@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/28 11:05:25 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/03 15:16:25 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ bool	lexer(char *prompt)
 			break ;
 		if (!process_token(prompt, &i, &head))
 			return (false);
+		analyze_token_type(head);
 	}
 	print_tokens(head);
 	free_tokens(head);
