@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:06:55 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/25 14:53:40 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/03 12:57:47 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,27 @@ static bool	check_closing_tokens(char *prompt)
 	return (true);
 }
 
+static bool	is_valid_bracket_sequence(char *prompt, int *i, int *brackets)
+{
+	if ((prompt[*i] == '<' && prompt[*i + 1] != '<') || \
+		(prompt[*i] == '>' && prompt[*i + 1] != '>'))
+	{
+		(*brackets)++;
+		if (*brackets > 2)
+			return (false);
+	}
+	else if ((prompt[*i] == '<' && prompt[*i + 1] == '<') || \
+		(prompt[*i] == '>' && prompt[*i + 1] == '>'))
+	{
+		(*i)++;
+		*brackets = 0;
+	}
+	else if ((prompt[*i] == '<' && prompt[*i + 1] == '>') || \
+			(prompt[*i] == '>' && prompt[*i + 1] == '<'))
+		return (false);
+	return (true);
+}
+
 static bool	check_angle_brackets(char *prompt)
 {
 	int	i;
@@ -67,11 +88,10 @@ static bool	check_angle_brackets(char *prompt)
 		else if (prompt[i] == quote)
 			quote = 0;
 		if ((prompt[i] == '<' || prompt[i] == '>') && quote == 0)
-			brackets++;
+			if (!is_valid_bracket_sequence(prompt, &i, &brackets))
+				return (false);
 		i++;
 	}
-	if (brackets > 2)
-		return (false);
 	return (true);
 }
 
