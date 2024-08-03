@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:18:35 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/03 18:20:17 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/03 18:41:14 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,30 @@ static char	**process_quoted_string(char *str)
 	return (NULL);
 }
 
+static char	*clean_paired_quotes(char *str)
+{
+	int	start;
+	int	end;
+	char	*cleaned_str;
+
+	if (!str)
+		return (NULL);
+	start = 0;
+	end = ft_strlen(str);
+	while (str[start] && (str[start] == 34 || str[start] == 39) && \
+		str[start] == str[start + 1])
+		start += 2;
+	while (end > start && (str[end - 1] == 34 || str[end - 1] == 39) && \
+		str[end -1] == str[end - 2])
+		end -= 2;
+	cleaned_str = malloc(sizeof(char) * (end - start + 1));
+	if (!cleaned_str)
+		return (NULL);
+	ft_memcpy(cleaned_str, &str[start], end - start);
+	cleaned_str[end - start] = '\0';
+	return (cleaned_str);
+}
+
 void	append_node(t_token **head, char *str)
 {
 	t_token	*node;
@@ -79,6 +103,7 @@ void	append_node(t_token **head, char *str)
 	if (!node)
 		return ;
 	str = ft_strtrim(str, " ");
+	str = clean_paired_quotes(str);
 	if (str[0] == 34 || str[0] == 39)
 		node->str = process_quoted_string(str);
 	else
