@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:06:55 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/03 12:57:47 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/03 13:04:07 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,6 @@ static bool	check_closing_tokens(char *prompt)
 		return (false);
 	if (prompt[len - 1] == '|' || prompt[len - 1] == '<' \
 		|| prompt[len - 1] == '>')
-		return (false);
-	return (true);
-}
-
-static bool	is_valid_bracket_sequence(char *prompt, int *i, int *brackets)
-{
-	if ((prompt[*i] == '<' && prompt[*i + 1] != '<') || \
-		(prompt[*i] == '>' && prompt[*i + 1] != '>'))
-	{
-		(*brackets)++;
-		if (*brackets > 2)
-			return (false);
-	}
-	else if ((prompt[*i] == '<' && prompt[*i + 1] == '<') || \
-		(prompt[*i] == '>' && prompt[*i + 1] == '>'))
-	{
-		(*i)++;
-		*brackets = 0;
-	}
-	else if ((prompt[*i] == '<' && prompt[*i + 1] == '>') || \
-			(prompt[*i] == '>' && prompt[*i + 1] == '<'))
 		return (false);
 	return (true);
 }
