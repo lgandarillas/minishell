@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/04 16:32:30 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/04 16:38:02 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	next_token_end(char *prompt, int i)
 	return (i);
 }
 
-static bool	process_token(char *prompt, int *i, t_token **head)
+static bool	add_next_node(char *prompt, int *i, t_token **head)
 {
 	char	*token_str;
 	int		start;
@@ -66,7 +66,7 @@ bool	lexer(char *prompt)
 	i = 0;
 	while (prompt[i])
 	{
-		if (!process_token(prompt, &i, &head))
+		if (!add_next_node(prompt, &i, &head))
 			return (false);
 		analyze_tokens_type(head);
 	}
