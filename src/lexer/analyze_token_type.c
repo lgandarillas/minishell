@@ -6,13 +6,13 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 14:26:30 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/03 14:38:08 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/04 16:29:42 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	analyze_token_type(t_token *token)
+void	analyze_tokens_type(t_token *token)
 {
 	while (token)
 	{

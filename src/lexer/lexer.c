@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/03 15:16:25 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/04 16:32:30 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,15 @@ bool	lexer(char *prompt)
 	t_token	*head;
 	int		i;
 
-	if (prompt == NULL)
+	if (!prompt)
 		return (false);
 	head = NULL;
 	i = 0;
 	while (prompt[i])
 	{
-		while (prompt[i] && is_space(prompt[i]))
-			i++;
-		if (prompt[i] == '\0')
-			break ;
 		if (!process_token(prompt, &i, &head))
 			return (false);
-		analyze_token_type(head);
+		analyze_tokens_type(head);
 	}
 	print_tokens(head);
 	free_tokens(head);
