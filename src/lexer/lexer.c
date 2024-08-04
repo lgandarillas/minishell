@@ -6,13 +6,13 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/04 16:38:02 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/04 16:42:03 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static int	next_token_end(char *prompt, int i)
+static int	next_node_end(char *prompt, int i)
 {
 	int	quote;
 
@@ -41,7 +41,7 @@ static bool	add_next_node(char *prompt, int *i, t_token **head)
 	int		end;
 
 	start = *i;
-	end = next_token_end(prompt, start);
+	end = next_node_end(prompt, start);
 	if (end > start)
 	{
 		token_str = ft_strndup(prompt + start, end - start);
