@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:45:53 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/04 16:30:30 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/04 17:25:50 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	**check_prompt(char *prompt);
 bool	is_token(char c);
 bool	is_space(char c);
 int		skip_tokens(char *prompt, int i);
-int		skip_quoted_section(char *prompt, int i, int *quote);
 
 bool	lexer(char *prompt);
 void	print_tokens(t_token *head);
