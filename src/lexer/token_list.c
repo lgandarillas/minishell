@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:18:35 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/04 12:35:58 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:55:45 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	**process_quoted_string(char *str)
 {
 	char	*quoted_str;
 	char	**result;
-	int	i;
+	int		i;
 
 	i = 1;
 	while (str[i] && str[i] != str[0])
@@ -68,9 +68,9 @@ static char	**process_quoted_string(char *str)
 
 static char	*clean_paired_quotes(char *str)
 {
-	int	start;
-	int	end;
 	char	*cleaned_str;
+	int		start;
+	int		end;
 
 	if (!str)
 		return (NULL);
