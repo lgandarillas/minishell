@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:06:55 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/03 13:04:07 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/04 16:13:34 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,11 @@ char	**check_prompt(char *prompt)
 
 	add_history(prompt);
 	prompt = ft_strtrim(prompt, " ");
+	if (*prompt == '\0')
+	{
+		free(prompt);
+		return (NULL);
+	}
 	if (!check_prompt_errors(prompt))
 		return (free(prompt), NULL);
 	cmd = ft_split(prompt, ' ');
