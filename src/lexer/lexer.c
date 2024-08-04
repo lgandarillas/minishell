@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/04 17:02:35 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/04 17:17:49 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static int	next_node_end(char *prompt, int i)
 			i = skip_quoted_section(prompt, i, &quote);
 			if (prompt[i] == '\0')
 				break ;
+			else
+				return (i);
 		}
 		if (is_token(prompt[i]))
 			return (i);
