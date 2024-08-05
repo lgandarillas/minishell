@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:18:35 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/05 20:58:54 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/05 22:56:23 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,31 +40,26 @@ void	free_tokens(t_token *head)
 
 void	append_node(t_token **head, char *str)
 {
-	t_token	*node;
+	t_token	*new_node;
 	t_token	*last_node;
 	char	*trimmed_str;
 
 	if (!head)
 		return ;
-	node = malloc(sizeof(t_token));
-	if (!node)
+	new_node = malloc(sizeof(t_token));
+	if (!new_node)
 		return ;
 	trimmed_str = ft_strtrim(str, " ");
-	node->str = ft_split(trimmed_str, ' ');
-	if (!node->str)
-	{
-		free(node);
-		return ;
-	}
-	node->next = NULL;
+	new_node->str = malloc(sizeof(char *) * 1);
+	new_node->str[0] = trimmed_str;
+	new_node->next = NULL;
 	if (!(*head))
-		*head = node;
+		*head = new_node;
 	else
 	{
 		last_node = *head;
 		while (last_node->next)
 			last_node = last_node->next;
-		last_node->next = node;
+		last_node->next = new_node;
 	}
-	free(trimmed_str);
 }
