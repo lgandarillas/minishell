@@ -6,21 +6,20 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:18:35 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/04 17:13:06 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/05 20:07:20 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	print_tokens(t_token *head)
+void	print_tokens(t_token *token)
 {
-	t_token	*current;
-
-	current = head;
-	while (current != NULL)
+	while (token)
 	{
-		print_matrix(current->str);
-		current = current->next;
+		print_matrix(token->str);
+		if (token->next)
+			ft_printf("\n");
+		token = token->next;
 	}
 }
 
