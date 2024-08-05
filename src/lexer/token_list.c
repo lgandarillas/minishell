@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:18:35 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/05 20:07:20 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/05 20:58:54 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,33 +38,6 @@ void	free_tokens(t_token *head)
 	}
 }
 
-static char	**process_quoted_string(char *str)
-{
-	char	*quoted_str;
-	char	**result;
-	int		i;
-
-	i = 1;
-	while (str[i] && str[i] != str[0])
-		i++;
-	if (str[i] == str[0])
-	{
-		quoted_str = ft_substr(str, 1, i - 1);
-		if (!quoted_str)
-			return (NULL);
-		result = malloc(sizeof(char *) * 2);
-		if (!result)
-		{
-			free(quoted_str);
-			return (NULL);
-		}
-		result[0] = quoted_str;
-		result[1] = NULL;
-		return (result);
-	}
-	return (NULL);
-}
-
 void	append_node(t_token **head, char *str)
 {
 	t_token	*node;
@@ -77,10 +50,7 @@ void	append_node(t_token **head, char *str)
 	if (!node)
 		return ;
 	trimmed_str = ft_strtrim(str, " ");
-	if (str[0] == 34 || str[0] == 39)
-		node->str = process_quoted_string(trimmed_str);
-	else
-		node->str = ft_split(trimmed_str, ' ');
+	node->str = ft_split(trimmed_str, ' ');
 	if (!node->str)
 	{
 		free(node);
