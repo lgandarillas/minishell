@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 14:26:30 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/05 19:40:18 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/05 23:01:49 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ void	analyze_tokens_type(t_token *token)
 	initialize_token_flags(token);
 	while (token)
 	{
-		if (ft_strcmp(token->str[0], "|") == 0)
+		if (ft_strcmp(token->str, "|") == 0)
 			token->is_pipe = true;
-		else if (ft_strcmp(token->str[0], "<") == 0)
+		else if (ft_strcmp(token->str, "<") == 0)
 			token->is_redirect_in = true;
-		else if (ft_strcmp(token->str[0], ">") == 0)
+		else if (ft_strcmp(token->str, ">") == 0)
 			token->is_redirect_out = true;
-		else if (ft_strcmp(token->str[0], ">>") == 0)
+		else if (ft_strcmp(token->str, ">>") == 0)
 			token->is_append = true;
-		else if (ft_strcmp(token->str[0], "<<") == 0)
+		else if (ft_strcmp(token->str, "<<") == 0)
 			token->is_heredoc = true;
 		else
 			token->is_command = true;

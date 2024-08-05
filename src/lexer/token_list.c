@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:18:35 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/05 22:56:23 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/05 23:03:08 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@ void	print_tokens(t_token *token)
 {
 	while (token)
 	{
-		print_matrix(token->str);
-		if (token->next)
-			ft_printf("\n");
+		ft_printf(token->str);
+		ft_printf("\n");
 		token = token->next;
 	}
 }
@@ -32,7 +31,6 @@ void	free_tokens(t_token *head)
 	while (current != NULL)
 	{
 		current_next = current->next;
-		free_matrix(current->str);
 		free(current);
 		current = current_next;
 	}
@@ -50,8 +48,7 @@ void	append_node(t_token **head, char *str)
 	if (!new_node)
 		return ;
 	trimmed_str = ft_strtrim(str, " ");
-	new_node->str = malloc(sizeof(char *) * 1);
-	new_node->str[0] = trimmed_str;
+	new_node->str = trimmed_str;
 	new_node->next = NULL;
 	if (!(*head))
 		*head = new_node;

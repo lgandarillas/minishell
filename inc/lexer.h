@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:45:53 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/04 17:25:50 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/05 23:00:23 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 typedef struct s_token
 {
 	struct s_token	*next;
-	char			**str;
+	char			*str;
+	char			**argv;
 	bool			is_pipe;
 	bool			is_redirect_in;
 	bool			is_redirect_out;
