@@ -6,13 +6,13 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/03 15:16:25 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/04 17:24:20 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static int	next_token_end(char *prompt, int i)
+static int	next_node_end(char *prompt, int i)
 {
 	int	quote;
 
@@ -23,9 +23,13 @@ static int	next_token_end(char *prompt, int i)
 	{
 		if ((prompt[i] == 34 || prompt[i] == 39) && quote == 0)
 		{
-			i = skip_quoted_section(prompt, i, &quote);
-			if (prompt[i] == '\0')
-				break ;
+			quote = prompt[i];
+			i++;
+			while (prompt[i] && prompt[i] != quote)
+				i++;
+			if (prompt[i] == quote)
+				i++;
+			return (i);
 		}
 		if (is_token(prompt[i]))
 			return (i);
@@ -34,46 +38,43 @@ static int	next_token_end(char *prompt, int i)
 	return (i);
 }
 
-static bool	process_token(char *prompt, int *i, t_token **head)
+static bool	tokenize_prompt(char *prompt, t_token **head)
 {
 	char	*token_str;
 	int		start;
 	int		end;
+	int		i;
 
-	start = *i;
-	end = next_token_end(prompt, start);
-	if (end > start)
+	i = 0;
+	while (prompt[i])
 	{
-		token_str = ft_strndup(prompt + start, end - start);
-		if (!token_str)
-			return (false);
-		append_node(head, token_str);
-		free(token_str);
-		*i = end;
-		return (true);
+		start = i;
+		end = next_node_end(prompt, start);
+		if (end > start)
+		{
+			token_str = ft_strndup(prompt + start, end - start);
+			if (!token_str)
+				return (false);
+			append_node(head, token_str);
+			free(token_str);
+			i = end;
+		}
+		else
+			i++;
 	}
-	return (false);
+	return (true);
 }
 
 bool	lexer(char *prompt)
 {
 	t_token	*head;
-	int		i;
 
-	if (prompt == NULL)
+	if (!prompt)
 		return (false);
 	head = NULL;
-	i = 0;
-	while (prompt[i])
-	{
-		while (prompt[i] && is_space(prompt[i]))
-			i++;
-		if (prompt[i] == '\0')
-			break ;
-		if (!process_token(prompt, &i, &head))
-			return (false);
-		analyze_token_type(head);
-	}
+	if (!tokenize_prompt(prompt, &head))
+		return (false);
+	analyze_tokens_type(head);
 	print_tokens(head);
 	free_tokens(head);
 	return (true);

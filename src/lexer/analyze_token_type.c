@@ -6,14 +6,30 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 14:26:30 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/03 14:38:08 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/05 19:40:18 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	analyze_token_type(t_token *token)
+static void	initialize_token_flags(t_token *token)
 {
+	while (token)
+	{
+		token->is_pipe = false;
+		token->is_redirect_in = false;
+		token->is_redirect_out = false;
+		token->is_append = false;
+		token->is_heredoc = false;
+		token->is_command = false;
+		token->expand = false;
+		token = token->next;
+	}
+}
+
+void	analyze_tokens_type(t_token *token)
+{
+	initialize_token_flags(token);
 	while (token)
 	{
 		if (ft_strcmp(token->str[0], "|") == 0)
