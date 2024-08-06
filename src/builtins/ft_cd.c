@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 21:38:38 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/22 17:40:12 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:22:21 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static bool	update_dirs(char **env)
 
 	if (!ft_setenv(env, "OLDPWD=", ft_getenv(env, "PWD=")))
 	{
-		ft_putstr_fd("msh: malloc error", STDERR_FILENO);
+		ft_putstr_fd(MEM_ERROR, STDERR_FILENO);
 		return (false);
 	}
 	cwd = getcwd(NULL, 0);
@@ -57,7 +57,7 @@ static bool	update_dirs(char **env)
 	}
 	if (!ft_setenv(env, "PWD=", cwd))
 	{
-		ft_putstr_fd("msh: malloc error", STDERR_FILENO);
+		ft_putstr_fd(MEM_ERROR, STDERR_FILENO);
 		free(cwd);
 		return (false);
 	}
