@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_messages.h                                   :+:      :+:    :+:   */
+/*   init_signals.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/31 19:35:03 by aquinter          #+#    #+#             */
-/*   Updated: 2024/08/06 16:59:05 by aquinter         ###   ########.fr       */
+/*   Created: 2024/08/06 17:44:04 by aquinter          #+#    #+#             */
+/*   Updated: 2024/08/06 18:59:56 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_MESSAGES_H
-# define ERROR_MESSAGES_H
+#include "../../inc/minishell.h"
 
-# define MEM_ERROR "msh: malloc error.\n"
-
-#endif
+void	init_signals(void)
+{
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, handle_sigquit);
+}

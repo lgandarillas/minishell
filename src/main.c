@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/25 17:31:52 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/06 19:41:44 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void	shell_loop(t_shell *shell)
 	while (true)
 	{
 		prompt = readline(CYAN "msh> " RESET);
+		if (prompt == NULL)
+			handle_eof(shell);
 		if (*prompt != '\0')
 		{
 			cmd = check_prompt(prompt);

@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/08/03 15:15:14 by lgandari         ###   ########.fr        #
+#    Updated: 2024/08/06 19:17:58 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,10 @@ SRCS	= $(addprefix $(SRC_DIR), \
 	builtins/ft_exit.c		\
 	builtins/utils.c		\
 	executor/executor.c		\
+	signals/init_signals.c	\
+	signals/eof.c			\
+	signals/quit.c			\
+	signals/interrupt.c		\
 	)
 
 OBJS	= $(SRCS:.c=.o)

@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_messages.h                                   :+:      :+:    :+:   */
+/*   interrupt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/31 19:35:03 by aquinter          #+#    #+#             */
-/*   Updated: 2024/08/06 16:59:05 by aquinter         ###   ########.fr       */
+/*   Created: 2024/08/06 18:57:26 by aquinter          #+#    #+#             */
+/*   Updated: 2024/08/06 19:46:43 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_MESSAGES_H
-# define ERROR_MESSAGES_H
+#include "../../inc/minishell.h"
 
-# define MEM_ERROR "msh: malloc error.\n"
-
-#endif
+void handle_sigint(int sig)
+{
+	if (sig == SIGINT)
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+}

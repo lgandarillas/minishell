@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/06 14:18:32 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/06 19:49:13 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # include "constants.h"
 # include "lexer.h"
 # include "executor.h"
+# include "signals.h"
 # include "error_messages.h"
 
 # include "../libft_v2/inc/libft.h"
