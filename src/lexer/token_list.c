@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:18:35 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/05 23:04:44 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:32:58 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	print_tokens(t_token *token)
 {
 	while (token)
 	{
-		ft_printf(token->str);
-		ft_printf("\n");
+		ft_printf("%s\n", token->str);
 		token = token->next;
 	}
 }
