@@ -6,13 +6,13 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:58:01 by aquinter          #+#    #+#             */
-/*   Updated: 2024/08/06 19:05:15 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:05:14 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void handle_sigquit(int sig)
+void	handle_sigquit(int sig)
 {
 	if (sig == SIGQUIT)
 	{
