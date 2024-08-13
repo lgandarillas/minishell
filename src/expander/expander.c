@@ -6,22 +6,30 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/13 16:00:40 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:18:17 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static char	*expand_variables(char *node, char **env)
+/*
+ * DONE
+static int	is_valid_variable_start(char c)
+{
+	return (ft_isalpha(c) || c == '_');
+}
+*/
+
+static char	*expand_variables(char *str, char **env)
 {
 	char	*result;
 	size_t	i;
 
+	if (!str || !env || !*env)
+		return (NULL);
 	result = ft_strdup("");
 	i = 0;
-	if (!node || !env || !*env)
-		return (result);
-	(void)i;//delete
+	(void)i;
 	/*
 	while (str[i])
 	{
