@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/06 19:49:13 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:07:30 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # include "builtins.h"
 # include "constants.h"
 # include "lexer.h"
+# include "expander.h"
 # include "executor.h"
 # include "signals.h"
 # include "error_messages.h"

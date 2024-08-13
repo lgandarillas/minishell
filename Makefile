@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/08/06 19:17:58 by aquinter         ###   ########.fr        #
+#    Updated: 2024/08/13 14:08:00 by lgandari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS	= $(addprefix $(SRC_DIR), \
 	lexer/token_list.c		\
 	lexer/check_brackets.c		\
 	lexer/analyze_token_type.c	\
+	expander/expander.c		\
 	env/ft_addenv.c 		\
 	env/ft_getenv.c 		\
 	env/ft_setenv.c 		\

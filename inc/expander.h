@@ -6,11 +6,13 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:34:13 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/13 13:34:40 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:07:05 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANDER_H
 # define EXPANDER_H
+
+void	expander(t_token *head);
 
 #endif
