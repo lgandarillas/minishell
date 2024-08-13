@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/13 20:49:35 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/13 20:56:06 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static int	is_valid_variable_start(char c)
 static char	*handle_double_quotes(char *str, size_t *i, char *result, char **env)
 {
 	char	*tmp;
+	char	*var_name;
 	size_t	start;
 
 	start = *i;
@@ -28,11 +29,13 @@ static char	*handle_double_quotes(char *str, size_t *i, char *result, char **env
 	{
 		if (str[*i] == '$' && is_valid_variable_start(str[*i + 1]))
 		{
-			result = ft_strjoin_free(result, ft_substr(str, start, *i - start));
+			tmp = ft_substr(str, start, *i - start);
+			result = ft_strjoin_free(result, tmp);
 			start = (*i)++;
 			while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
 				(*i)++;
-			tmp = ft_getenv(env, ft_substr(str, start, *i - start));
+			var_name = ft_substr(str, start, *i - start);
+			tmp = ft_getenv(env, var_name);
 			result = ft_strjoin_free(result, tmp);
 			start = *i;
 		}
