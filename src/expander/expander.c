@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/13 20:56:06 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/13 21:26:13 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static char	*handle_double_quotes(char *str, size_t *i, char *result, char **env
 				(*i)++;
 			var_name = ft_substr(str, start, *i - start);
 			tmp = ft_getenv(env, var_name);
+			free(var_name);
 			result = ft_strjoin_free(result, tmp);
 			start = *i;
 		}
