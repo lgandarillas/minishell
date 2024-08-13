@@ -6,24 +6,32 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/13 14:51:27 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:53:54 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static void	expand_variables(char *node, char **env)
+static char	*expand_variables(char *node, char **env)
 {
-	(void)node;
-	(void)env;
+	char	*result;
+
+	result = NULL;
+	if (!node || !env || !*env)
+		return (result);
+	// develop function
+	return (result);
 }
 
 void	expander(t_token *head, t_shell *shell)
 {
-	(void)shell;
+	char	*aux;
+
 	while (head)
 	{
-		expand_variables(head->str, shell->env);
+		aux = expand_variables(head->str, shell->env);
+		free(head->str);
+		head->str = aux;
 		head = head->next;
 	}
 }
