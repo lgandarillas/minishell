@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:45:53 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/05 23:00:23 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:59:38 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ bool	is_token(char c);
 bool	is_space(char c);
 int		skip_tokens(char *prompt, int i);
 
-bool	lexer(char *prompt);
+t_token	*lexer(char *prompt);
 void	print_tokens(t_token *head);
 void	free_tokens(t_token *head);
 void	append_node(t_token **head, char *str);

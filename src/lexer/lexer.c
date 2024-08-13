@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/13 13:26:38 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:59:20 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,16 @@ static bool	tokenize_prompt(char *prompt, t_token **head)
 	return (true);
 }
 
-bool	lexer(char *prompt)
+t_token	*lexer(char *prompt)
 {
 	t_token	*head;
 
-	if (!prompt)
-		return (false);
 	head = NULL;
+	if (!prompt)
+		return (head);
 	if (!tokenize_prompt(prompt, &head))
-		return (false);
+		return (NULL);
 	analyze_tokens_type(head);
 	print_tokens(head);
-	free_tokens(head);
-	return (true);
+	return (head);
 }
