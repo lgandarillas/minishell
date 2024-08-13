@@ -6,18 +6,45 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/13 20:25:31 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/13 20:49:35 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-/*
 static int	is_valid_variable_start(char c)
 {
 	return (ft_isalpha(c) || c == '_');
 }
-*/
+
+static char	*handle_double_quotes(char *str, size_t *i, char *result, char **env)
+{
+	char	*tmp;
+	size_t	start;
+
+	start = *i;
+	(*i)++;
+	while (str[*i] && str[*i] != '\"')
+	{
+		if (str[*i] == '$' && is_valid_variable_start(str[*i + 1]))
+		{
+			result = ft_strjoin_free(result, ft_substr(str, start, *i - start));
+			start = (*i)++;
+			while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
+				(*i)++;
+			tmp = ft_getenv(env, ft_substr(str, start, *i - start));
+			result = ft_strjoin_free(result, tmp);
+			start = *i;
+		}
+		else
+			(*i)++;
+	}
+	if (str[*i] == '\"')
+		(*i)++;
+	tmp = ft_substr(str, start, *i - start);
+	result = ft_strjoin_free(result, tmp);
+	return (result);
+}
 
 static char	*handle_single_quotes(char *str, size_t *i, char *result)
 {
@@ -47,12 +74,12 @@ static char	*expand_variables(char *str, char **env)
 	while (str[i])
 	{
 		if (str[i] == '\'')
-			result = handle_single_quotes(str, &i, result);				// TO DO
-		else		//delete
-			i++;	//delete
-		/*
+			result = handle_single_quotes(str, &i, result);
 		else if (str[i] == '\"')
 			result = handle_double_quotes(str, &i, result, env);		// TO DO
+		else
+			i++;
+		/*
 		else if (str[i] == '$' && is_valid_variable_start(str[i + 1]))
 			result = handle_variable_expansion(str, &i, result, env);	// TO DO
 		else
