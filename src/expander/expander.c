@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/13 15:53:54 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:00:40 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,30 @@
 static char	*expand_variables(char *node, char **env)
 {
 	char	*result;
+	size_t	i;
 
-	result = NULL;
+	result = ft_strdup("");
+	i = 0;
 	if (!node || !env || !*env)
 		return (result);
-	// develop function
+	(void)i;//delete
+	/*
+	while (str[i])
+	{
+		if (str[i] == '\'')
+		{
+			void(str[i]);//delete
+		}
+		else if (str[i] == '\"')
+		{
+		
+		}
+		else
+		{
+		
+		}
+	}
+	*/
 	return (result);
 }
 
