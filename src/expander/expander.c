@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/13 20:04:22 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/13 20:25:31 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ static char	*handle_single_quotes(char *str, size_t *i, char *result)
 	size_t	start;
 	char	*tmp;
 
-	start = (*i)++;
+	start = *i;
+	(*i)++;
 	while (str[*i] && str[*i] != '\'')
 		(*i)++;
-	tmp = ft_substr(str, start - 1, *i - start + 2);
+	if (str[*i] == '\'')
+		(*i)++;
+	tmp = ft_substr(str, start, *i - start);
 	result = ft_strjoin_free(result, tmp);
-	(*i)++;
 	return (result);
 }
 
@@ -67,6 +69,7 @@ void	expander(t_token *head, t_shell *shell)
 	while (head)
 	{
 		aux = expand_variables(head->str, shell->env);
+		printf("AUX=%s\n", aux);
 		free(head->str);
 		head->str = aux;
 		head = head->next;
