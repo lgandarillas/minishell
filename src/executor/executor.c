@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/12 18:03:31 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:02:11 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	execute_builtin(t_shell *shell)
 char	*build_cmd(char *path, char *cmd)
 {
 	char	*command;
-	
+
 	command = ft_strjoin(path, cmd);
 	if (!command)
 		return (NULL);
