@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/13 21:26:13 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/14 10:09:22 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static char	*handle_double_quotes(char *str, size_t *i, char *result, char **env
 {
 	char	*tmp;
 	char	*var_name;
+	char	*var_value;
 	size_t	start;
 
 	start = *i;
@@ -35,9 +36,10 @@ static char	*handle_double_quotes(char *str, size_t *i, char *result, char **env
 			while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
 				(*i)++;
 			var_name = ft_substr(str, start, *i - start);
-			tmp = ft_getenv(env, var_name);
+			var_value = ft_getenv(env, var_name);
 			free(var_name);
-			result = ft_strjoin_free(result, tmp);
+			result = ft_strjoin_free(result, var_value);
+			free(var_value);
 			start = *i;
 		}
 		else
@@ -80,7 +82,7 @@ static char	*expand_variables(char *str, char **env)
 		if (str[i] == '\'')
 			result = handle_single_quotes(str, &i, result);
 		else if (str[i] == '\"')
-			result = handle_double_quotes(str, &i, result, env);		// TO DO
+			result = handle_double_quotes(str, &i, result, env);
 		else
 			i++;
 		/*
