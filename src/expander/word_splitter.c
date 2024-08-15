@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:01:11 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 19:25:36 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:51:31 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,57 @@ static int	count_words(const char *str)
 	return (words);
 }
 
+static char	**allocate_result(size_t num_words)
+{
+	char	**result;
+
+	result = (char **)malloc(sizeof(char *) * (num_words + 1));
+	if (!result)
+		return (NULL);
+	return (result);
+}
+
+char	**word_splitter(char *str)
+{
+	char	**result;
+	size_t	num_words;
+	size_t	i;
+	size_t	j;
+
+	if (!str)
+		return (NULL);
+	num_words = count_words(str);
+	result = allocate_result(num_words);
+	if (!result)
+		return (NULL);
+	while (str[i])
+	{
+		while (str[i] == ' ')
+			i++;
+		if (str[i] == '\0')
+			break ;
+		if (is_quote(str[i]))
+			result[j] = handle_quote_block(str, &i);
+		else
+			result[j] = handle_word_block(str, &i);
+		if (!result[j])
+			return (free_matrix(result), NULL);
+		j++;
+	}
+	result[j] = NULL;
+	return (result);
+}
+
+/*
 int	main(int argc, char **argv)
 {
-	if (argc != 2)
+	char	**args;
+
+	if (argc != 2 && argv[1] != NULL)
 		return (0);
-	(void)argv;
 	printf("INPUT: %s\n", argv[1]);
 	printf("WORDS: %d\n", count_words(argv[1]));
+	args = word_splitter(argv[1]);
+	return (0);
 }
+*/
