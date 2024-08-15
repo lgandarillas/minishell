@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 18:03:25 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:53:33 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,9 @@ void	expander(t_token *head, t_shell *shell)
 		free(head->str);
 		head->str = expanded_str;
 		printf("EXPANDED_NODE: %s\n\n", expanded_str);
-		//word_splitter(head->str, head->argv)
+		head->argv = word_splitter(head->str);
+		printf("SPLITTED_NODE:\n");
+		print_matrix(head->argv);
 		head = head->next;
 	}
 }

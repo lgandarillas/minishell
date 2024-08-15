@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:01:11 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 19:51:31 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/15 20:04:56 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,27 @@ static char	**allocate_result(size_t num_words)
 	return (result);
 }
 
+static char	*handle_quote_block(const char *str, size_t *index)
+{
+	int	start;
+	int	end;
+
+	start = *index;
+	end = find_quote_block_end(str, start);
+	*index = end;
+	return (ft_substr(str, start, end - start));
+}
+
+static char	*handle_word_block(const char *str, size_t *index)
+{
+	int	start;
+
+	start = *index;
+	while (str[*index] && str[*index] != ' ' && !is_quote(str[*index]))
+		(*index)++;
+	return (ft_substr(str, start, *index - start));
+}
+
 char	**word_splitter(char *str)
 {
 	char	**result;
@@ -79,6 +100,8 @@ char	**word_splitter(char *str)
 		return (NULL);
 	num_words = count_words(str);
 	result = allocate_result(num_words);
+	i = 0;
+	j = 0;
 	if (!result)
 		return (NULL);
 	while (str[i])
@@ -88,7 +111,7 @@ char	**word_splitter(char *str)
 		if (str[i] == '\0')
 			break ;
 		if (is_quote(str[i]))
-			result[j] = handle_quote_block(str, &i);
+			result[j] = handle_quote_block(str, &i);	// SEGV here
 		else
 			result[j] = handle_word_block(str, &i);
 		if (!result[j])
