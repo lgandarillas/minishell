@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 12:51:01 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:23:16 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	*handle_single_quotes(char *str, size_t *i, char *result)
 		(*i)++;
 	if (str[*i] == '\'')
 		(*i)++;
-	tmp = ft_substr(str, start, *i - start);
+	tmp = ft_strndup(str + start, *i - start);
 	result = ft_strjoin_free(result, tmp);
 	return (result);
 }
@@ -68,14 +68,14 @@ static char	*expand_variables(char *str, char **env)
 
 void	expander(t_token *head, t_shell *shell)
 {
-	char	*aux;
+	char	*expanded_str;
 
 	while (head)
 	{
-		aux = expand_variables(head->str, shell->env);
-		printf("NODE:%s\n", aux);
+		expanded_str = expand_variables(head->str, shell->env);
+		printf("NODE:%s\n", expanded_str);
 		free(head->str);
-		head->str = aux;
+		head->str = expanded_str;
 		head = head->next;
 	}
 }
