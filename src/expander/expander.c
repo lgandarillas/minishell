@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 13:58:31 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:07:08 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ static char	*handle_expansion(char *str, size_t *i, char **env)
 		(*i)++;
 	len = *i - start;
 	var = ft_strndup(str + start, len);
-	char	*equal = malloc(sizeof(char) * 1);	//  delete
-	equal[0] = '=';								// delete
-	var = ft_strjoin_free(var, equal);			// substitue equal with "="
+	var = ft_strjoin_free(var, "=", true, false);			// substitue equal with "="
 	value = ft_getenv(env, var);
 	free(var);
 	if (value)
@@ -57,12 +55,12 @@ static char	*handle_double_quotes(char *str, size_t *i, char *result, char **env
 		if (str[*i] == '$')
 		{
 			tmp = handle_expansion(str, i, env);
-			result = ft_strjoin_free(result, tmp);
+			result = ft_strjoin_free(result, tmp, true, true);
 		}
 		else
 		{
 			tmp = ft_strndup(str + *i, 1);
-			result = ft_strjoin_free(result, tmp);
+			result = ft_strjoin_free(result, tmp, true, true);
 			(*i)++;
 		}
 	}
@@ -83,7 +81,7 @@ static char	*handle_single_quotes(char *str, size_t *i, char *result)
 	if (str[*i] == '\'')
 		(*i)++;
 	tmp = ft_strndup(str + start, *i - start);
-	result = ft_strjoin_free(result, tmp);
+	result = ft_strjoin_free(result, tmp, true, true);
 	return (result);
 }
 
