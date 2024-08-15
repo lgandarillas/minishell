@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 16:17:09 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:00:22 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,9 @@ void	expander(t_token *head, t_shell *shell)
 
 	while (head)
 	{
+		printf("ORIGINAL_NODE: %s\n", head->str);
 		expanded_str = expand_variables(head->str, shell->env);
-		printf("NODE:%s\n", expanded_str);
+		printf("EXPANDED_NODE: %s\n\n", expanded_str);
 		free(head->str);
 		head->str = expanded_str;
 		head = head->next;
