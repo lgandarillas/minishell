@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 15:14:58 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:23:38 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,27 @@ static char	*handle_expansion(char *str, size_t *i, char **env)
 		result = ft_strdup(value);
 	else
 		result = ft_strdup("");
+	return (result);
+}
+
+static char	*handle_regular_chars(char *str, size_t *i, char *result, char **env)
+{
+	char	*tmp;
+
+	while (str[*i] && str[*i] != '\'' && str[*i] != '\"')
+	{
+		if (str[*i] == '$')
+		{
+			tmp = handle_expansion(str, i, env);
+			result = ft_strjoin_free(result, tmp, true, true);
+		}
+		else
+		{
+			tmp = ft_strndup(str + *i, 1);
+			result = ft_strjoin_free(result, tmp, true, true);
+			(*i)++;
+		}
+	}
 	return (result);
 }
 
@@ -91,10 +112,8 @@ static char	*expand_variables(char *str, char **env)
 			result = handle_single_quotes(str, &i, result);
 		else if (str[i] == '\"')
 			result = handle_dbl_quotes(str, &i, result, env);
-		//else
-		//	result = handle_regular_chars(str, &i, result);				// TO DO
 		else
-			i++;
+			result = handle_regular_chars(str, &i, result, env);
 	}
 	return (result);
 }
