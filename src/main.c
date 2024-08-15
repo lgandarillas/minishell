@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 16:41:49 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:43:25 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static void	shell_loop(t_shell *shell)
 				shell->status = execute(shell);
 				free_matrix(cmd);
 				shell->cmd = NULL;
+				free_tokens(head);
 			}
-			free_tokens(head);
 		}
 		free(prompt);
 	}
