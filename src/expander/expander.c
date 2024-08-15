@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 15:23:38 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/15 15:25:39 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*handle_expansion(char *str, size_t *i, char **env)
 	return (result);
 }
 
-static char	*handle_regular_chars(char *str, size_t *i, char *result, char **env)
+static char	*handle_reg_chars(char *str, size_t *i, char *result, char **env)
 {
 	char	*tmp;
 
@@ -113,7 +113,7 @@ static char	*expand_variables(char *str, char **env)
 		else if (str[i] == '\"')
 			result = handle_dbl_quotes(str, &i, result, env);
 		else
-			result = handle_regular_chars(str, &i, result, env);
+			result = handle_reg_chars(str, &i, result, env);
 	}
 	return (result);
 }
