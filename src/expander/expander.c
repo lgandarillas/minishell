@@ -6,45 +6,11 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 16:08:42 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:17:09 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
-static char	*handle_expansion(char *str, size_t *i, char **env)
-{
-	size_t	start;
-	size_t	len;
-	char	*var;
-	char	*value;
-	char	*result;
-
-	(*i)++;
-	start = *i;
-	while (str[*i] && (ft_isalpha(str[*i]) || str[*i] == '_'))
-		(*i)++;
-	len = *i - start;
-	var = ft_strndup(str + start, len);
-	var = ft_strjoin_free(var, "=", true, false);
-	value = ft_getenv(env, var);
-	free(var);
-	if (value)
-		result = ft_strdup(value);
-	else
-		result = ft_strdup("");
-	return (result);
-}
-
-static char	*add_quotes_to_result(char *result, char quote_char)
-{
-	char	*quote_str;
-
-	quote_str = ft_strndup(&quote_char, 1);
-	result = ft_strjoin_free(result, quote_str, true, false);
-	free(quote_str);
-	return (result);
-}
 
 static char	*handle_reg_chars(char *str, size_t *i, char *result, char **env)
 {

@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.h                                         :+:      :+:    :+:   */
+/*   quote_management.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 13:34:13 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 16:17:01 by lgandari         ###   ########.fr       */
+/*   Created: 2024/08/15 16:13:23 by lgandari          #+#    #+#             */
+/*   Updated: 2024/08/15 16:18:27 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPANDER_H
-# define EXPANDER_H
+#include "../../inc/minishell.h"
 
-void	expander(t_token *head, t_shell *shell);
-char	*add_quotes_to_result(char *result, char quote_char);
-char	*handle_expansion(char *str, size_t *i, char **env);
+char	*add_quotes_to_result(char *result, char quote_char)
+{
+	char	*quote_str;
 
-#endif
+	quote_str = ft_strndup(&quote_char, 1);
+	result = ft_strjoin_free(result, quote_str, true, false);
+	free(quote_str);
+	return (result);
+}
