@@ -6,26 +6,70 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 13:23:16 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:58:31 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 /*
- * NOT USED YET
 static int	is_valid_variable_start(char c)
 {
 	return (ft_isalpha(c) || c == '_');
 }
 */
 
-/*
+static char	*handle_expansion(char *str, size_t *i, char **env)
+{
+	size_t	start;
+	size_t	len;
+	char	*var;
+	char	*value;
+	char	*result;
+
+	(*i)++;
+	start = *i;
+	while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_'))
+		(*i)++;
+	len = *i - start;
+	var = ft_strndup(str + start, len);
+	char	*equal = malloc(sizeof(char) * 1);	//  delete
+	equal[0] = '=';								// delete
+	var = ft_strjoin_free(var, equal);			// substitue equal with "="
+	value = ft_getenv(env, var);
+	free(var);
+	if (value)
+		result = ft_strdup(value);
+	else
+		result = ft_strdup("");
+	return (result);
+}
+
 static char	*handle_double_quotes(char *str, size_t *i, char *result, char **env)
 {
+	//size_t	start;
+	char	*tmp;
 
+	//start = *i;
+	(*i)++;
+	while (str[*i] && str[*i] != '\"')
+	{
+		if (str[*i] == '$')
+		{
+			tmp = handle_expansion(str, i, env);
+			result = ft_strjoin_free(result, tmp);
+		}
+		else
+		{
+			tmp = ft_strndup(str + *i, 1);
+			result = ft_strjoin_free(result, tmp);
+			(*i)++;
+		}
+	}
+	if (str[*i] == '\"')
+		(*i)++;
+	return (result);
 }
-*/
 
 static char	*handle_single_quotes(char *str, size_t *i, char *result)
 {
@@ -56,8 +100,8 @@ static char	*expand_variables(char *str, char **env)
 	{
 		if (str[i] == '\'')
 			result = handle_single_quotes(str, &i, result);
-		//else if (str[i] == '\"')
-		//	result = handle_double_quotes(str, &i, result, env);		// TO DO
+		else if (str[i] == '\"')
+			result = handle_double_quotes(str, &i, result, env);		// TO DO
 		//else
 		//	result = handle_regular_chars(str, &i, result);				// TO DO
 		else
