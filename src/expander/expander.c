@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 15:25:39 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:03:44 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,17 @@ static char	*handle_expansion(char *str, size_t *i, char **env)
 	return (result);
 }
 
+/*
+static char	*add_quotes_to_result(char *result, char quote_char)
+{
+	char	*quote_str;
+
+	quote_str = ft_strndup(&quote_char, 1);
+	result = ft_strjoin_free(result, quote_str, true, false);
+	return (result);
+}
+*/
+
 static char	*handle_reg_chars(char *str, size_t *i, char *result, char **env)
 {
 	char	*tmp;
@@ -60,7 +71,11 @@ static char	*handle_reg_chars(char *str, size_t *i, char *result, char **env)
 static char	*handle_dbl_quotes(char *str, size_t *i, char *result, char **env)
 {
 	char	*tmp;
+	char	*quotes;
 
+	quotes = ft_strndup("\"", 1);
+	result = ft_strjoin_free(result, quotes, true, false);
+	free(quotes);
 	(*i)++;
 	while (str[*i] && str[*i] != '\"')
 	{
@@ -77,7 +92,12 @@ static char	*handle_dbl_quotes(char *str, size_t *i, char *result, char **env)
 		}
 	}
 	if (str[*i] == '\"')
+	{
 		(*i)++;
+		quotes = ft_strndup("\"", 1);
+		result = ft_strjoin_free(result, quotes, true, false);
+		free(quotes);
+	}
 	return (result);
 }
 
