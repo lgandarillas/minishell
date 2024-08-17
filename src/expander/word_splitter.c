@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:01:11 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 20:04:56 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/17 11:42:34 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static int	find_quote_block_end(const char *str, int start_index)
 	i = start_index + 1;
 	while (str[i] && str[i] != quote_char)
 		i++;
+	if (str[i] == '\0')
+		return (i);
 	return (i + 1);
 }
 
@@ -35,10 +37,12 @@ static int	count_words(const char *str)
 	int		words;
 	bool	in_word;
 
+	if (!str)
+		return (0);
 	i = 0;
 	words = 0;
 	in_word = false;
-	while (str[i])
+	while (str[i])	// SEGV here !!!
 	{
 		if (is_quote(str[i]))
 		{
@@ -111,7 +115,7 @@ char	**word_splitter(char *str)
 		if (str[i] == '\0')
 			break ;
 		if (is_quote(str[i]))
-			result[j] = handle_quote_block(str, &i);	// SEGV here
+			result[j] = handle_quote_block(str, &i);
 		else
 			result[j] = handle_word_block(str, &i);
 		if (!result[j])
