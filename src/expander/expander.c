@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/17 18:48:09 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/17 19:46:03 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ static char	*expand_variables(char *str, char **env)
 void	expander(t_token *head, t_shell *shell)
 {
 	char	*expanded_str;
+	char	**new_args;
 
 	while (head)
 	{
@@ -112,6 +113,11 @@ void	expander(t_token *head, t_shell *shell)
 		printf("EXPANDED_NODE: %s\n", expanded_str);
 		head->argv = word_splitter(head->str);
 		printf("SPLITTED_NODE:\n");
+		print_matrix(head->argv);
+		new_args = quote_cleaner(head->argv);
+		free_matrix(head->argv);
+		head->argv = new_args;
+		printf("CLEANED_SPLIT:\n");
 		print_matrix(head->argv);
 		printf("- - - - - - - - - - - - - - -\n");
 		head = head->next;
