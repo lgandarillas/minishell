@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:18:35 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/06 17:32:58 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/17 11:31:01 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	free_tokens(t_token *head)
 	{
 		current_next = current->next;
 		free(current->str);
+		free_matrix(current->argv);
 		free(current);
 		current = current_next;
 	}
