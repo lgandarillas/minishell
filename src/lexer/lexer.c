@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 17:00:03 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/17 17:49:55 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	next_node_end(char *prompt, int i)
 
 	quote = 0;
 	if (is_token(prompt[i]))
-		return (skip_tokens(prompt, i));
+		return (skip_tokens(prompt, i) + 1);
 	while (prompt[i])
 	{
 		if ((prompt[i] == 34 || prompt[i] == 39) && quote == 0)
