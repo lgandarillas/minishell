@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:01:11 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/17 12:13:47 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/17 12:26:42 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ bool	is_quote(char c)
 	return (c == '"' || c == '\'');
 }
 
+// TOO MANY LINES
 static int	count_words(const char *str)
 {
 	int		i;
@@ -61,6 +62,13 @@ static char	**allocate_result(size_t num_words)
 	return (result);
 }
 
+static bool	init_splitter_vars(char *str, char ***result, size_t *num_words)
+{
+	*num_words = count_words(str);
+	*result = allocate_result(*num_words);
+	return (result != NULL);
+}
+
 char	**word_splitter(char *str)
 {
 	char	**result;
@@ -68,14 +76,10 @@ char	**word_splitter(char *str)
 	size_t	i;
 	size_t	j;
 
-	if (!str)
+	if (!str || !init_splitter_vars(str, &result, &num_words))
 		return (NULL);
-	num_words = count_words(str);
-	result = allocate_result(num_words);
 	i = 0;
 	j = 0;
-	if (!result)
-		return (NULL);
 	while (str[i])
 	{
 		while (str[i] == ' ')
