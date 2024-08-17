@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:01:11 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/17 11:42:34 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/17 11:58:53 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,22 @@ static int	count_words(const char *str)
 {
 	int		i;
 	int		words;
+	int		len;
 	bool	in_word;
 
 	if (!str)
 		return (0);
 	i = 0;
 	words = 0;
+	len = ft_strlen(str);
 	in_word = false;
-	while (str[i])	// SEGV here !!!
+	while (i < len && str[i])	// SEGV here !!!
 	{
 		if (is_quote(str[i]))
 		{
 			i = find_quote_block_end(str, i);
-			words++;
+			if (i <= len)
+				words++;
 			in_word = false;
 		}
 		else if (str[i] != ' ' && (i == 0 || str[i - 1] == ' '))
@@ -125,17 +128,3 @@ char	**word_splitter(char *str)
 	result[j] = NULL;
 	return (result);
 }
-
-/*
-int	main(int argc, char **argv)
-{
-	char	**args;
-
-	if (argc != 2 && argv[1] != NULL)
-		return (0);
-	printf("INPUT: %s\n", argv[1]);
-	printf("WORDS: %d\n", count_words(argv[1]));
-	args = word_splitter(argv[1]);
-	return (0);
-}
-*/
