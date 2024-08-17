@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 19:15:28 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/17 19:47:48 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/17 19:52:24 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ static char	*clean_line_quotes(char *arg)
 	{
 		if (arg[i] == '\'' || arg[i] == '\"')
 		{
-			quote_char = arg[i];
-			i++;
+			quote_char = arg[i++];
 			while (arg[i] && arg[i] != quote_char)
 				cleaned_line[j++] = arg[i++];
 			if (arg[i])
@@ -49,7 +48,7 @@ char	**quote_cleaner(char **argv)
 	size_t	i;
 
 	arrlen = ft_arrlen((void **)argv);
-	new_args = malloc(sizeof(char *)*(arrlen + 1));
+	new_args = malloc(sizeof(char *) * (arrlen + 1));
 	if (!new_args)
 		return (NULL);
 	i = 0;

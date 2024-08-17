@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/17 19:46:03 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/17 19:49:43 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	expander(t_token *head, t_shell *shell)
 		head->argv = new_args;
 		printf("CLEANED_SPLIT:\n");
 		print_matrix(head->argv);
-		printf("- - - - - - - - - - - - - - -\n");
+		printf("- - - - - - - - - - - - - - -\n\n");
 		head = head->next;
 	}
 }
