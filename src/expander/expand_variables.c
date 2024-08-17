@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:16:20 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 16:16:49 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/17 18:09:00 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ char	*handle_expansion(char *str, size_t *i, char **env)
 
 	(*i)++;
 	start = *i;
+	if (!ft_isalpha(str[start]) && str[start] != '_')
+	{
+		result = ft_strndup(str + start - 1, 2);
+		(*i) = start + 1;
+		return (result);
+	}
 	while (str[*i] && (ft_isalpha(str[*i]) || str[*i] == '_'))
 		(*i)++;
 	len = *i - start;
