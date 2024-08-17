@@ -6,18 +6,31 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:01:11 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/17 12:26:42 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/17 12:57:03 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-bool	is_quote(char c)
+static int	init_count_words(const char *str, int *words, \
+		int *len, bool *in_word)
 {
-	return (c == '"' || c == '\'');
+	if (str)
+	{
+		*words = 0;
+		*len = ft_strlen(str);
+		*in_word = false;
+		return (0);
+	}
+	else
+	{
+		*words = 0;
+		*len = 0;
+		*in_word = false;
+		return (-1);
+	}
 }
 
-// TOO MANY LINES
 static int	count_words(const char *str)
 {
 	int		i;
@@ -25,12 +38,7 @@ static int	count_words(const char *str)
 	int		len;
 	bool	in_word;
 
-	if (!str)
-		return (0);
-	i = 0;
-	words = 0;
-	len = ft_strlen(str);
-	in_word = false;
+	i = init_count_words(str, &words, &len, &in_word);
 	while (i < len)
 	{
 		if (is_quote(str[i]))
