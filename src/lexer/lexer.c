@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 17:00:03 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/17 18:41:24 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static bool	tokenize_prompt(char *prompt, t_token **head)
 	i = 0;
 	while (prompt[i])
 	{
+		while (is_space(prompt[i]))
+			i++;
 		start = i;
 		end = next_node_end(prompt, start);
 		if (end > start)
