@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/08/17 19:45:25 by lgandari         ###   ########.fr        #
+#    Updated: 2024/08/18 13:45:45 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS	= $(addprefix $(SRC_DIR), \
 	lexer/check_brackets.c		\
 	lexer/analyze_token_type.c	\
 	expander/expander.c		\
+	parser/parser.c	\
 	expander/expand_variables.c	\
 	expander/quote_management.c	\
 	expander/word_splitter.c	\
