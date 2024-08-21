@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:01:11 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/17 12:57:03 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:59:03 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,12 @@ static int	count_words(const char *str)
 	return (words);
 }
 
-static char	**allocate_result(size_t num_words)
-{
-	char	**result;
-
-	result = (char **)malloc(sizeof(char *) * (num_words + 1));
-	if (!result)
-		return (NULL);
-	return (result);
-}
-
 static bool	init_splitter_vars(char *str, char ***result, size_t *num_words)
 {
 	*num_words = count_words(str);
-	*result = allocate_result(*num_words);
+	*result = (char **)malloc(sizeof(char *) * (*num_words + 1));
+	if (!*result)
+		return (false);
 	return (result != NULL);
 }
 
