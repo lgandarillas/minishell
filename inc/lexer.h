@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:45:53 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/21 17:38:01 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:22:34 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ void	free_tokens(t_token *head);
 void	append_node(t_token **head, char *str);
 bool	is_valid_bracket_sequence(char *prompt, int *i, int *brackets);
 void	analyze_tokens_type(t_token *token);
+
+bool	is_token_str(char *str);
 
 #endif
