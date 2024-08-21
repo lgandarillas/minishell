@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:06:55 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/04 16:15:23 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/21 13:14:55 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,17 +95,18 @@ static bool	check_prompt_errors(char *prompt)
 		return (true);
 }
 
-char	**check_prompt(char *prompt)
+bool	check_prompt(char *prompt)
 {
-	char	**cmd;
-
 	add_history(prompt);
 	prompt = ft_strtrim(prompt, " ");
 	if (*prompt == '\0' || !check_prompt_errors(prompt))
-		return (free(prompt), NULL);
-	cmd = ft_split(prompt, ' ');
-	free(prompt);
-	if (!cmd)
-		print_error("Malloc failed.\n");
-	return (cmd);
+	{
+		free(prompt);
+		return (false);
+	}
+	else
+	{
+		free(prompt);
+		return (true);
+	}
 }
