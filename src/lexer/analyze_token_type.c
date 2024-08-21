@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 14:26:30 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/21 17:37:48 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:30:07 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ void	analyze_tokens_type(t_token *token)
 			token->is_append = true;
 		else if (ft_strcmp(token->str, "<<") == 0)
 			token->is_heredoc = true;
-		//else if (..)
-		//	token->is_syntax_error = true;
-		else
+		else if (!is_token_str(token->str))
 			token->is_command = true;
+		else
+			token->is_syntax_error = true;
 		token = token->next;
 	}
 }
