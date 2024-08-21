@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:27:46 by aquinter          #+#    #+#             */
-/*   Updated: 2024/08/17 16:19:11 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:54:42 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ bool	parser(t_token *head)
 		if (!current->is_command)
 		{
 			if (current->is_redirect_out && !current->next->is_command)
-				return(syntax_error(current->next->argv[0]));
+				return (syntax_error(current->next->argv[0]));
 		}
 		current = current->next;
 	}
