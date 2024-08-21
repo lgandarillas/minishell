@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:06:55 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/21 17:34:26 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:02:28 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,27 @@ static bool	check_quotes(char *prompt)
 			quote = 0;
 		i++;
 	}
-	if (quote != 0)
-		return (false);
-	return (true);
-}
-
-static bool	check_prompt_errors(char *prompt)
-{
-	if (!check_quotes(prompt))
-	{
-		ft_putstr_fd("Error. Invalid quotes.\n", STDERR_FILENO);
-		return (false);
-	}
-	else
+	if (quote == 0)
 		return (true);
+	else
+		return (false);
 }
 
 bool	check_prompt(char *prompt)
 {
 	add_history(prompt);
 	prompt = ft_strtrim(prompt, " ");
-	if (*prompt == '\0' || !check_prompt_errors(prompt))
+	if (*prompt == '\0')
 	{
 		free(prompt);
 		return (false);
 	}
-	else
+	if (!check_quotes(prompt))
 	{
+		ft_putstr_fd("msh: syntax error: unmatched quotes\n", STDERR_FILENO);
 		free(prompt);
-		return (true);
+		return (false);
 	}
+	free(prompt);
+	return (true);
 }
