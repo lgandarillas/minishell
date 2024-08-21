@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:45:53 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/21 13:15:13 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/21 17:38:01 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_token
 	bool			is_heredoc;
 	bool			is_command;
 	bool			expand;
+	bool			is_syntax_error;
 }	t_token;
 
 bool	check_prompt(char *prompt);
