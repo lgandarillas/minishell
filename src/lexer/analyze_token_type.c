@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 14:26:30 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/05 23:01:49 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/21 17:36:29 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	analyze_tokens_type(t_token *token)
 		else if (ft_strcmp(token->str, "<") == 0)
 			token->is_redirect_in = true;
 		else if (ft_strcmp(token->str, ">") == 0)
+			token->is_redirect_out = true;
+		else if (ft_strcmp(token->str, ">|") == 0)
 			token->is_redirect_out = true;
 		else if (ft_strcmp(token->str, ">>") == 0)
 			token->is_append = true;
