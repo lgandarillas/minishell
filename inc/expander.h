@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:34:13 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/17 19:45:07 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/22 21:40:29 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ char	*handle_word_block(const char *str, size_t *index);
 bool	is_quote(char c);
 
 char	**quote_cleaner(char **argv);
+char	*expand_status(char *str, int status);
 
 #endif
