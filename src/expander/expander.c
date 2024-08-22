@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/17 19:49:43 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/22 20:18:35 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,46 @@ static char	*expand_variables(char *str, char **env)
 	return (result);
 }
 
+char	*expand_status(char *str, int status)
+{
+	char	*result;
+	char	*status_str;
+	size_t	i;
+	size_t	j;
+
+	if (!str)
+		return (NULL);
+	status_str = ft_itoa(status);
+	if (!status_str)
+		return (NULL);
+	result = malloc(sizeof(char) * (ft_strlen(str) + ft_strlen(status_str) - 1));
+	if (!result)
+	{
+		free(status_str);
+		return (NULL);
+	}
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == '$' && str[i + 1] == '?')
+		{
+			ft_strcpy(result + j, status_str);
+			j += ft_strlen(status_str);
+			i += 2;
+		}
+		else
+			result[j++] = str[i++];
+	}
+	result[j] = '\0';
+	free(status_str);
+	return (result);
+}
+
 void	expander(t_token *head, t_shell *shell)
 {
 	char	*expanded_str;
+	char	*expanded_final;
 	char	**new_args;
 
 	while (head)
@@ -108,9 +145,17 @@ void	expander(t_token *head, t_shell *shell)
 		printf("- - - - - - - - - - - - - - -\n");
 		printf("ORIGINAL_NODE: %s\n", head->str);
 		expanded_str = expand_variables(head->str, shell->env);
+		if (!expanded_str)
+			return ;
 		free(head->str);
 		head->str = expanded_str;
-		printf("EXPANDED_NODE: %s\n", expanded_str);
+		expanded_final = expand_status(head->str, shell->status);
+		if (expanded_final)
+		{
+			free(head->str);
+			head->str = expanded_final;
+		}
+		printf("EXPANDED_NODE: %s\n", head->str);
 		head->argv = word_splitter(head->str);
 		printf("SPLITTED_NODE:\n");
 		print_matrix(head->argv);
