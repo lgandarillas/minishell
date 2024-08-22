@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/22 18:10:21 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/22 19:17:03 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int	execute(t_shell *shell)
 	int		status;
 	int		pid;
 
+	if (!shell->cmd[0])
+		return (SUCCESS);
 	if (is_builtin(shell, shell->cmd[0]))
 		return (execute_builtin(shell));
 	pid = fork();
