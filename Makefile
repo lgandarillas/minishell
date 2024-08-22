@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/08/18 13:45:45 by aquinter         ###   ########.fr        #
+#    Updated: 2024/08/22 18:07:32 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRCS	= $(addprefix $(SRC_DIR), \
 	builtins/ft_echo.c		\
 	builtins/ft_exit.c		\
 	builtins/utils.c		\
+	builtins/init_builtins.c		\
 	executor/executor.c		\
 	signals/init_signals.c	\
 	signals/eof.c			\

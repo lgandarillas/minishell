@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:27:46 by aquinter          #+#    #+#             */
-/*   Updated: 2024/08/22 09:49:13 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/22 18:05:24 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,16 @@ bool	parser(t_token *head)
 	{
 		if (!head->is_command)
 		{
+			if (head->is_syntax_error)
+				return (syntax_error(NULL));
 			if (head->next == NULL)
 				return (syntax_error("newline"));
 			if ((head->is_pipe && head->next->is_pipe) || \
 				(!head->is_pipe && !head->next->is_command))
 				return (syntax_error(head->next->argv[0]));
 		}
+		else
+			// head->is_builtin = is_builtin(head->argv[0]);
 		head = head->next;
 	}
 	return (SUCCESS);

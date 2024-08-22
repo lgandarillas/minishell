@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:45:53 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/21 18:22:34 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:45:37 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_token
 	bool			is_command;
 	bool			expand;
 	bool			is_syntax_error;
+	bool			is_builtin;
 }	t_token;
 
 bool	check_prompt(char *prompt);
