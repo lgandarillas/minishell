@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:27:46 by aquinter          #+#    #+#             */
-/*   Updated: 2024/08/17 16:19:11 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/22 09:45:44 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,24 @@
 
 static bool	syntax_error(char *str)
 {
-	ft_putstr_fd("msh: syntax error near unexpected token ", STDERR_FILENO);
-	ft_putchar_fd('`', STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
-	ft_putstr_fd("\'\n", STDERR_FILENO);
-	return (FAILURE); // errorcode?
+	if (str != NULL)
+	{
+		ft_putstr_fd("msh: syntax error near unexpected token ", STDERR_FILENO);
+		ft_putchar_fd('`', STDERR_FILENO);
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putstr_fd("\'\n", STDERR_FILENO);
+	}
+	else
+		ft_putstr_fd("msh: syntax error\n", STDERR_FILENO);
+	return (SYNTAX_ERROR);
 }
+
+// static t_token *get_last_token(t_token *head)
+// {
+// 	while (head->next != NULL)
+// 		head = head->next;
+// 	return (head);
+// }
 
 // static void	print_current(t_token *current)
 // {
@@ -37,18 +49,19 @@ static bool	syntax_error(char *str)
 
 bool	parser(t_token *head)
 {
-	t_token	*current;
-
-	current = head;
-	while (current)
+	if (head->is_pipe)
+		return (syntax_error(head->argv[0]));
+	while (head)
 	{
-		// print_current(current);
-		if (!current->is_command)
+		if (!head->is_command)
 		{
-			if (current->is_redirect_out && !current->next->is_command)
-				return(syntax_error(current->next->argv[0]));
+			if (head->next == NULL)
+				return (syntax_error("newline"));
+			if ((head->is_pipe && head->next->is_pipe) || \
+				(!head->is_pipe && !head->next->is_command))
+				return (syntax_error(head->next->argv[0]));
 		}
-		current = current->next;
+		head = head->next;
 	}
 	return (SUCCESS);
 }
