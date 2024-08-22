@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/22 20:18:35 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/22 20:41:33 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,15 @@ char	*expand_status(char *str, int status)
 	j = 0;
 	while (str[i])
 	{
-		if (str[i] == '$' && str[i + 1] == '?')
+		if (str[i] == '\'')
+		{
+			result[j++] = str[i++];
+			while (str[i] && str[i] != '\'')
+				result[j++] = str[i++];
+			if (str[i] == '\'')
+				result[j++] = str[i++];
+		}
+		else if (str[i] == '$' && str[i + 1] == '?')
 		{
 			ft_strcpy(result + j, status_str);
 			j += ft_strlen(status_str);
