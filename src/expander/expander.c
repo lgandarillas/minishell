@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/22 20:41:33 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/22 21:35:01 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,50 @@ static char	*expand_variables(char *str, char **env)
 	return (result);
 }
 
+// EXPAND STATUS
+
+static char	*copy_status(char *result, char *status_str, size_t *i, size_t *j)
+{
+	ft_strcpy(result + *j, status_str);
+	*j += ft_strlen(status_str);
+	*i += 2;
+	return (result);
+}
+
+static char	*handle_single_quote_status(char *str, char *result, size_t *i, size_t *j)
+{
+	result[(*j)++] = str[(*i)++];
+	while (str[*i] && str[*i] != '\'')
+		result[(*j)++] = str[(*i)++];
+	if (str[*i] == '\'')
+		result[(*j)++] = str[(*i)++];
+	return (result);
+}
+
+static char	*expand_status_str(char *str, char *status_str, char *result)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'')
+			result = handle_single_quote_status(str, result, &i, &j);
+		else if (str[i] == '$' && str[i + 1] == '?')
+			result = copy_status(result, status_str, &i, &j);
+		else
+			result[j++] = str[i++];
+	}
+	result[j] = '\0';
+	return (result);
+}
+
 char	*expand_status(char *str, int status)
 {
 	char	*result;
 	char	*status_str;
-	size_t	i;
-	size_t	j;
 
 	if (!str)
 		return (NULL);
@@ -116,28 +154,7 @@ char	*expand_status(char *str, int status)
 		free(status_str);
 		return (NULL);
 	}
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (str[i] == '\'')
-		{
-			result[j++] = str[i++];
-			while (str[i] && str[i] != '\'')
-				result[j++] = str[i++];
-			if (str[i] == '\'')
-				result[j++] = str[i++];
-		}
-		else if (str[i] == '$' && str[i + 1] == '?')
-		{
-			ft_strcpy(result + j, status_str);
-			j += ft_strlen(status_str);
-			i += 2;
-		}
-		else
-			result[j++] = str[i++];
-	}
-	result[j] = '\0';
+	result = expand_status_str(str, status_str, result);
 	free(status_str);
 	return (result);
 }
