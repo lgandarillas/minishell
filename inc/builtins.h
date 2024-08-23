@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 15:31:40 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/22 18:16:08 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/22 18:06:29 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int					ft_unset(t_shell *shell);
 int					ft_echo(t_shell *shell);
 int					ft_exit(t_shell *shell);
 int					print_env(char **env);
+bool				is_builtin(t_shell *shell, char *cmd);
+void				init_builtins(t_shell *builtins);
 unsigned long long	ft_atoulonglong(const char *nptr);
 
 #endif

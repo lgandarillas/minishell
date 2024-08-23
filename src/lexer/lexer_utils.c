@@ -6,11 +6,22 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:06:07 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/04 17:25:38 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:23:52 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+bool	is_token_str(char *str)
+{
+	while (*str)
+	{
+		if (!is_token(*str))
+			return (false);
+		str++;
+	}
+	return (true);
+}
 
 bool	is_token(char c)
 {

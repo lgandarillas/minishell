@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 17:00:03 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:01:52 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,29 +39,40 @@ static int	next_node_end(char *prompt, int i)
 	return (i);
 }
 
-static bool	tokenize_prompt(char *prompt, t_token **head)
+static bool	process_token(char *prompt, int *i, t_token **head)
 {
 	char	*token_str;
 	int		start;
 	int		end;
+
+	start = *i;
+	end = next_node_end(prompt, start);
+	if (end > start)
+	{
+		token_str = ft_strndup(prompt + start, end - start);
+		if (!token_str)
+			return (false);
+		append_node(head, token_str);
+		free(token_str);
+		*i = end;
+		return (true);
+	}
+	return (false);
+}
+
+static bool	tokenize_prompt(char *prompt, t_token **head)
+{
 	int		i;
 
 	i = 0;
 	while (prompt[i])
 	{
-		start = i;
-		end = next_node_end(prompt, start);
-		if (end > start)
-		{
-			token_str = ft_strndup(prompt + start, end - start);
-			if (!token_str)
-				return (false);
-			append_node(head, token_str);
-			free(token_str);
-			i = end;
-		}
-		else
+		while (is_space(prompt[i]))
 			i++;
+		if (prompt[i] == '\0')
+			break ;
+		if (!process_token(prompt, &i, head))
+			return (false);
 	}
 	return (true);
 }

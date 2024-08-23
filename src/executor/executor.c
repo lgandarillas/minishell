@@ -6,59 +6,21 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/13 14:02:11 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/22 19:17:03 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static void	init_builtins(t_builtin *builtins)
-{
-	builtins[0].name = "echo";
-	builtins[0].func = ft_echo;
-	builtins[1].name = "cd";
-	builtins[1].func = ft_cd;
-	builtins[2].name = "pwd";
-	builtins[2].func = ft_pwd;
-	builtins[3].name = "export";
-	builtins[3].func = ft_export;
-	builtins[4].name = "unset";
-	builtins[4].func = ft_unset;
-	builtins[5].name = "env";
-	builtins[5].func = ft_env;
-	builtins[6].name = "exit";
-	builtins[6].func = ft_exit;
-	builtins[7].name = NULL;
-	builtins[7].func = NULL;
-}
-
-bool	is_builtin(char *cmd)
-{
-	int			i;
-	t_builtin	builtins[8];
-
-	i = 0;
-	init_builtins(builtins);
-	while (builtins[i].name != NULL)
-	{
-		if (ft_strcmp(cmd, builtins[i].name) == 0)
-			return (true);
-		i++;
-	}
-	return (false);
-}
-
 int	execute_builtin(t_shell *shell)
 {
-	int			i;
-	t_builtin	builtins[8];
+	int	i;
 
 	i = 0;
-	init_builtins(builtins);
-	while (builtins[i].name != NULL)
+	while (shell->builtins[i].name != NULL)
 	{
-		if (ft_strcmp(shell->cmd[0], builtins[i].name) == 0)
-			return (builtins[i].func(shell));
+		if (ft_strcmp(shell->cmd[0], shell->builtins[i].name) == 0)
+			return (shell->builtins[i].func(shell));
 		i++;
 	}
 	return (FAILURE);
@@ -107,7 +69,9 @@ int	execute(t_shell *shell)
 	int		status;
 	int		pid;
 
-	if (is_builtin(shell->cmd[0]))
+	if (!shell->cmd[0])
+		return (SUCCESS);
+	if (is_builtin(shell, shell->cmd[0]))
 		return (execute_builtin(shell));
 	pid = fork();
 	if (pid == -1)

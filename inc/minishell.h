@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/13 14:07:30 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/22 17:57:50 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # include "constants.h"
 # include "lexer.h"
 # include "expander.h"
+# include "parser.h"
 # include "executor.h"
 # include "signals.h"
 # include "error_messages.h"
@@ -45,10 +46,11 @@
 
 typedef struct s_shell
 {
-	int		status;
-	char	**env;
-	char	**cmd;
-	char	**path;
+	int			status;
+	char		**env;
+	char		**cmd;
+	char		**path;
+	t_builtin	builtins[8];
 }		t_shell;
 
 void	init_shell(t_shell *shell, char **envp);

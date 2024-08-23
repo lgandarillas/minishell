@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   analyze_token_type.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 14:26:30 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/05 23:01:49 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:46:14 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static void	initialize_token_flags(t_token *token)
 		token->is_heredoc = false;
 		token->is_command = false;
 		token->expand = false;
+		token->is_syntax_error = false;
+		token->is_builtin = false;
 		token = token->next;
 	}
 }
@@ -38,12 +40,16 @@ void	analyze_tokens_type(t_token *token)
 			token->is_redirect_in = true;
 		else if (ft_strcmp(token->str, ">") == 0)
 			token->is_redirect_out = true;
+		else if (ft_strcmp(token->str, ">|") == 0)
+			token->is_redirect_out = true;
 		else if (ft_strcmp(token->str, ">>") == 0)
 			token->is_append = true;
 		else if (ft_strcmp(token->str, "<<") == 0)
 			token->is_heredoc = true;
-		else
+		else if (!is_token_str(token->str))
 			token->is_command = true;
+		else
+			token->is_syntax_error = true;
 		token = token->next;
 	}
 }

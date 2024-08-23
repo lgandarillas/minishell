@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/15 16:43:25 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:12:45 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	shell_loop(t_shell *shell)
 {
 	char	*prompt;
-	char	**cmd;
 	t_token	*head;
 
 	while (true)
@@ -25,15 +24,17 @@ static void	shell_loop(t_shell *shell)
 			handle_eof(shell);
 		if (*prompt != '\0')
 		{
-			cmd = check_prompt(prompt);
-			if (cmd != NULL)
+			if (check_prompt(prompt) == true)
 			{
 				head = lexer(prompt);
 				expander(head, shell);
-				shell->cmd = cmd;
-				shell->status = execute(shell);
-				free_matrix(cmd);
-				shell->cmd = NULL;
+				shell->status = parser(head);
+				if (shell->status == 0)
+				{
+					shell->cmd = head->argv;
+					shell->status = execute(shell);
+					shell->cmd = NULL;
+				}
 				free_tokens(head);
 			}
 		}

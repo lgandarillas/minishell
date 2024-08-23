@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 21:42:06 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/18 22:47:03 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/22 18:05:46 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,18 @@ unsigned long long	ft_atoulonglong(const char *nptr)
 		nptr++;
 	}
 	return (res);
+}
+
+bool	is_builtin(t_shell *shell, char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (shell->builtins[i].name != NULL)
+	{
+		if (ft_strcmp(cmd, shell->builtins[i].name) == 0)
+			return (true);
+		i++;
+	}
+	return (false);
 }
