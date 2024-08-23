@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:01:11 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/23 18:58:20 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/23 19:35:50 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,48 +31,47 @@ static int	count_words(const char *str)
 		if ((str[i] == '\"' || str[i] == '\'') && !in_quote)
 		{
 			in_quote = true;
-			quote_char = str[i];
-			i++;
+			quote_char = str[i++];
 			while (str[i] && str[i] != quote_char)
 				i++;
 			if (str[i])
 				i++;
-			words++;
 			in_quote = false;
 		}
 		else
 		{
 			while (str[i] && str[i] != ' ' && str[i] != '\"' && str[i] != '\'')
 				i++;
-			words++;
 		}
+		words++;
 	}
 	return (words);
 }
 
-static char	*extract_quoted_block(const char *str, size_t *index)
+static char	*extract_block(const char *str, size_t *index)
 {
 	char	quote_char;
-	int		start;
+	size_t	start;
 
 	start = *index;
-	quote_char = str[start];
-	(*index)++;
-	while (str[*index] && str[*index] != quote_char)
-		(*index)++;
-	if (str[*index])
-		(*index)++;
-	return (ft_substr(str, start, *index - start));
-}
-
-static char	*extract_word(const char *str, size_t *index)
-{
-	int	start;
-
-	start = *index;
-	while (str[*index] && str[*index] != ' ' && str[*index] != '\"' && str[*index] != '\'')
-		(*index)++;
-	return (ft_substr(str, start, *index - start));
+	if (str[start] == '\"' || str[start] == '\'')
+	{
+		quote_char = str[start++];
+		*index = start;
+		while (str[*index] && str[*index] != quote_char)
+			(*index)++;
+		if (str[*index] == quote_char)
+			(*index)++;
+	}
+	else
+	{
+		while (str[*index] && str[*index] != ' ' && str[*index] != '\"' && str[*index] != '\'')
+			(*index)++;
+	}
+	if (*index > start)
+		return (ft_substr(str, start, *index - start));
+	else
+		return (NULL);
 }
 
 char	**word_splitter(char *str)
@@ -96,10 +95,7 @@ char	**word_splitter(char *str)
 			i++;
 		if (str[i] == '\0')
 			break ;
-		if (str[i] == '\"' || str[i] == '\'')
-			result[j] = extract_quoted_block(str, &i);
-		else
-			result[j] = extract_word(str, &i);
+		result[j] = extract_block(str, &i);
 		if (!result[j])
 		{
 			free_matrix(result);
