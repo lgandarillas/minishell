@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:01:11 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/24 00:18:53 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/24 00:26:24 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,31 +72,13 @@ static void	skip_spaces(char *str, size_t *i)
 		(*i)++;
 }
 
-static char	**allocate_result(size_t num_words)
+static int	process_words(char *str, char **result)
 {
-	char	**result;
-
-	result = (char **)malloc(sizeof(char *) * (num_words + 1));
-	if (!result)
-		return (NULL);
-	return (result);
-}
-
-char	**word_splitter(char *str)
-{
-	char	**result;
-	size_t	num_words;
 	size_t	i;
 	size_t	j;
 
-	if (!str)
-		return (NULL);
 	i = 0;
 	j = 0;
-	num_words = count_parts(str);
-	result = allocate_result(num_words);
-	if (!result)
-		return (NULL);
 	while (str[i])
 	{
 		skip_spaces(str, &i);
@@ -104,13 +86,29 @@ char	**word_splitter(char *str)
 			break ;
 		result[j] = extract_block(str, &i);
 		if (!result[j])
-		{
-			free_matrix(result);
-			return (NULL);
-		}
+			return (0);
 		j++;
 		skip_spaces(str, &i);
 	}
 	result[j] = NULL;
+	return (1);
+}
+
+char	**word_splitter(char *str)
+{
+	char	**result;
+	size_t	num_words;
+
+	if (!str)
+		return (NULL);
+	num_words = count_parts(str);
+	result = (char **)malloc(sizeof(char *) * (num_words + 1));
+	if (!result)
+		return (NULL);
+	if (!process_words(str, result))
+	{
+		free_matrix(result);
+		return (NULL);
+	}
 	return (result);
 }
