@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:01:11 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/23 18:48:33 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/23 18:58:20 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ static int	count_words(const char *str)
 	in_quote = false;
 	while (str[i])
 	{
+		while (str[i] == ' ')
+			i++;
+		if (str[i] == '\0')
+			break ;
 		if ((str[i] == '\"' || str[i] == '\'') && !in_quote)
 		{
 			in_quote = true;
@@ -34,15 +38,14 @@ static int	count_words(const char *str)
 			if (str[i])
 				i++;
 			words++;
-		}
-		else if (!in_quote && str[i] == ' ' && (i == 0 || str[i - 1] == ' '))
-		{
-			words++;
-			while (str[i] && str[i] != ' ' && str[i] != '\"' && str[i] != '\'')
-				i++;
+			in_quote = false;
 		}
 		else
-			i++;
+		{
+			while (str[i] && str[i] != ' ' && str[i] != '\"' && str[i] != '\'')
+				i++;
+			words++;
+		}
 	}
 	return (words);
 }
@@ -96,7 +99,7 @@ char	**word_splitter(char *str)
 		if (str[i] == '\"' || str[i] == '\'')
 			result[j] = extract_quoted_block(str, &i);
 		else
-			result[j] = extract_word(str, &i);	// SEGFAULT
+			result[j] = extract_word(str, &i);
 		if (!result[j])
 		{
 			free_matrix(result);
