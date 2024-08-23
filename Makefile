@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/08/22 21:41:23 by lgandari         ###   ########.fr        #
+#    Updated: 2024/08/23 09:54:09 by lgandari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,6 @@ SRCS	= $(addprefix $(SRC_DIR), \
 	expander/expand_variables.c	\
 	expander/quote_management.c	\
 	expander/word_splitter.c	\
-	expander/block_handlers.c	\
 	expander/quote_cleaner.c	\
 	expander/expand_status.c	\
 	env/ft_addenv.c 		\
