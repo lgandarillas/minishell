@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:01:11 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/24 00:11:10 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/24 00:18:53 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static char	*extract_block(const char *str, size_t *index)
 	char	quote_char;
 	size_t	start;
 	char	*result;
-	//size_t	i;
 
 	start = *index;
 	result = NULL;
@@ -67,6 +66,22 @@ static char	*extract_block(const char *str, size_t *index)
 	return (result);
 }
 
+static void	skip_spaces(char *str, size_t *i)
+{
+	while (str[*i] == ' ')
+		(*i)++;
+}
+
+static char	**allocate_result(size_t num_words)
+{
+	char	**result;
+
+	result = (char **)malloc(sizeof(char *) * (num_words + 1));
+	if (!result)
+		return (NULL);
+	return (result);
+}
+
 char	**word_splitter(char *str)
 {
 	char	**result;
@@ -79,14 +94,12 @@ char	**word_splitter(char *str)
 	i = 0;
 	j = 0;
 	num_words = count_parts(str);
-	printf("STR:%s\nWORDS=%ld\n", str, num_words);
-	result = (char **)malloc(sizeof(char *) * (num_words + 1));
+	result = allocate_result(num_words);
 	if (!result)
 		return (NULL);
 	while (str[i])
 	{
-		while (str[i] == ' ')
-			i++;
+		skip_spaces(str, &i);
 		if (str[i] == '\0')
 			break ;
 		result[j] = extract_block(str, &i);
@@ -96,8 +109,7 @@ char	**word_splitter(char *str)
 			return (NULL);
 		}
 		j++;
-		while (str[i] == ' ')
-			i++;
+		skip_spaces(str, &i);
 	}
 	result[j] = NULL;
 	return (result);
