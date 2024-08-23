@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 21:39:29 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/22 21:40:01 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/23 09:43:07 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*expand_status(char *str, int status)
 	status_str = ft_itoa(status);
 	if (!status_str)
 		return (NULL);
-	result = malloc(ft_strlen(str) + ft_strlen(status_str) - 1);
+	result = malloc(ft_strlen(str) + ft_strlen(status_str));
 	if (!result)
 	{
 		free(status_str);
