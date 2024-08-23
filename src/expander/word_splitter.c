@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:01:11 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/23 19:35:50 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/23 19:39:28 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ static char	*extract_block(const char *str, size_t *index)
 	start = *index;
 	if (str[start] == '\"' || str[start] == '\'')
 	{
-		quote_char = str[start++];
-		*index = start;
+		quote_char = str[start];
+		(*index)++;
 		while (str[*index] && str[*index] != quote_char)
 			(*index)++;
 		if (str[*index] == quote_char)
