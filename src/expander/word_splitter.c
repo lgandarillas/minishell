@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:01:11 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/24 00:02:48 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/24 00:11:10 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,28 @@ static char	*extract_block(const char *str, size_t *index)
 {
 	char	quote_char;
 	size_t	start;
+	char	*result;
+	//size_t	i;
 
 	start = *index;
-	if (str[start] == '\"' || str[start] == '\'')
+	result = NULL;
+	while (str[*index] && str[*index] != ' ')
 	{
-		quote_char = str[start];
-		(*index)++;
-		while (str[*index] && str[*index] != quote_char)
+		if (str[*index] == '\"' || str[*index] == '\'')
+		{
+			quote_char = str[*index];
 			(*index)++;
-		if (str[*index] == quote_char)
+			while (str[*index] && str[*index] != quote_char)
+				(*index)++;
+			if (str[*index] == quote_char)
+				(*index)++;
+		}
+		else
 			(*index)++;
 	}
-	else
-	{
-		while (str[*index] && str[*index] != ' ')
-			(*index)++;
-	}
-	return (ft_substr(str, start, *index - start));
+	if (*index > start)
+		result = ft_substr(str, start, *index - start);
+	return (result);
 }
 
 char	**word_splitter(char *str)
