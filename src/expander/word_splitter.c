@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:01:11 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/23 23:56:48 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/24 00:02:48 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,10 @@ static char	*extract_block(const char *str, size_t *index)
 	}
 	else
 	{
-		while (str[*index] && str[*index] != ' ' && str[*index] != '\"' && str[*index] != '\'')
+		while (str[*index] && str[*index] != ' ')
 			(*index)++;
 	}
-	if (*index > start)
-		return (ft_substr(str, start, *index - start));
-	else
-		return (NULL);
+	return (ft_substr(str, start, *index - start));
 }
 
 char	**word_splitter(char *str)
@@ -78,7 +75,7 @@ char	**word_splitter(char *str)
 	j = 0;
 	num_words = count_parts(str);
 	printf("STR:%s\nWORDS=%ld\n", str, num_words);
-	result = (char **)malloc(sizeof(char *) * (num_words + 20));
+	result = (char **)malloc(sizeof(char *) * (num_words + 1));
 	if (!result)
 		return (NULL);
 	while (str[i])
@@ -94,6 +91,8 @@ char	**word_splitter(char *str)
 			return (NULL);
 		}
 		j++;
+		while (str[i] == ' ')
+			i++;
 	}
 	result[j] = NULL;
 	return (result);
