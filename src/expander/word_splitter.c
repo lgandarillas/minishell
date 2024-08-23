@@ -6,46 +6,37 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 18:01:11 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/23 19:39:28 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/23 23:56:48 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static int	count_words(const char *str)
+static int	count_parts(char const *s)
 {
 	int		i;
-	int		words;
-	bool	in_quote;
+	int		parts;
 	char	quote_char;
 
 	i = 0;
-	words = 0;
-	in_quote = false;
-	while (str[i])
+	parts = 0;
+	while (s[i] != '\0')
 	{
-		while (str[i] == ' ')
-			i++;
-		if (str[i] == '\0')
-			break ;
-		if ((str[i] == '\"' || str[i] == '\'') && !in_quote)
+		if (s[i] != ' ' && (i == 0 || s[i - 1] == ' '))
+			parts++;
+		if (s[i] == '\"' || s[i] == '\'')
 		{
-			in_quote = true;
-			quote_char = str[i++];
-			while (str[i] && str[i] != quote_char)
+			quote_char = s[i];
+			i++;
+			while (s[i] != '\0' && s[i] != quote_char)
 				i++;
-			if (str[i])
+			if (s[i] != '\0')
 				i++;
-			in_quote = false;
 		}
 		else
-		{
-			while (str[i] && str[i] != ' ' && str[i] != '\"' && str[i] != '\'')
-				i++;
-		}
-		words++;
+			i++;
 	}
-	return (words);
+	return (parts);
 }
 
 static char	*extract_block(const char *str, size_t *index)
@@ -85,8 +76,9 @@ char	**word_splitter(char *str)
 		return (NULL);
 	i = 0;
 	j = 0;
-	num_words = count_words(str);
-	result = (char **)malloc(sizeof(char *) * (num_words + 1));
+	num_words = count_parts(str);
+	printf("STR:%s\nWORDS=%ld\n", str, num_words);
+	result = (char **)malloc(sizeof(char *) * (num_words + 20));
 	if (!result)
 		return (NULL);
 	while (str[i])
