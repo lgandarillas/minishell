@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/24 13:11:11 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/24 14:14:32 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	shell_loop(t_shell *shell)
 				if (shell->status == 0)
 				{
 					shell->cmd = head->argv;
+					shell->token = head;
 					shell->status = execute(shell);
 					shell->cmd = NULL;
 				}

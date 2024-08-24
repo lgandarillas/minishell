@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/22 19:17:03 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/24 14:08:01 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	execute_builtin(t_shell *shell)
 	i = 0;
 	while (shell->builtins[i].name != NULL)
 	{
-		if (ft_strcmp(shell->cmd[0], shell->builtins[i].name) == 0)
+		if (ft_strcmp(shell->token->argv[0], shell->builtins[i].name) == 0)
 			return (shell->builtins[i].func(shell));
 		i++;
 	}
@@ -48,19 +48,19 @@ void	execute_cmd(t_shell *shell)
 	char	*tmp;
 
 	i = 0;
-	if (access(shell->cmd[0], X_OK) == SUCCESS)
-		execve(shell->cmd[0], shell->cmd, shell->env);
+	if (access(shell->token->argv[0], X_OK) == SUCCESS)
+		execve(shell->token->argv[0], shell->token->argv, shell->env);
 	while (shell->path[i] != NULL)
 	{
-		tmp = build_cmd(shell->path[i], shell->cmd[0]);
+		tmp = build_cmd(shell->path[i], shell->token->argv[0]);
 		if (!tmp)
 			print_error("error cmd");
 		if (access(tmp, X_OK) == SUCCESS)
-			execve(tmp, shell->cmd, shell->env);
+			execve(tmp, shell->token->argv, shell->env);
 		free(tmp);
 		i++;
 	}
-	print_error_cmd(shell->cmd[0]);
+	print_error_cmd(shell->token->argv[0]);
 	exit(EXIT_FAILURE);
 }
 
@@ -71,13 +71,23 @@ int	execute(t_shell *shell)
 
 	if (!shell->cmd[0])
 		return (SUCCESS);
-	if (is_builtin(shell, shell->cmd[0]))
-		return (execute_builtin(shell));
-	pid = fork();
-	if (pid == -1)
-		printf("Error creating fork\n");
-	if (pid == 0)
-		execute_cmd(shell);
-	wait(&status);
+	while (shell->token)
+	{
+		if (shell->token->is_command)
+		{
+			if (shell->token->is_builtin)
+				status = execute_builtin(shell);
+			else
+			{
+				pid = fork();
+				if (pid == -1)
+					printf("Error creating fork\n");
+				if (pid == 0)
+					execute_cmd(shell);
+				wait(&status);
+			}
+		}
+		shell->token = shell->token->next;
+	}
 	return (status);
 }
