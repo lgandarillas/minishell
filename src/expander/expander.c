@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/25 15:05:31 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/25 15:21:58 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ void	expander(t_lexer *node, t_shell *shell)
 
 	while (node)
 	{
-		printf("- - - - - - - - - - - - - - -\n");
-		printf("ORIGINAL_NODE: %s\n", node->str);
+		// printf("- - - - - - - - - - - - - - -\n");
+		// printf("ORIGINAL_NODE: %s\n", node->str);
 		expanded_str = expand_variables(node->str, shell->env);
 		if (!expanded_str)
 			return ;
@@ -119,16 +119,16 @@ void	expander(t_lexer *node, t_shell *shell)
 			free(node->str);
 			node->str = expanded_final;
 		}
-		printf("EXPANDED_NODE: %s\n", node->str);
+		// printf("EXPANDED_NODE: %s\n", node->str);
 		node->argv = word_splitter(node->str);
-		printf("SPLITTED_NODE:\n");
-		print_matrix(node->argv);
+		// printf("SPLITTED_NODE:\n");
+		// print_matrix(node->argv);
 		new_args = quote_cleaner(node->argv);
 		free_matrix(node->argv);
 		node->argv = new_args;
-		printf("CLEANED_SPLIT:\n");
-		print_matrix(node->argv);
-		printf("- - - - - - - - - - - - - - -\n\n");
+		// printf("CLEANED_SPLIT:\n");
+		// print_matrix(node->argv);
+		// printf("- - - - - - - - - - - - - - -\n\n");
 		node = node->next;
 	}
 }
