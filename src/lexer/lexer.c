@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/21 19:01:52 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/25 15:05:31 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	next_node_end(char *prompt, int i)
 	return (i);
 }
 
-static bool	process_token(char *prompt, int *i, t_token **head)
+static bool	process_token(char *prompt, int *i, t_lexer **node)
 {
 	char	*token_str;
 	int		start;
@@ -52,7 +52,7 @@ static bool	process_token(char *prompt, int *i, t_token **head)
 		token_str = ft_strndup(prompt + start, end - start);
 		if (!token_str)
 			return (false);
-		append_node(head, token_str);
+		append_node(node, token_str);
 		free(token_str);
 		*i = end;
 		return (true);
@@ -60,7 +60,7 @@ static bool	process_token(char *prompt, int *i, t_token **head)
 	return (false);
 }
 
-static bool	tokenize_prompt(char *prompt, t_token **head)
+static bool	tokenize_prompt(char *prompt, t_lexer **node)
 {
 	int		i;
 
@@ -71,21 +71,21 @@ static bool	tokenize_prompt(char *prompt, t_token **head)
 			i++;
 		if (prompt[i] == '\0')
 			break ;
-		if (!process_token(prompt, &i, head))
+		if (!process_token(prompt, &i, node))
 			return (false);
 	}
 	return (true);
 }
 
-t_token	*lexer(char *prompt)
+t_lexer	*lexer(char *prompt)
 {
-	t_token	*head;
+	t_lexer	*node;
 
-	head = NULL;
+	node = NULL;
 	if (!prompt)
-		return (head);
-	if (!tokenize_prompt(prompt, &head))
+		return (node);
+	if (!tokenize_prompt(prompt, &node))
 		return (NULL);
-	analyze_tokens_type(head);
-	return (head);
+	analyze_tokens_type(node);
+	return (node);
 }

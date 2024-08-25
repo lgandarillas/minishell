@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   token_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:18:35 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/17 11:31:01 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/25 15:10:25 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	print_tokens(t_token *token)
+void	print_tokens(t_lexer *node)
 {
-	while (token)
+	while (node)
 	{
-		ft_printf("%s\n", token->str);
-		token = token->next;
+		ft_printf("%s\n", node->str);
+		node = node->next;
 	}
 }
 
-void	free_tokens(t_token *head)
+void	free_tokens(t_lexer *node)
 {
-	t_token	*current;
-	t_token	*current_next;
+	t_lexer	*current;
+	t_lexer	*current_next;
 
-	current = head;
+	current = node;
 	while (current != NULL)
 	{
 		current_next = current->next;
@@ -37,25 +37,25 @@ void	free_tokens(t_token *head)
 	}
 }
 
-void	append_node(t_token **head, char *str)
+void	append_node(t_lexer **node, char *str)
 {
-	t_token	*new_node;
-	t_token	*last_node;
+	t_lexer	*new_node;
+	t_lexer	*last_node;
 	char	*trimmed_str;
 
-	if (!head)
+	if (!node)
 		return ;
-	new_node = malloc(sizeof(t_token));
+	new_node = malloc(sizeof(t_lexer));
 	if (!new_node)
 		return ;
 	trimmed_str = ft_strtrim(str, " ");
 	new_node->str = trimmed_str;
 	new_node->next = NULL;
-	if (!(*head))
-		*head = new_node;
+	if (!(*node))
+		*node = new_node;
 	else
 	{
-		last_node = *head;
+		last_node = *node;
 		while (last_node->next)
 			last_node = last_node->next;
 		last_node->next = new_node;

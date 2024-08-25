@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/22 21:42:13 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/25 15:05:31 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,37 +98,37 @@ static char	*expand_variables(char *str, char **env)
 	return (result);
 }
 
-void	expander(t_token *head, t_shell *shell)
+void	expander(t_lexer *node, t_shell *shell)
 {
 	char	*expanded_str;
 	char	*expanded_final;
 	char	**new_args;
 
-	while (head)
+	while (node)
 	{
 		printf("- - - - - - - - - - - - - - -\n");
-		printf("ORIGINAL_NODE: %s\n", head->str);
-		expanded_str = expand_variables(head->str, shell->env);
+		printf("ORIGINAL_NODE: %s\n", node->str);
+		expanded_str = expand_variables(node->str, shell->env);
 		if (!expanded_str)
 			return ;
-		free(head->str);
-		head->str = expanded_str;
-		expanded_final = expand_status(head->str, shell->status);
+		free(node->str);
+		node->str = expanded_str;
+		expanded_final = expand_status(node->str, shell->status);
 		if (expanded_final)
 		{
-			free(head->str);
-			head->str = expanded_final;
+			free(node->str);
+			node->str = expanded_final;
 		}
-		printf("EXPANDED_NODE: %s\n", head->str);
-		head->argv = word_splitter(head->str);
+		printf("EXPANDED_NODE: %s\n", node->str);
+		node->argv = word_splitter(node->str);
 		printf("SPLITTED_NODE:\n");
-		print_matrix(head->argv);
-		new_args = quote_cleaner(head->argv);
-		free_matrix(head->argv);
-		head->argv = new_args;
+		print_matrix(node->argv);
+		new_args = quote_cleaner(node->argv);
+		free_matrix(node->argv);
+		node->argv = new_args;
 		printf("CLEANED_SPLIT:\n");
-		print_matrix(head->argv);
+		print_matrix(node->argv);
 		printf("- - - - - - - - - - - - - - -\n\n");
-		head = head->next;
+		node = node->next;
 	}
 }

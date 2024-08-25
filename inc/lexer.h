@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:45:53 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/22 16:45:37 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/25 15:10:25 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_token
 	bool			expand;
 	bool			is_syntax_error;
 	bool			is_builtin;
-}	t_token;
+}	t_lexer;
 
 bool	check_prompt(char *prompt);
 
@@ -35,12 +35,12 @@ bool	is_token(char c);
 bool	is_space(char c);
 int		skip_tokens(char *prompt, int i);
 
-t_token	*lexer(char *prompt);
-void	print_tokens(t_token *head);
-void	free_tokens(t_token *head);
-void	append_node(t_token **head, char *str);
+t_lexer	*lexer(char *prompt);
+void	print_tokens(t_lexer *node);
+void	free_tokens(t_lexer *node);
+void	append_node(t_lexer **node, char *str);
 bool	is_valid_bracket_sequence(char *prompt, int *i, int *brackets);
-void	analyze_tokens_type(t_token *token);
+void	analyze_tokens_type(t_lexer *node);
 
 bool	is_token_str(char *str);
 

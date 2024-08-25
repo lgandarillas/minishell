@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/25 14:50:10 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/25 15:10:25 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ int	execute(t_shell *shell)
 
 	if (!shell->cmd[0])
 		return (SUCCESS);
-	while (shell->token)
+	while (shell->node)
 	{
-		shell->cmd = shell->token->argv;
-		if (shell->token->is_command)
+		shell->cmd = shell->node->argv;
+		if (shell->node->is_command)
 		{
-			if (shell->token->is_builtin)
+			if (shell->node->is_builtin)
 				status = execute_builtin(shell);
 			else
 			{
@@ -88,7 +88,7 @@ int	execute(t_shell *shell)
 				wait(&status);
 			}
 		}
-		shell->token = shell->token->next;
+		shell->node = shell->node->next;
 	}
 	return (status);
 }

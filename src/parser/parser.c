@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:27:46 by aquinter          #+#    #+#             */
-/*   Updated: 2024/08/24 13:32:19 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/25 15:09:13 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,25 @@ static bool	syntax_error(char *str)
 	return (SYNTAX_ERROR);
 }
 
-bool	parser(t_token *head, t_shell *shell)
+bool	parser(t_lexer *node, t_shell *shell)
 {
-	if (head->is_pipe)
-		return (syntax_error(head->argv[0]));
-	while (head)
+	if (node->is_pipe)
+		return (syntax_error(node->argv[0]));
+	while (node)
 	{
-		if (!head->is_command)
+		if (!node->is_command)
 		{
-			if (head->is_syntax_error)
+			if (node->is_syntax_error)
 				return (syntax_error(NULL));
-			if (head->next == NULL)
+			if (node->next == NULL)
 				return (syntax_error("newline"));
-			if ((head->is_pipe && head->next->is_pipe) || \
-				(!head->is_pipe && !head->next->is_command))
-				return (syntax_error(head->next->argv[0]));
+			if ((node->is_pipe && node->next->is_pipe) || \
+				(!node->is_pipe && !node->next->is_command))
+				return (syntax_error(node->next->argv[0]));
 		}
 		else
-			head->is_builtin = is_builtin(shell, head->argv[0]);
-		head = head->next;
+			node->is_builtin = is_builtin(shell, node->argv[0]);
+		node = node->next;
 	}
 	return (SUCCESS);
 }
