@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/25 15:21:58 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/27 18:14:28 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@ static char	*handle_reg_chars(char *str, size_t *i, char *result, char **env)
 	{
 		if (str[*i] == '$')
 		{
-			tmp = handle_expansion(str, i, env);
+			if (str[*i + 1] == '\0')
+			{
+				tmp = ft_strdup("$");
+				(*i)++;
+			}
+			else
+				tmp = handle_expansion(str, i, env);
 			result = ft_strjoin_free(result, tmp, true, true);
 		}
 		else
