@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:21:50 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/30 18:25:29 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/30 19:39:47 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ t_command	*prepare_cmd(t_lexer *lexer_node)
 	t_command	*current_cmd_node;
 	int	i;
 
+	cmd_node = NULL;
 	append_cmd_node(&cmd_node);
 	current_cmd_node = cmd_node;
 	while (lexer_node)
@@ -117,6 +118,8 @@ t_command	*prepare_cmd(t_lexer *lexer_node)
 			{
 				append_cmd_node(&cmd_node);
 				current_cmd_node = cmd_node;
+				while (current_cmd_node->next)
+					current_cmd_node = current_cmd_node->next;
 			}
 			else
 				current_cmd_node->cmd = append_str(current_cmd_node->cmd, lexer_node->argv[i]);
