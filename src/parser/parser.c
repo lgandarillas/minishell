@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:27:46 by aquinter          #+#    #+#             */
-/*   Updated: 2024/08/25 15:09:13 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:49:16 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,25 @@ static bool	syntax_error(char *str)
 	return (SYNTAX_ERROR);
 }
 
-bool	parser(t_lexer *node, t_shell *shell)
+bool	parser(t_lexer *lexer_node, t_shell *shell)
 {
-	if (node->is_pipe)
-		return (syntax_error(node->argv[0]));
-	while (node)
+	if (lexer_node->is_pipe)
+		return (syntax_error(lexer_node->argv[0]));
+	while (lexer_node)
 	{
-		if (!node->is_command)
+		if (!lexer_node->is_command)
 		{
-			if (node->is_syntax_error)
+			if (lexer_node->is_syntax_error)
 				return (syntax_error(NULL));
-			if (node->next == NULL)
+			if (lexer_node->next == NULL)
 				return (syntax_error("newline"));
-			if ((node->is_pipe && node->next->is_pipe) || \
-				(!node->is_pipe && !node->next->is_command))
-				return (syntax_error(node->next->argv[0]));
+			if ((lexer_node->is_pipe && lexer_node->next->is_pipe) || \
+				(!lexer_node->is_pipe && !lexer_node->next->is_command))
+				return (syntax_error(lexer_node->next->argv[0]));
 		}
 		else
-			node->is_builtin = is_builtin(shell, node->argv[0]);
-		node = node->next;
+			lexer_node->is_builtin = is_builtin(shell, lexer_node->argv[0]);
+		lexer_node = lexer_node->next;
 	}
 	return (SUCCESS);
 }

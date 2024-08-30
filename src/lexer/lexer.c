@@ -6,13 +6,13 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:44:14 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/25 15:05:31 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:49:16 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static int	next_node_end(char *prompt, int i)
+static int	next_lexer_node_end(char *prompt, int i)
 {
 	int	quote;
 
@@ -39,20 +39,20 @@ static int	next_node_end(char *prompt, int i)
 	return (i);
 }
 
-static bool	process_token(char *prompt, int *i, t_lexer **node)
+static bool	process_token(char *prompt, int *i, t_lexer **lexer_node)
 {
 	char	*token_str;
 	int		start;
 	int		end;
 
 	start = *i;
-	end = next_node_end(prompt, start);
+	end = next_lexer_node_end(prompt, start);
 	if (end > start)
 	{
 		token_str = ft_strndup(prompt + start, end - start);
 		if (!token_str)
 			return (false);
-		append_node(node, token_str);
+		append_lexer_node(lexer_node, token_str);
 		free(token_str);
 		*i = end;
 		return (true);
@@ -60,7 +60,7 @@ static bool	process_token(char *prompt, int *i, t_lexer **node)
 	return (false);
 }
 
-static bool	tokenize_prompt(char *prompt, t_lexer **node)
+static bool	tokenize_prompt(char *prompt, t_lexer **lexer_node)
 {
 	int		i;
 
@@ -71,7 +71,7 @@ static bool	tokenize_prompt(char *prompt, t_lexer **node)
 			i++;
 		if (prompt[i] == '\0')
 			break ;
-		if (!process_token(prompt, &i, node))
+		if (!process_token(prompt, &i, lexer_node))
 			return (false);
 	}
 	return (true);
@@ -79,13 +79,13 @@ static bool	tokenize_prompt(char *prompt, t_lexer **node)
 
 t_lexer	*lexer(char *prompt)
 {
-	t_lexer	*node;
+	t_lexer	*lexer_node;
 
-	node = NULL;
+	lexer_node = NULL;
 	if (!prompt)
-		return (node);
-	if (!tokenize_prompt(prompt, &node))
+		return (lexer_node);
+	if (!tokenize_prompt(prompt, &lexer_node))
 		return (NULL);
-	analyze_tokens_type(node);
-	return (node);
+	analyze_tokens_type(lexer_node);
+	return (lexer_node);
 }

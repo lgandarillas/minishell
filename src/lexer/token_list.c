@@ -6,27 +6,27 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:18:35 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/25 15:10:25 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:49:16 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	print_tokens(t_lexer *node)
+void	print_tokens(t_lexer *lexer_node)
 {
-	while (node)
+	while (lexer_node)
 	{
-		ft_printf("%s\n", node->str);
-		node = node->next;
+		ft_printf("%s\n", lexer_node->str);
+		lexer_node = lexer_node->next;
 	}
 }
 
-void	free_tokens(t_lexer *node)
+void	free_tokens(t_lexer *lexer_node)
 {
 	t_lexer	*current;
 	t_lexer	*current_next;
 
-	current = node;
+	current = lexer_node;
 	while (current != NULL)
 	{
 		current_next = current->next;
@@ -37,27 +37,27 @@ void	free_tokens(t_lexer *node)
 	}
 }
 
-void	append_node(t_lexer **node, char *str)
+void	append_lexer_node(t_lexer **lexer_node, char *str)
 {
-	t_lexer	*new_node;
-	t_lexer	*last_node;
+	t_lexer	*new_lexer_node;
+	t_lexer	*last_lexer_node;
 	char	*trimmed_str;
 
-	if (!node)
+	if (!lexer_node)
 		return ;
-	new_node = malloc(sizeof(t_lexer));
-	if (!new_node)
+	new_lexer_node = malloc(sizeof(t_lexer));
+	if (!new_lexer_node)
 		return ;
 	trimmed_str = ft_strtrim(str, " ");
-	new_node->str = trimmed_str;
-	new_node->next = NULL;
-	if (!(*node))
-		*node = new_node;
+	new_lexer_node->str = trimmed_str;
+	new_lexer_node->next = NULL;
+	if (!(*lexer_node))
+		*lexer_node = new_lexer_node;
 	else
 	{
-		last_node = *node;
-		while (last_node->next)
-			last_node = last_node->next;
-		last_node->next = new_node;
+		last_lexer_node = *lexer_node;
+		while (last_lexer_node->next)
+			last_lexer_node = last_lexer_node->next;
+		last_lexer_node->next = new_lexer_node;
 	}
 }

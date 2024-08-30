@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/25 15:10:25 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:49:16 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ int	execute(t_shell *shell)
 
 	if (!shell->cmd[0])
 		return (SUCCESS);
-	while (shell->node)
+	while (shell->lexer_node)
 	{
-		shell->cmd = shell->node->argv;
-		if (shell->node->is_command)
+		shell->cmd = shell->lexer_node->argv;
+		if (shell->lexer_node->is_command)
 		{
-			if (shell->node->is_builtin)
+			if (shell->lexer_node->is_builtin)
 				status = execute_builtin(shell);
 			else
 			{
@@ -88,7 +88,7 @@ int	execute(t_shell *shell)
 				wait(&status);
 			}
 		}
-		shell->node = shell->node->next;
+		shell->lexer_node = shell->lexer_node->next;
 	}
 	return (status);
 }

@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/27 18:14:28 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:49:16 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,37 +104,37 @@ static char	*expand_variables(char *str, char **env)
 	return (result);
 }
 
-void	expander(t_lexer *node, t_shell *shell)
+void	expander(t_lexer *lexer_node, t_shell *shell)
 {
 	char	*expanded_str;
 	char	*expanded_final;
 	char	**new_args;
 
-	while (node)
+	while (lexer_node)
 	{
 		// printf("- - - - - - - - - - - - - - -\n");
-		// printf("ORIGINAL_NODE: %s\n", node->str);
-		expanded_str = expand_variables(node->str, shell->env);
+		// printf("ORIGINAL_lexer_node: %s\n", lexer_node->str);
+		expanded_str = expand_variables(lexer_node->str, shell->env);
 		if (!expanded_str)
 			return ;
-		free(node->str);
-		node->str = expanded_str;
-		expanded_final = expand_status(node->str, shell->status);
+		free(lexer_node->str);
+		lexer_node->str = expanded_str;
+		expanded_final = expand_status(lexer_node->str, shell->status);
 		if (expanded_final)
 		{
-			free(node->str);
-			node->str = expanded_final;
+			free(lexer_node->str);
+			lexer_node->str = expanded_final;
 		}
-		// printf("EXPANDED_NODE: %s\n", node->str);
-		node->argv = word_splitter(node->str);
-		// printf("SPLITTED_NODE:\n");
-		// print_matrix(node->argv);
-		new_args = quote_cleaner(node->argv);
-		free_matrix(node->argv);
-		node->argv = new_args;
+		// printf("EXPANDED_lexer_node: %s\n", lexer_node->str);
+		lexer_node->argv = word_splitter(lexer_node->str);
+		// printf("SPLITTED_lexer_node:\n");
+		// print_matrix(lexer_node->argv);
+		new_args = quote_cleaner(lexer_node->argv);
+		free_matrix(lexer_node->argv);
+		lexer_node->argv = new_args;
 		// printf("CLEANED_SPLIT:\n");
-		// print_matrix(node->argv);
+		// print_matrix(lexer_node->argv);
 		// printf("- - - - - - - - - - - - - - -\n\n");
-		node = node->next;
+		lexer_node = lexer_node->next;
 	}
 }
