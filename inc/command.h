@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:15:56 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/30 17:17:17 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/30 18:20:28 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,8 @@ typedef struct s_command
 	struct s_command	*next;
 	char				**cmd;
 }	t_command;
+
+t_command	*prepare_cmd(t_lexer *lexer_node);
+void	free_command_nodes(t_command *cmd_node);;
 
 #endif

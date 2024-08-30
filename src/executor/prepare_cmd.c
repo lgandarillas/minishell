@@ -6,19 +6,46 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:21:50 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/30 18:09:38 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/30 18:25:29 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	**append_str(char **arr, char *str)
+static void	print_cmd_nodes(t_command *cmd_node)
+{
+	t_command	*current_cmd_node;
+	int			cmd_count;
+	int			i;
+
+	current_cmd_node = cmd_node;
+	cmd_count = 1;
+	while (current_cmd_node)
+	{
+		printf("NODE:%d\n", cmd_count);
+		if (current_cmd_node->cmd)
+		{
+			i = 0;
+			while (current_cmd_node->cmd[i])
+			{
+				printf("cmd[%d]:%s\n", i, current_cmd_node->cmd[i]);
+				i++;
+			}
+		}
+		else
+			printf("(empty command)\n");
+		current_cmd_node = current_cmd_node->next;
+		cmd_count++;
+	}
+}
+
+static char	**append_str(char **arr, char *str)
 {
 	size_t	len;
 	size_t	i;
 	char	**new_arr;
 
-	len = ft_arrlen((void **)arr) + 1;
+	len = ft_arrlen((void **)arr) + 1;	// SEGFAULT
 	new_arr = ft_calloc(sizeof(char *), len + 1);
 	if (!new_arr)
 		return (NULL);
@@ -37,7 +64,7 @@ char	**append_str(char **arr, char *str)
 	return (new_arr);
 }
 
-void	append_cmd_node(t_command **cmd_node)
+static void	append_cmd_node(t_command **cmd_node)
 {
 	t_command	*new_cmd_node;
 	t_command	*last_cmd_node;
@@ -58,13 +85,28 @@ void	append_cmd_node(t_command **cmd_node)
 	}
 }
 
+void	free_command_nodes(t_command *cmd_node)
+{
+	t_command	*current;
+	t_command	*current_next;
+
+	current = cmd_node;
+	while (current)
+	{
+		current_next = current->next;
+		free_matrix(current->cmd);
+		free(current);
+		current = current_next;
+	}
+}
+
 t_command	*prepare_cmd(t_lexer *lexer_node)
 {
 	t_command	*cmd_node;
-	t_comand	*current_cmd_node;
+	t_command	*current_cmd_node;
 	int	i;
 
-	appen_cmd_node(&cmd_node);
+	append_cmd_node(&cmd_node);
 	current_cmd_node = cmd_node;
 	while (lexer_node)
 	{
@@ -82,4 +124,6 @@ t_command	*prepare_cmd(t_lexer *lexer_node)
 		}
 		lexer_node = lexer_node->next;
 	}
+	print_cmd_nodes(cmd_node);
+	return (cmd_node);
 }
