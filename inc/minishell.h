@@ -38,6 +38,7 @@
 # include "executor.h"
 # include "signals.h"
 # include "error_messages.h"
+# include "heredoc.h"
 
 # include "../libft_v2/inc/libft.h"
 # include "../libft_v2/inc/get_next_line.h"

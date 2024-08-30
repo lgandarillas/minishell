@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/08/23 09:54:09 by lgandari         ###   ########.fr        #
+#    Updated: 2024/08/30 11:33:27 by lgandari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRCS	= $(addprefix $(SRC_DIR), \
 	signals/eof.c			\
 	signals/quit.c			\
 	signals/interrupt.c		\
+	heredoc/heredoc.c		\
 	)
 
 OBJS	= $(SRCS:.c=.o)
