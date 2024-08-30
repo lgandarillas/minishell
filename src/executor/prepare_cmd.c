@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:21:50 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/30 17:54:13 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/30 18:09:38 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,23 @@ void	append_cmd_node(t_command **cmd_node)
 t_command	*prepare_cmd(t_lexer *lexer_node)
 {
 	t_command	*cmd_node;
+	t_comand	*current_cmd_node;
 	int	i;
 
-	cmd_node = NULL;
-	i = 0;
+	appen_cmd_node(&cmd_node);
+	current_cmd_node = cmd_node;
 	while (lexer_node)
 	{
+		i = 0;
 		while (lexer_node->argv[i])
 		{
-			// ...
+			if (ft_strcmp(lexer_node->argv[i], "|") == 0)
+			{
+				append_cmd_node(&cmd_node);
+				current_cmd_node = cmd_node;
+			}
+			else
+				current_cmd_node->cmd = append_str(current_cmd_node->cmd, lexer_node->argv[i]);
 			i++;
 		}
 		lexer_node = lexer_node->next;
