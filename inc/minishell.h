@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/25 15:10:25 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/30 11:36:26 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # include "executor.h"
 # include "signals.h"
 # include "error_messages.h"
+# include "heredoc.h"
 
 # include "../libft_v2/inc/libft.h"
 # include "../libft_v2/inc/get_next_line.h"
