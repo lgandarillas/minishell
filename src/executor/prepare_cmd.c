@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:21:50 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/30 19:39:47 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/30 19:53:30 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static char	**append_str(char **arr, char *str)
 	size_t	i;
 	char	**new_arr;
 
-	len = ft_arrlen((void **)arr) + 1;	// SEGFAULT
+	len = ft_arrlen((void **)arr) + 1;
 	new_arr = ft_calloc(sizeof(char *), len + 1);
 	if (!new_arr)
 		return (NULL);
@@ -85,6 +85,14 @@ static void	append_cmd_node(t_command **cmd_node)
 	}
 }
 
+static void	create_cmd_node_after_pipe(t_command **head, t_command **current)
+{
+	append_cmd_node(head);
+	*current = *head;
+	while ((*current)->next)
+		*current = (*current)->next;
+}
+
 void	free_command_nodes(t_command *cmd_node)
 {
 	t_command	*current;
@@ -104,7 +112,7 @@ t_command	*prepare_cmd(t_lexer *lexer_node)
 {
 	t_command	*cmd_node;
 	t_command	*current_cmd_node;
-	int	i;
+	int			i;
 
 	cmd_node = NULL;
 	append_cmd_node(&cmd_node);
@@ -115,14 +123,10 @@ t_command	*prepare_cmd(t_lexer *lexer_node)
 		while (lexer_node->argv[i])
 		{
 			if (ft_strcmp(lexer_node->argv[i], "|") == 0)
-			{
-				append_cmd_node(&cmd_node);
-				current_cmd_node = cmd_node;
-				while (current_cmd_node->next)
-					current_cmd_node = current_cmd_node->next;
-			}
+				create_cmd_node_after_pipe(&cmd_node, &current_cmd_node);
 			else
-				current_cmd_node->cmd = append_str(current_cmd_node->cmd, lexer_node->argv[i]);
+				current_cmd_node->cmd = \
+					append_str(current_cmd_node->cmd, lexer_node->argv[i]);
 			i++;
 		}
 		lexer_node = lexer_node->next;
