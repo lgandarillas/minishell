@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/30 16:49:16 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/31 09:42:08 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	execute_cmd(t_shell *shell)
 	int		i;
 	char	*tmp;
 
+	shell->cmd++;
 	i = 0;
 	if (access(shell->cmd[0], X_OK) == SUCCESS)
 		execve(shell->cmd[0], shell->cmd, shell->env);
@@ -68,7 +69,10 @@ int	execute(t_shell *shell)
 {
 	int		status;
 	int		pid;
+	int		input;
 
+	input = open(shell->node->next->argv[0], O_RDONLY);
+	dup2(input, STDIN_FILENO);
 	if (!shell->cmd[0])
 		return (SUCCESS);
 	while (shell->lexer_node)
@@ -90,5 +94,6 @@ int	execute(t_shell *shell)
 		}
 		shell->lexer_node = shell->lexer_node->next;
 	}
+	close(input);
 	return (status);
 }
