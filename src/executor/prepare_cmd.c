@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:21:50 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/30 19:53:30 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/01 10:32:43 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,31 +37,6 @@ static void	print_cmd_nodes(t_command *cmd_node)
 		current_cmd_node = current_cmd_node->next;
 		cmd_count++;
 	}
-}
-
-static char	**append_str(char **arr, char *str)
-{
-	size_t	len;
-	size_t	i;
-	char	**new_arr;
-
-	len = ft_arrlen((void **)arr) + 1;
-	new_arr = ft_calloc(sizeof(char *), len + 1);
-	if (!new_arr)
-		return (NULL);
-	i = 0;
-	while (i < len - 1)
-	{
-		new_arr[i] = ft_strdup(arr[i]);
-		if (!new_arr[i])
-			return (free_matrix(new_arr), NULL);
-		i++;
-	}
-	new_arr[len - 1] = ft_strdup(str);
-	if (!new_arr[len - 1])
-		return (free_matrix(new_arr), NULL);
-	free_matrix(arr);
-	return (new_arr);
 }
 
 static void	append_cmd_node(t_command **cmd_node)
