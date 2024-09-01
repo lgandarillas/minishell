@@ -6,67 +6,54 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:56:30 by aquinter          #+#    #+#             */
-/*   Updated: 2024/09/01 10:27:36 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/09/01 16:47:31 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-// typedef struct s_input
-// {
-// 	struct s_input		*next;
-// 	char				*name;
-// 	int					fd;
-// 	bool				is_heredoc;
-// }	t_input;
-
-// typedef struct s_output
-// {
-// 	struct s_output		*next;
-// 	char				*name;
-// 	int					fd;
-// 	bool				is_append;
-// }	t_output;
-
-void	handle_input(char *str, t_input *input)
+bool	is_redirection(t_lexer *lexer_node)
 {
-	(void)str;
-	(void)input;	
+	if (lexer_node->is_redirect_in || \
+		lexer_node->is_redirect_out || \
+		lexer_node->is_heredoc || \
+		lexer_node->is_append)
+		return (true);
+	return (false);
 }
 
-void	handle_output(char *str, t_output *output)
+void	handle_redirection(t_lexer *lexer_node, t_command *cmd_node)
 {
-	(void)str;
-	(void)output;	
+	if (lexer_node->is_redirect_out || lexer_node->is_append)
+		handle_output(cmd_node, lexer_node);
+	else
+		handle_input(cmd_node, lexer_node);
 }
 
-t_command	*clear_cmd(t_command *cmd_node)
+void	clear_cmd(t_command *cmd_node, t_lexer *lexer_node)
 {
-	int			i;
-	char		**cmd_cleared;
-	t_input		*input;
-	t_output	*output;
-	
-	input = NULL;
-	output = NULL;
-	while (cmd_node)
+	int	i;
+
+	while (lexer_node != NULL)
 	{
-		i = 0;
-		cmd_cleared = NULL;
-		while (cmd_node->cmd[i] != NULL)
-		{
-			// > output src/main.c 
-			if (redirect())
-				cmd_node = cmd_node->next;
-				// output src/main.c
-			else
-				cmd_cleared = append_str(cmd_cleared, cmd_node->cmd[i]);
+		if (lexer_node->is_pipe == true)
 			cmd_node = cmd_node->next;
-			i++;
+		else
+		{
+			i = 0;
+			if (is_redirection(lexer_node))
+			{
+				handle_redirection(lexer_node, cmd_node);
+				lexer_node = lexer_node->next;
+				i++;
+			}
+			while (lexer_node->argv[i] != NULL)
+			{
+				cmd_node->cmd = \
+					append_str(cmd_node->cmd, lexer_node->argv[i]);
+				i++;
+			}
 		}
-		free_matrix(cmd_node->cmd);
-		cmd_node->cmd = cmd_cleared;
-		cmd_node = cmd_node->next;
+		lexer_node = lexer_node->next;
 	}
-	return (cmd_node);
 }
