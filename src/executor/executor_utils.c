@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 15:45:38 by aquinter          #+#    #+#             */
-/*   Updated: 2024/09/01 16:45:38 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/09/01 17:46:49 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	free_input_nodes(t_input *input_node)
 	while (current)
 	{
 		current_next = current->next;
-		free(current->name);
+		if (current->name)
+			free(current->name);
+		if (current->is_heredoc)
+			free(current->delimiter);
 		free(current);
 		current = current_next;
 	}

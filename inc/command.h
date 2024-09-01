@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:15:56 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/01 16:28:40 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/09/01 17:40:56 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ typedef struct s_input
 {
 	struct s_input		*next;
 	char				*name;
+	char				*delimiter;
 	int					fd;
 	bool				is_heredoc;
 }	t_input;
