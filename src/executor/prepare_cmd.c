@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:21:50 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/01 10:32:43 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/01 11:36:14 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_command	*prepare_cmd(t_lexer *lexer_node)
 		i = 0;
 		while (lexer_node->argv[i])
 		{
-			if (ft_strcmp(lexer_node->argv[i], "|") == 0)
+			if (lexer_node->is_pipe == true)
 				create_cmd_node_after_pipe(&cmd_node, &current_cmd_node);
 			else
 				current_cmd_node->cmd = \
