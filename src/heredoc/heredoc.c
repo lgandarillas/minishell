@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:27:36 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/02 11:57:55 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/02 12:05:18 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	write_heredoc(int fd, const char *delimiter)
 	return (0);
 }
 
+/*
 void	heredoc_sigint(int signal)
 {
 	rl_on_new_line();
@@ -77,7 +78,6 @@ void	heredoc_signals(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-/*
 char	*expand_heredoc(char *input)
 {
 	char	*result;
