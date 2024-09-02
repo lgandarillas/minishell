@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:27:36 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/02 16:12:06 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/02 17:04:29 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,21 @@
 static char	*create_heredoc_filename(int temp_num)
 {
 	char	*num_str;
-	char	*file_name;
+	char	*filename;
 
 	num_str = ft_itoa(temp_num);
 	if (!num_str)
 		return (NULL);
-	file_name = ft_strjoin("/tmp/.heredoc", num_str);
+	filename = ft_strjoin("/tmp/.heredoc", num_str);
 	free(num_str);
-	return (file_name);
+	return (filename);
 }
 
-static int	open_heredoc(int num)
+static int	open_heredoc(const char *filename)
 {
-	char	*filename;
 	int		fd;
 
-	filename = create_heredoc_filename(num);
-	if (!filename)
-		return (-1);
 	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	free(filename);
 	return (fd);
 }
 
@@ -73,7 +68,11 @@ void	handle_heredoc(t_command *cmd)
 		{
 			if (input->is_heredoc)
 			{
-				fd = open_heredoc(++num);
+				if (!input->name)
+					input->name = create_heredoc_filename(++num);
+				if (!input->name)
+					return ;
+				fd = open_heredoc(input->name);
 				if (fd < 0 || write_heredoc(fd, input->delimiter) < 0)
 				{
 					if (fd >= 0)
@@ -91,24 +90,17 @@ void	handle_heredoc(t_command *cmd)
 void	delete_heredoc_files(t_command *cmd)
 {
 	t_input	*input;
-	char	*filename;
-	int		num;
 
-	num = 0;
 	while (cmd)
 	{
 		input = cmd->input;
 		while (input)
 		{
-			if (input->is_heredoc)
+			if (input->is_heredoc && input->name)
 			{
-				num++;
-				filename = create_heredoc_filename(num);
-				if (filename)
-				{
-					unlink(filename);
-					free(filename);
-				}
+				unlink(input->name);
+				free(input->name);
+				input->name = NULL;
 			}
 			input = input->next;
 		}
