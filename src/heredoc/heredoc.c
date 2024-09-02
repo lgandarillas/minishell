@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:27:36 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/02 15:24:25 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:51:20 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,32 @@ bool	handle_heredoc(t_command *cmd)
 		cmd = cmd->next;
 	}
 	return (true);
+}
+
+void	delete_heredoc_files(t_command *cmd)
+{
+	t_input	*input;
+	char	*filename;
+	int		num;
+
+	num = 0;
+	while (cmd)
+	{
+		input = cmd->input;
+		while (input)
+		{
+			if (input->is_heredoc)
+			{
+				num++;
+				filename = create_heredoc_filename(num);
+				if (filename)
+				{
+					unlink(filename);
+					free(filename);
+				}
+			}
+			input = input->next;
+		}
+		cmd = cmd->next;
+	}
 }
