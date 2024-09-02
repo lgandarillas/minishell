@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 15:45:38 by aquinter          #+#    #+#             */
-/*   Updated: 2024/09/01 17:46:49 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:15:48 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	free_command_nodes(t_command *cmd_node)
 	t_command	*current_next;
 
 	current = cmd_node;
+	delete_heredoc_files(cmd_node);
 	while (current)
 	{
 		current_next = current->next;
