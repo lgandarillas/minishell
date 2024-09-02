@@ -6,13 +6,14 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:27:36 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/01 16:34:07 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/02 11:57:55 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	*create_filename(int temp_num)
+// Recibe un número y devuelve el nombre del archivo
+char	*create_heredoc_filename(int temp_num)
 {
 	char	*num_str;
 	char	*file_name;
@@ -20,32 +21,28 @@ char	*create_filename(int temp_num)
 	num_str = ft_itoa(temp_num);
 	if (!num_str)
 		return (NULL);
-	file_name = ft_strjoin("/tmp/heredoc_", num_str);
+	file_name = ft_strjoin("/tmp/heredoc", num_str);
 	free(num_str);
 	return (file_name);
 }
 
-int	open_heredoc(char **file_name, int *temp_num)
+// Abrir un heredoc concreto dado un número
+int	open_heredoc(int num)
 {
-	char	*file_path;
+	char	*filename;
 	int		fd;
 
-	file_path = create_filename(*temp_num);
-	if (!file_path)
+	filename = create_heredoc_filename(num);
+	if (!filename)
 		return (-1);
-	while (access(file_path, F_OK) == 0)
-	{
-		(*temp_num)++;
-		free(file_path);
-		file_path = create_filename(*temp_num);
-		if (!file_path)
-			return (-1);
-	}
-	fd = open(file_path, O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	free(file_path);
+	fd = -1;
+	if (access(filename, F_OK) == 0)
+		fd = open(filename, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	free(filename);
 	return (fd);
 }
 
+// Escribe en un heredoc dado un fd y un delimitador
 int	write_heredoc(int fd, const char *delimiter)
 {
 	char	*line;
@@ -80,6 +77,7 @@ void	heredoc_signals(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
+/*
 char	*expand_heredoc(char *input)
 {
 	char	*result;
@@ -87,3 +85,4 @@ char	*expand_heredoc(char *input)
 	// FINISH CODE
 	return (result);
 }
+*/
