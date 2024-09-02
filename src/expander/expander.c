@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/02 15:57:59 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/02 19:51:15 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,9 @@ void	expander(t_lexer *lexer_node, t_shell *shell)
 	char	*expanded_str;
 	char	*expanded_final;
 	char	**new_args;
+	t_lexer	*head;
 
+	head = lexer_node;
 	while (lexer_node)
 	{
 		expanded_str = expand_variables(lexer_node->str, shell->env);
@@ -129,4 +131,5 @@ void	expander(t_lexer *lexer_node, t_shell *shell)
 		lexer_node->argv = new_args;
 		lexer_node = lexer_node->next;
 	}
+	check_expand_heredoc(head, shell);
 }
