@@ -6,13 +6,12 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:27:36 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/02 12:05:18 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/02 13:24:51 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-// Recibe un número y devuelve el nombre del archivo
 char	*create_heredoc_filename(int temp_num)
 {
 	char	*num_str;
@@ -26,7 +25,6 @@ char	*create_heredoc_filename(int temp_num)
 	return (file_name);
 }
 
-// Abrir un heredoc concreto dado un número
 int	open_heredoc(int num)
 {
 	char	*filename;
@@ -42,7 +40,6 @@ int	open_heredoc(int num)
 	return (fd);
 }
 
-// Escribe en un heredoc dado un fd y un delimitador
 int	write_heredoc(int fd, const char *delimiter)
 {
 	char	*line;
