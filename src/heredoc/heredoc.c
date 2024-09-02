@@ -6,13 +6,13 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:27:36 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/02 13:24:51 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/02 13:54:01 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-char	*create_heredoc_filename(int temp_num)
+static char	*create_heredoc_filename(int temp_num)
 {
 	char	*num_str;
 	char	*file_name;
@@ -25,7 +25,7 @@ char	*create_heredoc_filename(int temp_num)
 	return (file_name);
 }
 
-int	open_heredoc(int num)
+static int	open_heredoc(int num)
 {
 	char	*filename;
 	int		fd;
@@ -40,7 +40,7 @@ int	open_heredoc(int num)
 	return (fd);
 }
 
-int	write_heredoc(int fd, const char *delimiter)
+static int	write_heredoc(int fd, const char *delimiter)
 {
 	char	*line;
 	
@@ -59,6 +59,41 @@ int	write_heredoc(int fd, const char *delimiter)
 		free(line);
 	}
 	return (0);
+}
+
+bool	handle_heredoc(t_command *cmd)
+{
+	t_input	*input;
+	int		num;
+	int		fd;
+
+	num = 0;
+	while (cmd)
+	{
+		input = cmd->input;
+		while (input)
+		{
+			if (input->is_heredoc)
+			{
+				num++;
+				fd = open_heredoc(num);
+				if (fd < 0)
+					return (false);
+				if (write_heredoc(fd, input->delimiter) < 0)
+				{
+					close(fd);
+					return (false);
+				}
+				close(fd);
+				input->fd = open_heredoc(num);
+				if (input->fd < 0)
+					return (false);
+			}
+			input = input->next;
+		}
+		cmd = cmd->next;
+	}
+	return (true);
 }
 
 /*

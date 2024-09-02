@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:31:48 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/30 11:33:56 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/02 13:53:41 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 # define HEREDOC_H
 
 char	*create_filename(int temp_num);
+bool	handle_heredoc(t_command *cmd);
 
 #endif
