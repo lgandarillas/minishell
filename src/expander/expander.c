@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/02 18:40:09 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:44:30 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,6 @@ void	expander(t_lexer *lexer_node, t_shell *shell)
 		lexer_node->argv = new_args;
 		lexer_node = lexer_node->next;
 	}
-	shell->num_heredocs = count_heredocs(head);
+	shell->num_heredocs = count_heredocs(head, shell);
 	printf("N_HEREDOCS:%d\n", shell->num_heredocs);
 }

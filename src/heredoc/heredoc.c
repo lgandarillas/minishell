@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:27:36 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/02 18:35:13 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/02 18:46:14 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	write_heredoc(int fd, const char *delimiter)
 	return (0);
 }
 
-int	count_heredocs(t_lexer *node)
+int	count_heredocs(t_lexer *node, t_shell *shell)
 {
 	int	num_heredocs;
 
@@ -65,6 +65,9 @@ int	count_heredocs(t_lexer *node)
 			num_heredocs++;
 		node = node->next;
 	}
+	shell->expand_heredoc = malloc(sizeof(bool) * (num_heredocs + 1));
+	if (!shell->expand_heredoc)
+		return (0);
 	return (num_heredocs);
 }
 
