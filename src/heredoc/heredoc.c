@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:27:36 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/02 13:54:01 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:24:25 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ static int	open_heredoc(int num)
 	filename = create_heredoc_filename(num);
 	if (!filename)
 		return (-1);
-	fd = -1;
-	if (access(filename, F_OK) == 0)
-		fd = open(filename, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	free(filename);
 	return (fd);
 }
@@ -77,17 +75,13 @@ bool	handle_heredoc(t_command *cmd)
 			{
 				num++;
 				fd = open_heredoc(num);
-				if (fd < 0)
-					return (false);
-				if (write_heredoc(fd, input->delimiter) < 0)
+				if (fd < 0 || write_heredoc(fd, input->delimiter) < 0)
 				{
-					close(fd);
+					if (fd >= 0)
+						close(fd);
 					return (false);
 				}
 				close(fd);
-				input->fd = open_heredoc(num);
-				if (input->fd < 0)
-					return (false);
 			}
 			input = input->next;
 		}
@@ -95,26 +89,3 @@ bool	handle_heredoc(t_command *cmd)
 	}
 	return (true);
 }
-
-/*
-void	heredoc_sigint(int signal)
-{
-	rl_on_new_line();
-	rl_redisplay();
-	signal(SIGINT, SIG_DFL);
-}
-
-void	heredoc_signals(void)
-{
-	signal(SIGINT, heredoc_sigint);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-char	*expand_heredoc(char *input)
-{
-	char	*result;
-
-	// FINISH CODE
-	return (result);
-}
-*/
