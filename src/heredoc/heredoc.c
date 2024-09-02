@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:27:36 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/02 15:56:39 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:12:06 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	open_heredoc(int num)
 static int	write_heredoc(int fd, const char *delimiter)
 {
 	char	*line;
-	
+
 	while (1)
 	{
 		line = readline("> ");
@@ -59,7 +59,7 @@ static int	write_heredoc(int fd, const char *delimiter)
 	return (0);
 }
 
-bool	handle_heredoc(t_command *cmd)
+void	handle_heredoc(t_command *cmd)
 {
 	t_input	*input;
 	int		num;
@@ -73,13 +73,12 @@ bool	handle_heredoc(t_command *cmd)
 		{
 			if (input->is_heredoc)
 			{
-				num++;
-				fd = open_heredoc(num);
+				fd = open_heredoc(++num);
 				if (fd < 0 || write_heredoc(fd, input->delimiter) < 0)
 				{
 					if (fd >= 0)
 						close(fd);
-					return (false);
+					return ;
 				}
 				close(fd);
 			}
@@ -87,7 +86,6 @@ bool	handle_heredoc(t_command *cmd)
 		}
 		cmd = cmd->next;
 	}
-	return (true);
 }
 
 void	delete_heredoc_files(t_command *cmd)
