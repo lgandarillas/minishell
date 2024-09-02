@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:27:36 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/02 15:51:20 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:56:39 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*create_heredoc_filename(int temp_num)
 	num_str = ft_itoa(temp_num);
 	if (!num_str)
 		return (NULL);
-	file_name = ft_strjoin("/tmp/heredoc", num_str);
+	file_name = ft_strjoin("/tmp/.heredoc", num_str);
 	free(num_str);
 	return (file_name);
 }
