@@ -6,16 +6,16 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:45:53 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/30 16:49:16 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/09/02 17:49:06 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-typedef struct s_token
+typedef struct s_lexer
 {
-	struct s_token	*next;
+	struct s_lexer	*next;
 	char			*str;
 	char			**argv;
 	bool			is_pipe;
