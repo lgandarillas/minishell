@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/08/23 09:54:09 by lgandari         ###   ########.fr        #
+#    Updated: 2024/09/01 15:51:22 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,42 +26,48 @@ LIBFT_PATH	= libft_v2/
 
 SRC_DIR		= src/
 
-SRCS	= $(addprefix $(SRC_DIR), \
-	main.c				\
-	init/init_shell.c		\
-	init/error.c			\
-	init/path.c			\
-	lexer/check_prompt.c		\
-	lexer/lexer_utils.c 		\
-	lexer/lexer.c			\
-	lexer/token_list.c		\
-	lexer/check_brackets.c		\
-	lexer/analyze_token_type.c	\
-	parser/parser.c	\
-	expander/expander.c		\
-	expander/expand_variables.c	\
-	expander/quote_management.c	\
-	expander/word_splitter.c	\
-	expander/quote_cleaner.c	\
-	expander/expand_status.c	\
-	env/ft_addenv.c 		\
-	env/ft_getenv.c 		\
-	env/ft_setenv.c 		\
-	env/ft_delenv.c 		\
-	builtins/ft_pwd.c 		\
-	builtins/ft_export.c 		\
-	builtins/ft_env.c 		\
-	builtins/ft_cd.c 		\
-	builtins/ft_unset.c 		\
-	builtins/ft_echo.c		\
-	builtins/ft_exit.c		\
-	builtins/utils.c		\
+SRCS	= $(addprefix $(SRC_DIR), 	\
+	main.c							\
+	init/init_shell.c				\
+	init/error.c					\
+	init/path.c						\
+	lexer/check_prompt.c			\
+	lexer/lexer_utils.c 			\
+	lexer/lexer.c					\
+	lexer/token_list.c				\
+	lexer/check_brackets.c			\
+	lexer/analyze_token_type.c		\
+	parser/parser.c					\
+	expander/expander.c				\
+	expander/expand_variables.c		\
+	expander/quote_management.c		\
+	expander/word_splitter.c		\
+	expander/quote_cleaner.c		\
+	expander/expand_status.c		\
+	env/ft_addenv.c 				\
+	env/ft_getenv.c 				\
+	env/ft_setenv.c 				\
+	env/ft_delenv.c 				\
+	builtins/ft_pwd.c 				\
+	builtins/ft_export.c 			\
+	builtins/ft_env.c 				\
+	builtins/ft_cd.c 				\
+	builtins/ft_unset.c 			\
+	builtins/ft_echo.c				\
+	builtins/ft_exit.c				\
+	builtins/utils.c				\
 	builtins/init_builtins.c		\
-	executor/executor.c		\
-	signals/init_signals.c	\
-	signals/eof.c			\
-	signals/quit.c			\
-	signals/interrupt.c		\
+	executor/executor.c				\
+	executor/prepare_cmd.c			\
+	executor/clear_cmd.c			\
+	executor/input.c				\
+	executor/output.c				\
+	executor/executor_utils.c		\
+	signals/init_signals.c			\
+	signals/eof.c					\
+	signals/quit.c					\
+	signals/interrupt.c				\
+	heredoc/heredoc.c				\
 	)
 
 OBJS	= $(SRCS:.c=.o)

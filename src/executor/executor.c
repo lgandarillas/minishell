@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/22 19:17:03 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/31 09:43:57 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,24 @@ int	execute(t_shell *shell)
 
 	if (!shell->cmd[0])
 		return (SUCCESS);
-	if (is_builtin(shell, shell->cmd[0]))
-		return (execute_builtin(shell));
-	pid = fork();
-	if (pid == -1)
-		printf("Error creating fork\n");
-	if (pid == 0)
-		execute_cmd(shell);
-	wait(&status);
+	while (shell->lexer_node)
+	{
+		shell->cmd = shell->lexer_node->argv;
+		if (shell->lexer_node->is_command)
+		{
+			if (shell->lexer_node->is_builtin)
+				status = execute_builtin(shell);
+			else
+			{
+				pid = fork();
+				if (pid == -1)
+					printf("Error creating fork\n");
+				if (pid == 0)
+					execute_cmd(shell);
+				wait(&status);
+			}
+		}
+		shell->lexer_node = shell->lexer_node->next;
+	}
 	return (status);
 }

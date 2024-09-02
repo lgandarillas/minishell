@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/21 19:12:45 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/09/02 16:15:53 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 static void	shell_loop(t_shell *shell)
 {
-	char	*prompt;
-	t_token	*head;
+	char		*prompt;
+	t_lexer		*lexer_node;
+	t_command	*cmd_node;
 
 	while (true)
 	{
@@ -26,16 +27,20 @@ static void	shell_loop(t_shell *shell)
 		{
 			if (check_prompt(prompt) == true)
 			{
-				head = lexer(prompt);
-				expander(head, shell);
-				shell->status = parser(head);
+				lexer_node = lexer(prompt);
+				expander(lexer_node, shell);
+				shell->status = parser(lexer_node, shell);
 				if (shell->status == 0)
 				{
-					shell->cmd = head->argv;
+					cmd_node = prepare_cmd(lexer_node);
+					handle_heredoc(cmd_node);
+					shell->cmd = lexer_node->argv;
+					shell->lexer_node = lexer_node;
 					shell->status = execute(shell);
 					shell->cmd = NULL;
+					free_command_nodes(cmd_node);
 				}
-				free_tokens(head);
+				free_tokens(lexer_node);
 			}
 		}
 		free(prompt);

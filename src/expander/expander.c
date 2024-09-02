@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/22 21:42:13 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/02 15:57:59 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@ static char	*handle_reg_chars(char *str, size_t *i, char *result, char **env)
 	{
 		if (str[*i] == '$')
 		{
-			tmp = handle_expansion(str, i, env);
+			if (str[*i + 1] == '\0')
+			{
+				tmp = ft_strdup("$");
+				(*i)++;
+			}
+			else
+				tmp = handle_expansion(str, i, env);
 			result = ft_strjoin_free(result, tmp, true, true);
 		}
 		else
@@ -98,37 +104,29 @@ static char	*expand_variables(char *str, char **env)
 	return (result);
 }
 
-void	expander(t_token *head, t_shell *shell)
+void	expander(t_lexer *lexer_node, t_shell *shell)
 {
 	char	*expanded_str;
 	char	*expanded_final;
 	char	**new_args;
 
-	while (head)
+	while (lexer_node)
 	{
-		printf("- - - - - - - - - - - - - - -\n");
-		printf("ORIGINAL_NODE: %s\n", head->str);
-		expanded_str = expand_variables(head->str, shell->env);
+		expanded_str = expand_variables(lexer_node->str, shell->env);
 		if (!expanded_str)
 			return ;
-		free(head->str);
-		head->str = expanded_str;
-		expanded_final = expand_status(head->str, shell->status);
+		free(lexer_node->str);
+		lexer_node->str = expanded_str;
+		expanded_final = expand_status(lexer_node->str, shell->status);
 		if (expanded_final)
 		{
-			free(head->str);
-			head->str = expanded_final;
+			free(lexer_node->str);
+			lexer_node->str = expanded_final;
 		}
-		printf("EXPANDED_NODE: %s\n", head->str);
-		head->argv = word_splitter(head->str);
-		printf("SPLITTED_NODE:\n");
-		print_matrix(head->argv);
-		new_args = quote_cleaner(head->argv);
-		free_matrix(head->argv);
-		head->argv = new_args;
-		printf("CLEANED_SPLIT:\n");
-		print_matrix(head->argv);
-		printf("- - - - - - - - - - - - - - -\n\n");
-		head = head->next;
+		lexer_node->argv = word_splitter(lexer_node->str);
+		new_args = quote_cleaner(lexer_node->argv);
+		free_matrix(lexer_node->argv);
+		lexer_node->argv = new_args;
+		lexer_node = lexer_node->next;
 	}
 }

@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   token_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:18:35 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/17 11:31:01 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/08/30 16:49:16 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	print_tokens(t_token *token)
+void	print_tokens(t_lexer *lexer_node)
 {
-	while (token)
+	while (lexer_node)
 	{
-		ft_printf("%s\n", token->str);
-		token = token->next;
+		ft_printf("%s\n", lexer_node->str);
+		lexer_node = lexer_node->next;
 	}
 }
 
-void	free_tokens(t_token *head)
+void	free_tokens(t_lexer *lexer_node)
 {
-	t_token	*current;
-	t_token	*current_next;
+	t_lexer	*current;
+	t_lexer	*current_next;
 
-	current = head;
+	current = lexer_node;
 	while (current != NULL)
 	{
 		current_next = current->next;
@@ -37,27 +37,27 @@ void	free_tokens(t_token *head)
 	}
 }
 
-void	append_node(t_token **head, char *str)
+void	append_lexer_node(t_lexer **lexer_node, char *str)
 {
-	t_token	*new_node;
-	t_token	*last_node;
+	t_lexer	*new_lexer_node;
+	t_lexer	*last_lexer_node;
 	char	*trimmed_str;
 
-	if (!head)
+	if (!lexer_node)
 		return ;
-	new_node = malloc(sizeof(t_token));
-	if (!new_node)
+	new_lexer_node = malloc(sizeof(t_lexer));
+	if (!new_lexer_node)
 		return ;
 	trimmed_str = ft_strtrim(str, " ");
-	new_node->str = trimmed_str;
-	new_node->next = NULL;
-	if (!(*head))
-		*head = new_node;
+	new_lexer_node->str = trimmed_str;
+	new_lexer_node->next = NULL;
+	if (!(*lexer_node))
+		*lexer_node = new_lexer_node;
 	else
 	{
-		last_node = *head;
-		while (last_node->next)
-			last_node = last_node->next;
-		last_node->next = new_node;
+		last_lexer_node = *lexer_node;
+		while (last_lexer_node->next)
+			last_lexer_node = last_lexer_node->next;
+		last_lexer_node->next = new_lexer_node;
 	}
 }

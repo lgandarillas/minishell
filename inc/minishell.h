@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/22 17:57:50 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/08/30 17:17:42 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@
 # include "executor.h"
 # include "signals.h"
 # include "error_messages.h"
+# include "command.h"
+# include "heredoc.h"
 
 # include "../libft_v2/inc/libft.h"
 # include "../libft_v2/inc/get_next_line.h"
@@ -50,6 +52,7 @@ typedef struct s_shell
 	char		**env;
 	char		**cmd;
 	char		**path;
+	t_lexer		*lexer_node;
 	t_builtin	builtins[8];
 }		t_shell;
 

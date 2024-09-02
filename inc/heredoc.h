@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/12 20:14:49 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/27 18:48:49 by lgandari         ###   ########.fr       */
+/*   Created: 2024/08/30 11:31:48 by lgandari          #+#    #+#             */
+/*   Updated: 2024/09/02 16:12:20 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/minishell.h"
+#ifndef HEREDOC_H
+# define HEREDOC_H
 
-int	ft_pwd(t_shell *shell)
-{
-	char	*cwd;
+char	*create_filename(int temp_num);
+void	handle_heredoc(t_command *cmd);
+void	delete_heredoc_files(t_command *cmd);
 
-	(void)shell;
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-	{
-		perror("msh: pwd: ");
-		return (FAILURE);
-	}
-	printf("%s\n", cwd);
-	free(cwd);
-	return (SUCCESS);
-}
+#endif
