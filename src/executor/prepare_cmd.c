@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:21:50 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/01 16:45:19 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/09/01 17:49:52 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ static void	print_inputs(t_input *input)
 		while (input)
 		{
 			printf("INPUT_INDEX:[%d]", i);
-			printf(" NAME [%s] ", input->name);
+			if (input->name)
+				printf(" NAME [%s] ", input->name);
+			if (input->delimiter)
+				printf(" DELIMITER [%s] ", input->delimiter);
 			printf("is_heredoc:[%d]\n", input->is_heredoc);
 			i++;
 			input = input->next;
