@@ -54,32 +54,6 @@ static int	write_heredoc(int fd, const char *delimiter)
 	return (0);
 }
 
-static int	count_heredocs(t_lexer *node)
-{
-	int	num_heredocs;
-
-	num_heredocs = 0;
-	while (node)
-	{
-		if (node->is_heredoc)
-			num_heredocs++;
-		node = node->next;
-	}
-	return (num_heredocs);
-}
-
-void	check_expand_heredoc(t_lexer *node, t_shell *shell)
-{
-	int	num_heredocs;
-
-	num_heredocs = count_heredocs(node);
-	shell->expand_heredoc = malloc(sizeof(bool) * (num_heredocs + 1));
-	if (!shell->expand_heredoc)
-		return ;
-	// RELLENAR EL ARRAY
-	(void)shell;
-}
-
 void	handle_heredoc(t_command *cmd)
 {
 	t_input	*input;

@@ -68,6 +68,7 @@ SRCS	= $(addprefix $(SRC_DIR), 	\
 	signals/quit.c					\
 	signals/interrupt.c				\
 	heredoc/heredoc.c				\
+	heredoc/heredoc_expander.c		\
 	)
 
 OBJS	= $(SRCS:.c=.o)
