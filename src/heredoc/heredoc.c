@@ -54,11 +54,29 @@ static int	write_heredoc(int fd, const char *delimiter)
 	return (0);
 }
 
+static int	handle_single_heredoc(t_input *input, int num)
+{
+	int	fd;
+
+	if (!input->name)
+		input->name = create_heredoc_filename(num);
+	if (!input->name)
+		return (-1);
+	fd = open_heredoc(input->name);
+	if (fd < 0 || write_heredoc(fd, input->delimiter) < 0)
+	{
+		if (fd >= 0)
+			close(fd);
+		return (-1);
+	}
+	close(fd);
+	return (0);
+}
+
 void	handle_heredoc(t_command *cmd)
 {
 	t_input	*input;
 	int		num;
-	int		fd;
 
 	num = 0;
 	while (cmd)
@@ -68,39 +86,8 @@ void	handle_heredoc(t_command *cmd)
 		{
 			if (input->is_heredoc)
 			{
-				if (!input->name)
-					input->name = create_heredoc_filename(++num);
-				if (!input->name)
+				if (handle_single_heredoc(input, ++num) < 0)
 					return ;
-				fd = open_heredoc(input->name);
-				if (fd < 0 || write_heredoc(fd, input->delimiter) < 0)
-				{
-					if (fd >= 0)
-						close(fd);
-					return ;
-				}
-				close(fd);
-			}
-			input = input->next;
-		}
-		cmd = cmd->next;
-	}
-}
-
-void	delete_heredoc_files(t_command *cmd)
-{
-	t_input	*input;
-
-	while (cmd)
-	{
-		input = cmd->input;
-		while (input)
-		{
-			if (input->is_heredoc && input->name)
-			{
-				unlink(input->name);
-				free(input->name);
-				input->name = NULL;
 			}
 			input = input->next;
 		}
