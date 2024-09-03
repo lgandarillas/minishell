@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 11:15:15 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/03 11:15:28 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/03 11:55:23 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ void	check_expand_heredoc(t_lexer *node, t_shell *shell)
 	shell->expand_heredoc = malloc(sizeof(bool) * (num_heredocs + 1));
 	if (!shell->expand_heredoc)
 		return ;
-	// RELLENAR EL ARRAY
+	//FILL ARRAY
 	(void)shell;
 }
