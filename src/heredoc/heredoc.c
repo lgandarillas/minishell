@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:27:36 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/03 11:56:13 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/04 20:51:32 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ static int	open_heredoc(const char *filename)
 	return (fd);
 }
 
-static int	write_heredoc(int fd, const char *delimiter)
+static int	write_heredoc(int fd, const char *delimiter, bool expand)
 {
 	char	*line;
+	char	*output_line;
 
 	while (1)
 	{
@@ -47,14 +48,22 @@ static int	write_heredoc(int fd, const char *delimiter)
 			free(line);
 			break ;
 		}
-		ft_putstr_fd(line, fd);
-		write(fd, "\n", 1);
+		//if (expand == true)
+		//	output_line = expand_heredoc_line(line);
+		//else
+		if (expand == false)
+			output_line = ft_strdup(line);
 		free(line);
+		if (!output_line)
+			return (-1);
+		ft_putstr_fd(output_line, fd);
+		write(fd, "\n", 1);
+		free(output_line);
 	}
 	return (0);
 }
 
-static int	handle_single_heredoc(t_input *input, int num)
+static int	handle_single_heredoc(t_input *input, int num, bool expand)
 {
 	int	fd;
 
@@ -63,7 +72,7 @@ static int	handle_single_heredoc(t_input *input, int num)
 	if (!input->name)
 		return (-1);
 	fd = open_heredoc(input->name);
-	if (fd < 0 || write_heredoc(fd, input->delimiter) < 0)
+	if (fd < 0 || write_heredoc(fd, input->delimiter, expand) < 0)
 	{
 		if (fd >= 0)
 			close(fd);
@@ -86,7 +95,7 @@ void	handle_heredoc(t_command *cmd)
 		{
 			if (input->is_heredoc)
 			{
-				if (handle_single_heredoc(input, ++num) < 0)
+				if (handle_single_heredoc(input, ++num, false) < 0)
 					return ;
 			}
 			input = input->next;
