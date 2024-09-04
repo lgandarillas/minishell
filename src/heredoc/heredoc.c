@@ -6,7 +6,7 @@
 /*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:27:36 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/04 20:51:32 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/04 21:05:06 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	open_heredoc(const char *filename)
 	return (fd);
 }
 
-static int	write_heredoc(int fd, const char *delimiter, bool expand)
+static int	write_heredoc(int fd, const char *delimiter, bool expand, t_shell *shell)
 {
 	char	*line;
 	char	*output_line;
@@ -48,10 +48,9 @@ static int	write_heredoc(int fd, const char *delimiter, bool expand)
 			free(line);
 			break ;
 		}
-		//if (expand == true)
-		//	output_line = expand_heredoc_line(line);
-		//else
-		if (expand == false)
+		if (expand == true)
+			output_line = expand_heredoc_line(line, shell);
+		else
 			output_line = ft_strdup(line);
 		free(line);
 		if (!output_line)
@@ -63,7 +62,7 @@ static int	write_heredoc(int fd, const char *delimiter, bool expand)
 	return (0);
 }
 
-static int	handle_single_heredoc(t_input *input, int num, bool expand)
+static int	handle_single_heredoc(t_input *input, int num, bool expand, t_shell *shell)
 {
 	int	fd;
 
@@ -72,7 +71,7 @@ static int	handle_single_heredoc(t_input *input, int num, bool expand)
 	if (!input->name)
 		return (-1);
 	fd = open_heredoc(input->name);
-	if (fd < 0 || write_heredoc(fd, input->delimiter, expand) < 0)
+	if (fd < 0 || write_heredoc(fd, input->delimiter, expand, shell) < 0)
 	{
 		if (fd >= 0)
 			close(fd);
@@ -82,7 +81,7 @@ static int	handle_single_heredoc(t_input *input, int num, bool expand)
 	return (0);
 }
 
-void	handle_heredoc(t_command *cmd)
+void	handle_heredoc(t_command *cmd, t_shell *shell)
 {
 	t_input	*input;
 	int		num;
@@ -95,7 +94,7 @@ void	handle_heredoc(t_command *cmd)
 		{
 			if (input->is_heredoc)
 			{
-				if (handle_single_heredoc(input, ++num, false) < 0)
+				if (handle_single_heredoc(input, ++num, true, shell) < 0)
 					return ;
 			}
 			input = input->next;

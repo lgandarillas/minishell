@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/02 19:51:15 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/04 21:05:48 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static char	*handle_single_quotes(char *str, size_t *i, char *result)
 	return (result);
 }
 
-static char	*expand_variables(char *str, char **env)
+char	*expand_variables(char *str, char **env)
 {
 	char	*result;
 	size_t	i;
