@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:21:50 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/07 13:49:59 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/09/07 14:20:05 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	print_outputs(t_file *file)
 		{
 			if (file->is_append || file->is_redirect_out)
 			{
-				printf("OUTPUT_INDEX:[%d]", i);				
+				printf("OUTPUT_INDEX:[%d]", i);
 				printf(" NAME [%s] ", file->name);
 				printf("is_append:[%d]\n", file->is_append);
 				i++;

@@ -6,14 +6,14 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:15:56 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/07 13:35:39 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/09/07 14:19:45 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMAND_H
 # define COMMAND_H
 
-typedef struct	s_file
+typedef struct s_file
 {
 	struct s_file		*next;
 	char				*name;

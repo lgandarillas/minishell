@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 16:47:57 by aquinter          #+#    #+#             */
-/*   Updated: 2024/09/07 13:02:13 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/09/07 14:06:25 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ static void	append_file_node(t_file **file_node, t_lexer *lexer_node)
 	new_file_node = init_file_node(lexer_node);
 	if (!new_file_node)
 		return ;
+	if (lexer_node->is_heredoc)
+		new_file_node->delimiter = ft_strdup(lexer_node->next->argv[0]);
+	else
+		new_file_node->name = ft_strdup(lexer_node->next->argv[0]);
+	if (!new_file_node->name && !new_file_node->delimiter)
+		return ;
 	if (!(*file_node))
 		*file_node = new_file_node;
 	else
@@ -52,10 +58,4 @@ static void	append_file_node(t_file **file_node, t_lexer *lexer_node)
 void	handle_redirections(t_command *cmd_node, t_lexer *lexer_node)
 {
 	append_file_node(&cmd_node->file, lexer_node);
-	if (lexer_node->is_heredoc)
-		cmd_node->file->delimiter = ft_strdup(lexer_node->next->argv[0]);
-	else
-		cmd_node->file->name = ft_strdup(lexer_node->next->argv[0]);
-	if (!cmd_node->file->name && !cmd_node->file->delimiter)
-		return ;
 }
