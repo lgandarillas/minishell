@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:27:36 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/04 21:13:09 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/07 13:38:26 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,17 @@ static int	write_heredoc(int fd, char *delimiter, bool expand, t_shell *shell)
 	return (0);
 }
 
-static int	handle_single_heredoc(t_input *input, \
+static int	handle_single_heredoc(t_file *file, \
 				int num, bool expand, t_shell *shell)
 {
 	int	fd;
 
-	if (!input->name)
-		input->name = create_heredoc_filename(num);
-	if (!input->name)
+	if (!file->name)
+		file->name = create_heredoc_filename(num);
+	if (!file->name)
 		return (-1);
-	fd = open_heredoc(input->name);
-	if (fd < 0 || write_heredoc(fd, input->delimiter, expand, shell) < 0)
+	fd = open_heredoc(file->name);
+	if (fd < 0 || write_heredoc(fd, file->delimiter, expand, shell) < 0)
 	{
 		if (fd >= 0)
 			close(fd);
@@ -84,21 +84,21 @@ static int	handle_single_heredoc(t_input *input, \
 
 void	handle_heredoc(t_command *cmd, t_shell *shell)
 {
-	t_input	*input;
+	t_file	*file;
 	int		num;
 
 	num = 0;
 	while (cmd)
 	{
-		input = cmd->input;
-		while (input)
+		file = cmd->file;
+		while (file)
 		{
-			if (input->is_heredoc)
+			if (file->is_heredoc)
 			{
-				if (handle_single_heredoc(input, ++num, true, shell) < 0)
+				if (handle_single_heredoc(file, ++num, true, shell) < 0)
 					return ;
 			}
-			input = input->next;
+			file = file->next;
 		}
 		cmd = cmd->next;
 	}

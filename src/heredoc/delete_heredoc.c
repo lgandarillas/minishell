@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 12:20:05 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/03 12:20:21 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/07 13:46:15 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void	delete_heredoc_files(t_command *cmd)
 {
-	t_input	*input;
+	t_file	*file;
 
 	while (cmd)
 	{
-		input = cmd->input;
-		while (input)
+		file = cmd->file;
+		while (file)
 		{
-			if (input->is_heredoc && input->name)
+			if (file->is_heredoc && file->name)
 			{
-				unlink(input->name);
-				free(input->name);
-				input->name = NULL;
+				unlink(file->name);
+				free(file->name);
+				file->name = NULL;
 			}
-			input = input->next;
+			file = file->next;
 		}
 		cmd = cmd->next;
 	}

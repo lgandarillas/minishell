@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/31 09:56:30 by aquinter          #+#    #+#             */
-/*   Updated: 2024/09/01 16:47:31 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/09/07 13:10:44 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,6 @@ bool	is_redirection(t_lexer *lexer_node)
 	return (false);
 }
 
-void	handle_redirection(t_lexer *lexer_node, t_command *cmd_node)
-{
-	if (lexer_node->is_redirect_out || lexer_node->is_append)
-		handle_output(cmd_node, lexer_node);
-	else
-		handle_input(cmd_node, lexer_node);
-}
-
 void	clear_cmd(t_command *cmd_node, t_lexer *lexer_node)
 {
 	int	i;
@@ -43,7 +35,7 @@ void	clear_cmd(t_command *cmd_node, t_lexer *lexer_node)
 			i = 0;
 			if (is_redirection(lexer_node))
 			{
-				handle_redirection(lexer_node, cmd_node);
+				handle_redirections(cmd_node, lexer_node);
 				lexer_node = lexer_node->next;
 				i++;
 			}
