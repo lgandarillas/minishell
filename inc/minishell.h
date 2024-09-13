@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/02 19:49:03 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:26:42 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@
 # include <termcap.h>
 # include <stdbool.h>
 
+# include "../libft_v2/inc/libft.h"
+# include "../libft_v2/inc/get_next_line.h"
+# include "../libft_v2/inc/ft_printf.h"
+# include "../libft_v2/inc/extra.h"
+
 # include "builtins.h"
 # include "constants.h"
 # include "lexer.h"
@@ -40,11 +45,6 @@
 # include "error_messages.h"
 # include "command.h"
 # include "heredoc.h"
-
-# include "../libft_v2/inc/libft.h"
-# include "../libft_v2/inc/get_next_line.h"
-# include "../libft_v2/inc/ft_printf.h"
-# include "../libft_v2/inc/extra.h"
 
 typedef struct s_shell
 {

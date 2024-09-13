@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:27:36 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/07 13:38:26 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:28:02 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ static int	handle_single_heredoc(t_file *file, \
 void	handle_heredoc(t_command *cmd, t_shell *shell)
 {
 	t_file	*file;
+	bool	expand;
 	int		num;
 
 	num = 0;
@@ -95,8 +96,13 @@ void	handle_heredoc(t_command *cmd, t_shell *shell)
 		{
 			if (file->is_heredoc)
 			{
-				if (handle_single_heredoc(file, ++num, true, shell) < 0)
+				if (shell->expand_heredoc[num] == true)
+					expand = true;
+				else
+					expand = false;
+				if (handle_single_heredoc(file, num, expand, shell) < 0)
 					return ;
+				num++;
 			}
 			file = file->next;
 		}
