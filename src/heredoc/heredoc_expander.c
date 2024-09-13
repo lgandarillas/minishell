@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 11:15:15 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/04 21:01:29 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/13 11:42:00 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,16 @@
 
 static int	count_heredocs(t_lexer *node)
 {
+	t_lexer	*head;
 	int	num_heredocs;
 
+	head = node;
 	num_heredocs = 0;
-	while (node)
+	while (head)
 	{
-		if (node->is_heredoc)
+		if (head->is_heredoc)
 			num_heredocs++;
-		node = node->next;
+		head = head->next;
 	}
 	return (num_heredocs);
 }
