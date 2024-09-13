@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 13:35:19 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/04 21:05:48 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:34:19 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	expander(t_lexer *lexer_node, t_shell *shell)
 		}
 		lexer_node->argv = word_splitter(lexer_node->str);
 		new_args = quote_cleaner(lexer_node->argv);
-		free_matrix(lexer_node->argv);
+		lexer_node->old_args = lexer_node->argv;
 		lexer_node->argv = new_args;
 		lexer_node = lexer_node->next;
 	}

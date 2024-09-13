@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 11:15:15 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/13 12:11:57 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:37:24 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	check_expand_heredoc(t_lexer *node, t_shell *shell)
 	{
 		if (node->is_heredoc)
 		{
-			if (node->next && node->next->argv && node->next->argv[0])
+			if (node->next && node->next->old_args && node->next->old_args[0])
 			{
-				if (node->next->argv[0][0] == '\'' || node->next->argv[0][0] == '\"')
+				if (node->next->old_args[0][0] == '\'' || node->next->old_args[0][0] == '\"')
 					shell->expand_heredoc[i] = false;
 				else
 					shell->expand_heredoc[i] = true;

@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:45:53 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/02 17:49:06 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:29:56 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ typedef struct s_lexer
 	struct s_lexer	*next;
 	char			*str;
 	char			**argv;
+	char			**old_args;
 	bool			is_pipe;
 	bool			is_redirect_in;
 	bool			is_redirect_out;

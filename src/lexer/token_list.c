@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:18:35 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/30 16:49:16 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:36:13 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	free_tokens(t_lexer *lexer_node)
 		current_next = current->next;
 		free(current->str);
 		free_matrix(current->argv);
+		free_matrix(current->old_args);
 		free(current);
 		current = current_next;
 	}
