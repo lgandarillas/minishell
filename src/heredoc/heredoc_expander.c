@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 11:15:15 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/13 12:53:36 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:56:48 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	count_heredocs(t_lexer *node)
 	return (num_heredocs);
 }
 
-void	print_expand_heredoc(t_shell *shell, int num_heredocs)
+static void	print_expand_heredoc(t_shell *shell, int num_heredocs)
 {
 	int	i;
 
