@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 11:15:15 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/13 12:56:48 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:59:30 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	count_heredocs(t_lexer *node)
 	return (num_heredocs);
 }
 
+/*
 static void	print_expand_heredoc(t_shell *shell, int num_heredocs)
 {
 	int	i;
@@ -39,6 +40,7 @@ static void	print_expand_heredoc(t_shell *shell, int num_heredocs)
 		i++;
 	}
 }
+*/
 
 static bool	shouldexp_heredoc(t_lexer *next_node)
 {
@@ -70,7 +72,7 @@ void	check_expand_heredoc(t_lexer *node, t_shell *shell)
 		}
 		node = node->next;
 	}
-	print_expand_heredoc(shell, num_heredocs);
+	//print_expand_heredoc(shell, num_heredocs);
 }
 
 char	*expand_heredoc_line(char *line, t_shell *shell)
