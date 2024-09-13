@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 11:15:15 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/13 12:37:24 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:53:36 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	count_heredocs(t_lexer *node)
 {
 	t_lexer	*head;
-	int	num_heredocs;
+	int		num_heredocs;
 
 	head = node;
 	num_heredocs = 0;
@@ -33,11 +33,22 @@ void	print_expand_heredoc(t_shell *shell, int num_heredocs)
 	int	i;
 
 	i = 0;
-	while (i  < num_heredocs)
+	while (i < num_heredocs)
 	{
 		printf("expand_heredoc[%d] = %d\n", i, shell->expand_heredoc[i]);
 		i++;
 	}
+}
+
+static bool	shouldexp_heredoc(t_lexer *next_node)
+{
+	if (next_node && next_node->old_args && next_node->old_args[0])
+	{
+		if (next_node->old_args[0][0] == '\'' || \
+			next_node->old_args[0][0] == '\"')
+			return (false);
+	}
+	return (true);
 }
 
 void	check_expand_heredoc(t_lexer *node, t_shell *shell)
@@ -54,15 +65,7 @@ void	check_expand_heredoc(t_lexer *node, t_shell *shell)
 	{
 		if (node->is_heredoc)
 		{
-			if (node->next && node->next->old_args && node->next->old_args[0])
-			{
-				if (node->next->old_args[0][0] == '\'' || node->next->old_args[0][0] == '\"')
-					shell->expand_heredoc[i] = false;
-				else
-					shell->expand_heredoc[i] = true;
-			}
-			else
-				shell->expand_heredoc[i] = true;
+			shell->expand_heredoc[i] = shouldexp_heredoc(node->next);
 			i++;
 		}
 		node = node->next;
