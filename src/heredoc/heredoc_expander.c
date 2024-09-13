@@ -6,7 +6,7 @@
 /*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 11:15:15 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/13 12:00:27 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/09/13 12:11:57 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ static int	count_heredocs(t_lexer *node)
 	return (num_heredocs);
 }
 
+void	print_expand_heredoc(t_shell *shell, int num_heredocs)
+{
+	int	i;
+
+	i = 0;
+	while (i  < num_heredocs)
+	{
+		printf("expand_heredoc[%d] = %d\n", i, shell->expand_heredoc[i]);
+		i++;
+	}
+}
+
 void	check_expand_heredoc(t_lexer *node, t_shell *shell)
 {
 	int	num_heredocs;
@@ -37,7 +49,6 @@ void	check_expand_heredoc(t_lexer *node, t_shell *shell)
 	shell->expand_heredoc = malloc(sizeof(bool) * (num_heredocs + 1));
 	if (!shell->expand_heredoc)
 		return ;
-	//FILL ARRAY
 	i = 0;
 	while (node)
 	{
@@ -56,7 +67,7 @@ void	check_expand_heredoc(t_lexer *node, t_shell *shell)
 		}
 		node = node->next;
 	}
-	shell->expand_heredoc[i] = false;
+	print_expand_heredoc(shell, num_heredocs);
 }
 
 char	*expand_heredoc_line(char *line, t_shell *shell)
