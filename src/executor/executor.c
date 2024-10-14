@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/31 09:43:57 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/14 20:43:19 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	execute_cmd(t_shell *shell)
 		i++;
 	}
 	print_error_cmd(shell->cmd[0]);
-	exit(EXIT_FAILURE);
+	exit(127);
 }
 
 int	execute(t_shell *shell)
@@ -69,26 +69,23 @@ int	execute(t_shell *shell)
 	int		status;
 	int		pid;
 
-	if (!shell->cmd[0])
+	if (!shell->cmd_node->cmd)
 		return (SUCCESS);
-	while (shell->lexer_node)
+	while (shell->cmd_node)
 	{
-		shell->cmd = shell->lexer_node->argv;
-		if (shell->lexer_node->is_command)
+		shell->cmd = shell->cmd_node->cmd;
+		if (shell->cmd_node->is_builtin)
+			status = execute_builtin(shell);
+		else
 		{
-			if (shell->lexer_node->is_builtin)
-				status = execute_builtin(shell);
-			else
-			{
-				pid = fork();
-				if (pid == -1)
-					printf("Error creating fork\n");
-				if (pid == 0)
-					execute_cmd(shell);
-				wait(&status);
-			}
+			pid = fork();
+			if (pid == -1)
+				printf("Error creating fork\n");
+			if (pid == 0)
+				execute_cmd(shell);
+			wait(&status);
 		}
-		shell->lexer_node = shell->lexer_node->next;
+		shell->cmd_node = shell->cmd_node->next;
 	}
 	return (status);
 }

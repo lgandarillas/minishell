@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/07 13:37:21 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/14 20:13:04 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ static void	shell_loop(t_shell *shell)
 				shell->status = parser(lexer_node, shell);
 				if (shell->status == 0)
 				{
-					cmd_node = prepare_cmd(lexer_node);
+					cmd_node = prepare_cmd(lexer_node, shell);
 					handle_heredoc(cmd_node, shell);
 					shell->cmd = lexer_node->argv;
-					shell->lexer_node = lexer_node;
+					shell->cmd_node = cmd_node;
 					shell->status = execute(shell);
 					shell->cmd = NULL;
 					free_command_nodes(cmd_node, shell);

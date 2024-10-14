@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:21:50 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/07 14:20:05 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/14 20:44:36 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,16 @@ static void	print_cmd_nodes(t_command *cmd_node)
 	}
 }
 
+static void	assign_builtin_flag(t_command *cmd_node, t_shell *shell)
+{
+	while (cmd_node)
+	{
+		if (cmd_node->cmd != NULL)
+			cmd_node->is_builtin = is_builtin(shell, cmd_node->cmd[0]);
+		cmd_node = cmd_node->next;
+	}
+}
+
 static void	append_cmd_node(t_command **cmd_node)
 {
 	t_command	*new_cmd_node;
@@ -107,6 +117,7 @@ static void	append_cmd_node(t_command **cmd_node)
 	new_cmd_node->next = NULL;
 	new_cmd_node->cmd = NULL;
 	new_cmd_node->file = NULL;
+	new_cmd_node->is_builtin = false;
 	if (!(*cmd_node))
 		*cmd_node = new_cmd_node;
 	else
@@ -126,7 +137,7 @@ static void	create_cmd_node_after_pipe(t_command **head, t_command **current)
 		*current = (*current)->next;
 }
 
-t_command	*prepare_cmd(t_lexer *lexer_node)
+t_command	*prepare_cmd(t_lexer *lexer_node, t_shell *shell)
 {
 	t_command	*cmd_node;
 	t_command	*current_cmd_node;
@@ -143,6 +154,7 @@ t_command	*prepare_cmd(t_lexer *lexer_node)
 		current_lexer_node = current_lexer_node->next;
 	}
 	clear_cmd(cmd_node, lexer_node);
+	assign_builtin_flag(cmd_node, shell);
 	print_cmd_nodes(cmd_node);
 	return (cmd_node);
 }

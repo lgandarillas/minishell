@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:15:56 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/07 14:19:45 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/14 20:09:22 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ typedef struct s_command
 {
 	struct s_command		*next;
 	char					**cmd;
+	bool					is_builtin;
 	t_file					*file;
 }	t_command;
 
-t_command	*prepare_cmd(t_lexer *lexer_node);
+t_command	*prepare_cmd(t_lexer *lexer_node, t_shell *shell);
 char		**append_str(char **arr, char *str);
 void		clear_cmd(t_command *cmd_node, t_lexer *lexer_node);
 void		free_command_nodes(t_command *cmd_node, t_shell *shell);

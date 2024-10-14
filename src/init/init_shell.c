@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:01:05 by lgandari          #+#    #+#             */
-/*   Updated: 2024/08/30 16:49:16 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:36:42 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	init_shell(t_shell *shell, char **envp)
 	shell->cmd = NULL;
 	shell->path = NULL;
 	shell->lexer_node = NULL;
+	shell->cmd_node = NULL;
 	print_welcome();
 	init_env(shell, envp);
 	init_builtins(shell);

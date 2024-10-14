@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/09/02 19:49:03 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:35:49 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_shell
 	char		**cmd;
 	char		**path;
 	t_lexer		*lexer_node;
+	t_command	*cmd_node;
 	t_builtin	builtins[8];
 }		t_shell;
 
