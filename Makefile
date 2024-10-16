@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/09/07 13:37:00 by aquinter         ###   ########.fr        #
+#    Updated: 2024/10/16 21:16:35 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRCS	= $(addprefix $(SRC_DIR), 	\
 	executor/clear_cmd.c			\
 	executor/save_redirections.c	\
 	executor/executor_utils.c		\
+	executor/file_manager.c			 \
 	signals/init_signals.c			\
 	signals/eof.c					\
 	signals/quit.c					\

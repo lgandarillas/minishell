@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/16 20:36:27 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/16 21:17:25 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,16 @@ void	execute_cmd(t_shell *shell)
 
 int	handle_one_builtin(t_shell *shell)
 {
+	int	std_fds[2];
+
+	std_fds[0] = dup(STDIN_FILENO);
+	if (std_fds[0] == -1)
+		return (1);
+	std_fds[1] = dup(STDOUT_FILENO);
+	if (std_fds[1] == -1)
+		return (1);
+	if (open_files(shell->cmd_node) == -1)
+		return (1);
 	shell->cmd = shell->cmd_node->cmd;
 	return (execute_builtin(shell));	
 }
