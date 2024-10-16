@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/16 20:10:09 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/16 20:36:27 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,23 @@ void	execute_cmd(t_shell *shell)
 	exit(127);
 }
 
+int	handle_one_builtin(t_shell *shell)
+{
+	shell->cmd = shell->cmd_node->cmd;
+	return (execute_builtin(shell));	
+}
+
 int	execute(t_shell *shell)
 {
-	int		status;
-	int		pid;
+	int	status;
+	int	pid;
+	int	total_cmds;
 
 	if (!shell->cmd_node->cmd)
 		return (SUCCESS);
+	total_cmds = total_commands(shell->cmd_node);
+	if (total_cmds == 1 && shell->cmd_node->is_builtin)
+		return (handle_one_builtin(shell));		
 	while (shell->cmd_node)
 	{
 		shell->cmd = shell->cmd_node->cmd;
