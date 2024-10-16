@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/14 20:43:19 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/16 20:10:09 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int	execute(t_shell *shell)
 			if (pid == 0)
 				execute_cmd(shell);
 			wait(&status);
+			if (WIFEXITED(status))
+				status = WEXITSTATUS(status);
 		}
 		shell->cmd_node = shell->cmd_node->next;
 	}
