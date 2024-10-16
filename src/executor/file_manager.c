@@ -12,7 +12,7 @@
 
 #include "../../inc/minishell.h"
 
-static int	close_files(t_command *cmd_node)
+int	close_files(t_command *cmd_node)
 {
 	t_file	*file;
 
@@ -20,7 +20,7 @@ static int	close_files(t_command *cmd_node)
 	while (file)
 	{
 		if (file->fd > 0)
-			close(file->fd);	
+			close(file->fd);
 		file = file->next;
 	}
 	return (-1);
@@ -46,8 +46,11 @@ int	open_files(t_command *cmd_node)
 		{
 			if (file->is_heredoc || file->is_redirect_in)
 				res_dup = dup2(file->fd, STDIN_FILENO);
-			else 
+			else
+			{
 				res_dup = dup2(file->fd, STDOUT_FILENO);
+			}
+
 		}
 		if (res_dup == -1)
 			return (close_files(cmd_node));

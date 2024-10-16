@@ -19,5 +19,6 @@ int	execute_builtin(t_shell *shell);
 int	execute(t_shell *shell);
 int	total_commands(t_command *cmd_node);
 int	open_files(t_command *cmd_node);
+int	close_files(t_command *cmd_node);
 
 #endif
