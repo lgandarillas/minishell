@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 15:45:38 by aquinter          #+#    #+#             */
-/*   Updated: 2024/09/07 14:02:49 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/16 20:33:54 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,17 @@ void	free_command_nodes(t_command *cmd_node, t_shell *shell)
 		current = current_next;
 	}
 	free(shell->expand_heredoc);
+}
+
+int	total_commands(t_command *cmd_node)
+{
+	int	i;
+
+	i = 0;
+	while (cmd_node)
+	{
+		i++;
+		cmd_node = cmd_node->next;		
+	}
+	return (i);
 }

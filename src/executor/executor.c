@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/16 20:10:09 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/16 21:17:25 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,55 @@ void	execute_cmd(t_shell *shell)
 	exit(127);
 }
 
+int	restore_std_fds(int *std_fds)
+{
+	int	res_dup;
+
+	res_dup = dup2(std_fds[0], STDIN_FILENO);
+	if (res_dup == -1)
+		return (1);
+	close(std_fds[0]);
+	res_dup = dup2(std_fds[1], STDOUT_FILENO);
+	if (res_dup == -1)
+		return (1);
+	close(std_fds[1]);
+	return (0);
+}
+
+int	handle_one_builtin(t_shell *shell)
+{
+	int	std_fds[2];
+	int	status;
+	int	restore_fds;
+
+	std_fds[0] = dup(STDIN_FILENO);
+	if (std_fds[0] == -1)
+		return (1);
+	std_fds[1] = dup(STDOUT_FILENO);
+	if (std_fds[1] == -1)
+		return (1);
+	if (open_files(shell->cmd_node) == -1)
+		return (1);
+	shell->cmd = shell->cmd_node->cmd;
+	close_files(shell->cmd_node);
+	status = execute_builtin(shell);
+	restore_fds = restore_std_fds(std_fds);
+	if (restore_fds == 1)
+		return (1);
+	return (status);
+}
+
 int	execute(t_shell *shell)
 {
-	int		status;
-	int		pid;
+	int	status;
+	int	pid;
+	int	total_cmds;
 
 	if (!shell->cmd_node->cmd)
 		return (SUCCESS);
+	total_cmds = total_commands(shell->cmd_node);
+	if (total_cmds == 1 && shell->cmd_node->is_builtin)
+		return (handle_one_builtin(shell));
 	while (shell->cmd_node)
 	{
 		shell->cmd = shell->cmd_node->cmd;
