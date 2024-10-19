@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:21:50 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/14 20:44:36 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/19 11:24:19 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static void	print_cmd_nodes(t_command *cmd_node)
 
 	current_cmd_node = cmd_node;
 	cmd_count = 1;
+	return ;
 	while (current_cmd_node)
 	{
 		printf("NODE:%d\n", cmd_count);

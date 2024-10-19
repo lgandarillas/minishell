@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/19 10:48:59 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/19 11:44:19 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,17 @@ void	execute_cmd(t_shell *shell)
 
 int	restore_std_fds(int *std_fds)
 {
-	int	res_dup;
-
-	res_dup = dup2(std_fds[0], STDIN_FILENO);
-	if (res_dup == -1)
+	if (dup2(std_fds[0], STDIN_FILENO) == -1)
+	{
+		perror("msh");
 		return (1);
+	}
 	close(std_fds[0]);
-	res_dup = dup2(std_fds[1], STDOUT_FILENO);
-	if (res_dup == -1)
+	if (dup2(std_fds[1], STDOUT_FILENO) == -1)
+	{
+		perror("msh");
 		return (1);
+	}
 	close(std_fds[1]);
 	return (0);
 }
