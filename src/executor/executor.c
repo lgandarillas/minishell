@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/16 21:17:25 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/19 10:48:59 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,19 +104,21 @@ int	handle_one_builtin(t_shell *shell)
 
 int	execute(t_shell *shell)
 {
-	int	status;
-	int	pid;
-	int	total_cmds;
+	int			status;
+	int			pid;
+	int			total_cmds;
+	t_command	*cmd_node;
 
-	if (!shell->cmd_node->cmd)
+	cmd_node = shell->cmd_node;
+	if (!cmd_node->cmd)
 		return (SUCCESS);
-	total_cmds = total_commands(shell->cmd_node);
-	if (total_cmds == 1 && shell->cmd_node->is_builtin)
+	total_cmds = total_commands(cmd_node);
+	if (total_cmds == 1 && cmd_node->is_builtin)
 		return (handle_one_builtin(shell));
-	while (shell->cmd_node)
+	while (cmd_node)
 	{
-		shell->cmd = shell->cmd_node->cmd;
-		if (shell->cmd_node->is_builtin)
+		shell->cmd = cmd_node->cmd;
+		if (cmd_node->is_builtin)
 			status = execute_builtin(shell);
 		else
 		{
@@ -129,7 +131,7 @@ int	execute(t_shell *shell)
 			if (WIFEXITED(status))
 				status = WEXITSTATUS(status);
 		}
-		shell->cmd_node = shell->cmd_node->next;
+		cmd_node = cmd_node->next;
 	}
 	return (status);
 }

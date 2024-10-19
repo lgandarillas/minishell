@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 20:48:00 by aquinter          #+#    #+#             */
-/*   Updated: 2024/10/16 21:17:10 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/19 10:54:19 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ int	open_files(t_command *cmd_node)
 			if (file->is_heredoc || file->is_redirect_in)
 				res_dup = dup2(file->fd, STDIN_FILENO);
 			else
-			{
 				res_dup = dup2(file->fd, STDOUT_FILENO);
-			}
-
 		}
 		if (res_dup == -1)
 			return (close_files(cmd_node));
