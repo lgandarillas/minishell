@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 20:48:00 by aquinter          #+#    #+#             */
-/*   Updated: 2024/10/19 11:16:06 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/19 13:17:56 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ int	close_files(t_command *cmd_node)
 	return (-1);
 }
 
+int	file_error(char *filename, t_command *cmd_node)
+{
+	ft_putstr_fd("msh: ", STDERR_FILENO);
+	if (filename)
+	{
+		ft_putstr_fd(filename, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+	}
+	perror(NULL);
+	return (close_files(cmd_node));
+}
+
 int	open_files(t_command *cmd_node)
 {
 	t_file	*file;
@@ -41,16 +53,13 @@ int	open_files(t_command *cmd_node)
 		else
 			file->fd = open(file->name, O_WRONLY | O_APPEND | O_CREAT, 0644);
 		if (file->fd == -1)
-			return (close_files(cmd_node));
+			return (file_error(file->name, cmd_node));
+		if (file->is_heredoc || file->is_redirect_in)
+			res_dup = dup2(file->fd, STDIN_FILENO);
 		else
-		{
-			if (file->is_heredoc || file->is_redirect_in)
-				res_dup = dup2(file->fd, STDIN_FILENO);
-			else
-				res_dup = dup2(file->fd, STDOUT_FILENO);
-		}
+			res_dup = dup2(file->fd, STDOUT_FILENO);
 		if (res_dup == -1)
-			return (close_files(cmd_node));
+			return (file_error(NULL, cmd_node));
 		file = file->next;
 	}
 	return (0);

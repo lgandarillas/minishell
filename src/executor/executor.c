@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/19 11:44:19 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/19 12:27:37 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ int	restore_std_fds(int *std_fds)
 	if (dup2(std_fds[0], STDIN_FILENO) == -1)
 	{
 		perror("msh");
-		return (1);
+		return (-1);
 	}
 	close(std_fds[0]);
 	if (dup2(std_fds[1], STDOUT_FILENO) == -1)
 	{
 		perror("msh");
-		return (1);
+		return (-1);
 	}
 	close(std_fds[1]);
 	return (0);
@@ -85,22 +85,23 @@ int	handle_one_builtin(t_shell *shell)
 {
 	int	std_fds[2];
 	int	status;
-	int	restore_fds;
 
 	std_fds[0] = dup(STDIN_FILENO);
 	if (std_fds[0] == -1)
-		return (1);
+		return (FAILURE);
 	std_fds[1] = dup(STDOUT_FILENO);
 	if (std_fds[1] == -1)
-		return (1);
+		return (FAILURE);
 	if (open_files(shell->cmd_node) == -1)
-		return (1);
+	{
+		restore_std_fds(std_fds);
+		return (FAILURE);
+	}
 	shell->cmd = shell->cmd_node->cmd;
 	close_files(shell->cmd_node);
 	status = execute_builtin(shell);
-	restore_fds = restore_std_fds(std_fds);
-	if (restore_fds == 1)
-		return (1);
+	if (restore_std_fds(std_fds) == -1)
+		return (FAILURE);
 	return (status);
 }
 
