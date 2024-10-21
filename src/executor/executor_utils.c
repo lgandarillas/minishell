@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 15:45:38 by aquinter          #+#    #+#             */
-/*   Updated: 2024/10/16 20:33:54 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/19 10:53:29 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	total_commands(t_command *cmd_node)
 	while (cmd_node)
 	{
 		i++;
-		cmd_node = cmd_node->next;		
+		cmd_node = cmd_node->next;
 	}
 	return (i);
 }
