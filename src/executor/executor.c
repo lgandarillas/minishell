@@ -81,16 +81,22 @@ int	restore_std_fds(int *std_fds)
 	return (0);
 }
 
+/* HANDLE ONE CMD*/
+int	handle_dup(int *std_fds)
+{
+	std_fds[0] = dup(STDIN_FILENO);
+	std_fds[1] = dup(STDOUT_FILENO);
+	if (std_fds[0] == -1 || std_fds[1] == -1)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
 int	handle_one_builtin(t_shell *shell)
 {
 	int	std_fds[2];
 	int	status;
 
-	std_fds[0] = dup(STDIN_FILENO);
-	if (std_fds[0] == -1)
-		return (FAILURE);
-	std_fds[1] = dup(STDOUT_FILENO);
-	if (std_fds[1] == -1)
+	if (handle_dup(std_fds) == FAILURE)
 		return (FAILURE);
 	if (open_files(shell->cmd_node) == -1)
 	{
@@ -105,17 +111,28 @@ int	handle_one_builtin(t_shell *shell)
 	return (status);
 }
 
-int handle_one_cmd(t_shell *shell)
+int	handle_one_child_process(t_shell *shell, int *std_fds)
+{
+	if (open_files(shell->cmd_node) == -1)
+	{
+		restore_std_fds(std_fds);
+		exit(FAILURE);
+	}
+	shell->cmd = shell->cmd_node->cmd;
+	close_files(shell->cmd_node);
+	execute_cmd(shell);
+	if (restore_std_fds(std_fds) == -1)
+		exit(FAILURE);
+	exit(SUCCESS);
+}
+
+int	handle_one_cmd(t_shell *shell)
 {
 	int	pid;
 	int	std_fds[2];
 	int	status;
 
-	std_fds[0] = dup(STDIN_FILENO);
-	if (std_fds[0] == -1)
-		return (FAILURE);
-	std_fds[1] = dup(STDOUT_FILENO);
-	if (std_fds[1] == -1)
+	if (handle_dup(std_fds) == FAILURE)
 		return (FAILURE);
 	pid = fork();
 	if (pid == -1)
@@ -124,35 +141,18 @@ int handle_one_cmd(t_shell *shell)
 		exit (FAILURE);
 	}
 	if (pid == 0)
-	{
-		if (open_files(shell->cmd_node) == -1)
-		{
-			restore_std_fds(std_fds);
-			exit (FAILURE);
-		}
-		shell->cmd = shell->cmd_node->cmd;
-		close_files(shell->cmd_node);
-		execute_cmd(shell);
-		if (restore_std_fds(std_fds) == -1)
-			exit (FAILURE);
-		exit (SUCCESS);
-	}
+		handle_one_child_process(shell, std_fds);
+	waitpid(pid, &status, 0);
+	if (restore_std_fds(std_fds) == -1)
+		return (FAILURE);
+	if (WIFEXITED(status) && WEXITSTATUS(status) == SUCCESS)
+		return (SUCCESS);
 	else
-	{
-		waitpid(pid, &status, 0);
-		if (restore_std_fds(std_fds) == -1)
-			return (FAILURE);
-		if (WIFEXITED(status) && WEXITSTATUS(status) == SUCCESS)
-			return (SUCCESS);
-		else
-			return (127);
-	}
+		return (127);
 }
 
 int	execute(t_shell *shell)
 {
-	//int			status;
-	//int			pid;
 	int			total_cmds;
 	t_command	*cmd_node;
 
@@ -164,9 +164,11 @@ int	execute(t_shell *shell)
 		return (handle_one_builtin(shell));
 	else if (total_cmds == 1 && !cmd_node->is_builtin)
 		return (handle_one_cmd(shell));
-	//else
-		//return (handle_multiple_cmds(shell));	// sin implementar
-	/*
+}
+
+/*
+	else
+		return (handle_multiple_cmds(shell)); // sin implementar
 	while (cmd_node)
 	{
 		shell->cmd = cmd_node->cmd;
@@ -184,8 +186,6 @@ int	execute(t_shell *shell)
 				status = WEXITSTATUS(status);
 		}
 		cmd_node = cmd_node->next;
-	}
-	*/
-	//return (status);
-	return (SUCCESS);
+		return (SUCCESS);
 }
+*/
