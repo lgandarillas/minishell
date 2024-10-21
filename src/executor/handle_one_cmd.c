@@ -77,6 +77,8 @@ int	handle_one_cmd(t_shell *shell)
 		return (FAILURE);
 	if (WIFEXITED(status) && WEXITSTATUS(status) == SUCCESS)
 		return (SUCCESS);
-	else
+	else if (WIFEXITED(status) && WEXITSTATUS(status) == 127)
 		return (127);
+	else
+		return (FAILURE);
 }
