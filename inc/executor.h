@@ -21,4 +21,11 @@ int	total_commands(t_command *cmd_node);
 int	open_files(t_command *cmd_node);
 int	close_files(t_command *cmd_node);
 
+int		handle_dup(int *std_fds);
+int		restore_std_fds(int *std_fds);
+int		handle_one_builtin(t_shell *shell);
+void	execute_cmd(t_shell *shell);
+int		handle_one_child_process(t_shell *shell, int *std_fds);
+int		handle_one_cmd(t_shell *shell);
+
 #endif

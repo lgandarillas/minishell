@@ -64,93 +64,6 @@ void	execute_cmd(t_shell *shell)
 	exit(127);
 }
 
-int	restore_std_fds(int *std_fds)
-{
-	if (dup2(std_fds[0], STDIN_FILENO) == -1)
-	{
-		perror("msh");
-		return (-1);
-	}
-	close(std_fds[0]);
-	if (dup2(std_fds[1], STDOUT_FILENO) == -1)
-	{
-		perror("msh");
-		return (-1);
-	}
-	close(std_fds[1]);
-	return (0);
-}
-
-/* HANDLE ONE CMD*/
-int	handle_dup(int *std_fds)
-{
-	std_fds[0] = dup(STDIN_FILENO);
-	std_fds[1] = dup(STDOUT_FILENO);
-	if (std_fds[0] == -1 || std_fds[1] == -1)
-		return (FAILURE);
-	return (SUCCESS);
-}
-
-int	handle_one_builtin(t_shell *shell)
-{
-	int	std_fds[2];
-	int	status;
-
-	if (handle_dup(std_fds) == FAILURE)
-		return (FAILURE);
-	if (open_files(shell->cmd_node) == -1)
-	{
-		restore_std_fds(std_fds);
-		return (FAILURE);
-	}
-	shell->cmd = shell->cmd_node->cmd;
-	close_files(shell->cmd_node);
-	status = execute_builtin(shell);
-	if (restore_std_fds(std_fds) == -1)
-		return (FAILURE);
-	return (status);
-}
-
-int	handle_one_child_process(t_shell *shell, int *std_fds)
-{
-	if (open_files(shell->cmd_node) == -1)
-	{
-		restore_std_fds(std_fds);
-		exit(FAILURE);
-	}
-	shell->cmd = shell->cmd_node->cmd;
-	close_files(shell->cmd_node);
-	execute_cmd(shell);
-	if (restore_std_fds(std_fds) == -1)
-		exit(FAILURE);
-	exit(SUCCESS);
-}
-
-int	handle_one_cmd(t_shell *shell)
-{
-	int	pid;
-	int	std_fds[2];
-	int	status;
-
-	if (handle_dup(std_fds) == FAILURE)
-		return (FAILURE);
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-		exit (FAILURE);
-	}
-	if (pid == 0)
-		handle_one_child_process(shell, std_fds);
-	waitpid(pid, &status, 0);
-	if (restore_std_fds(std_fds) == -1)
-		return (FAILURE);
-	if (WIFEXITED(status) && WEXITSTATUS(status) == SUCCESS)
-		return (SUCCESS);
-	else
-		return (127);
-}
-
 int	execute(t_shell *shell)
 {
 	int			total_cmds;
@@ -164,6 +77,8 @@ int	execute(t_shell *shell)
 		return (handle_one_builtin(shell));
 	else if (total_cmds == 1 && !cmd_node->is_builtin)
 		return (handle_one_cmd(shell));
+	else
+		return (FAILURE);
 }
 
 /*

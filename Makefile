@@ -14,7 +14,7 @@ NAME	= minishell
 
 RED		= \033[0;31m
 GREEN	= \033[0;32m
-NC		= \033[0m 
+NC		= \033[0m
 
 CFLAGS	= -Wall -Werror -Wextra -g3 -fsanitize=address
 RLFLAG 	= -lreadline
@@ -62,14 +62,15 @@ SRCS	= $(addprefix $(SRC_DIR), 	\
 	executor/clear_cmd.c			\
 	executor/save_redirections.c	\
 	executor/executor_utils.c		\
-	executor/file_manager.c			 \
+	executor/file_manager.c			\
+	executor/handle_one_cmd.c		\
 	signals/init_signals.c			\
 	signals/eof.c					\
 	signals/quit.c					\
 	signals/interrupt.c				\
 	heredoc/heredoc.c				\
 	heredoc/heredoc_expander.c		\
-	heredoc/delete_heredoc.c			\
+	heredoc/delete_heredoc.c		\
 	)
 
 OBJS	= $(SRCS:.c=.o)

@@ -60,3 +60,20 @@ int	total_commands(t_command *cmd_node)
 	}
 	return (i);
 }
+
+int	restore_std_fds(int *std_fds)
+{
+	if (dup2(std_fds[0], STDIN_FILENO) == -1)
+	{
+		perror("msh");
+		return (-1);
+	}
+	close(std_fds[0]);
+	if (dup2(std_fds[1], STDOUT_FILENO) == -1)
+	{
+		perror("msh");
+		return (-1);
+	}
+	close(std_fds[1]);
+	return (0);
+}
