@@ -28,20 +28,6 @@ static int	count_heredocs(t_lexer *node)
 	return (num_heredocs);
 }
 
-/*
-static void	print_expand_heredoc(t_shell *shell, int num_heredocs)
-{
-	int	i;
-
-	i = 0;
-	while (i < num_heredocs)
-	{
-		printf("expand_heredoc[%d] = %d\n", i, shell->expand_heredoc[i]);
-		i++;
-	}
-}
-*/
-
 static bool	shouldexp_heredoc(t_lexer *next_node)
 {
 	if (next_node && next_node->old_args && next_node->old_args[0])
@@ -72,7 +58,6 @@ void	check_expand_heredoc(t_lexer *node, t_shell *shell)
 		}
 		node = node->next;
 	}
-	//print_expand_heredoc(shell, num_heredocs);
 }
 
 char	*expand_heredoc_line(char *line, t_shell *shell)
