@@ -6,16 +6,36 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/16 20:13:53 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/26 21:16:07 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
+static void	process_prompt(t_shell *shell, char *prompt)
+{
+	t_lexer	*lexer_node;
+
+	if (check_prompt(prompt) == true)
+	{
+		lexer_node = lexer(prompt);
+		expander(lexer_node, shell);
+		shell->status = parser(lexer_node, shell);
+		if (shell->status == 0)
+		{
+			shell->cmd_node = prepare_cmd(lexer_node, shell);
+			handle_heredoc(shell->cmd_node, shell);
+			shell->status = execute(shell);
+			shell->cmd = NULL;
+			free_command_nodes(shell->cmd_node, shell);
+		}
+		free_tokens(lexer_node);
+	}
+}
+
 static void	shell_loop(t_shell *shell)
 {
 	char		*prompt;
-	t_lexer		*lexer_node;
 
 	while (true)
 	{
@@ -23,23 +43,7 @@ static void	shell_loop(t_shell *shell)
 		if (prompt == NULL)
 			handle_eof(shell);
 		if (*prompt != '\0')
-		{
-			if (check_prompt(prompt) == true)
-			{
-				lexer_node = lexer(prompt);
-				expander(lexer_node, shell);
-				shell->status = parser(lexer_node, shell);
-				if (shell->status == 0)
-				{
-					shell->cmd_node = prepare_cmd(lexer_node, shell);
-					handle_heredoc(shell->cmd_node, shell);
-					shell->status = execute(shell);
-					shell->cmd = NULL;
-					free_command_nodes(shell->cmd_node, shell);
-				}
-				free_tokens(lexer_node);
-			}
-		}
+			process_prompt(shell, prompt);
 		free(prompt);
 	}
 }
