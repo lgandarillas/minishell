@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:42:25 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/16 21:17:17 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/26 11:18:01 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ int		handle_one_builtin(t_shell *shell);
 void	execute_cmd(t_shell *shell);
 int		handle_one_child_process(t_shell *shell, int *std_fds);
 int		handle_one_cmd(t_shell *shell);
+int		handle_multiple_cmds(t_shell *shell, t_command *cmd_node);
 
 #endif

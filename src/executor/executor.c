@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/19 12:27:37 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/26 11:18:07 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	execute(t_shell *shell)
 	else if (total_cmds == 1 && !cmd_node->is_builtin)
 		return (handle_one_cmd(shell));
 	else
-		return (FAILURE);
+		return (handle_multiple_cmds(shell, cmd_node));
 }
 
 /*
