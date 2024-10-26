@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 10:52:55 by aquinter          #+#    #+#             */
-/*   Updated: 2024/10/26 15:39:05 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/10/26 15:56:09 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void	wait_processes(t_command *cmd_node, pid_t *pids, int *status)
 	}
 }
 
-int	handle_first_process(t_shell *shell, t_command *cmd_node, int *main_tube)
+int	handle_first_process(t_shell *shell, t_command *cmd_node, int *tube)
 {
-	close(main_tube[0]);
-	if (dup2(main_tube[1], STDOUT_FILENO) == -1)
+	close(tube[0]);
+	if (dup2(tube[1], STDOUT_FILENO) == -1)
 	{
 		perror("msh");
 		exit(FAILURE);
@@ -57,22 +57,22 @@ int	handle_first_process(t_shell *shell, t_command *cmd_node, int *main_tube)
 	if (open_files(cmd_node) == -1)
 		exit(FAILURE);
 	shell->cmd = cmd_node->cmd;
-	close(main_tube[1]);
+	close(tube[1]);
 	close_files(cmd_node);
 	execute_cmd(shell);
 	exit(SUCCESS);
 }
 
-int	handle_mid_process(t_shell *shell, t_command *cmd_node, int *main_tube, int *aux_tube)
+int	handle_mid_process(t_shell *shell, t_command *cmd_node, \
+	int prev_input, int *tube)
 {
-	close(aux_tube[0]);
-	if (dup2(main_tube[0], STDIN_FILENO) == -1)
+	if (dup2(prev_input, STDIN_FILENO) == -1)
 	{
 		perror("msh");
 		exit(FAILURE);
 	}
-	close(main_tube[0]);
-	if (dup2(aux_tube[1], STDOUT_FILENO) == -1)
+	close(prev_input);
+	if (dup2(tube[1], STDOUT_FILENO) == -1)
 	{
 		perror("msh");
 		exit(FAILURE);
@@ -80,16 +80,16 @@ int	handle_mid_process(t_shell *shell, t_command *cmd_node, int *main_tube, int 
 	if (open_files(cmd_node) == -1)
 		exit(FAILURE);
 	shell->cmd = cmd_node->cmd;
-	close(aux_tube[1]);
+	close(tube[1]);
 	close_files(cmd_node);
 	execute_cmd(shell);
 	exit(SUCCESS);
 }
 
-int	handle_last_process(t_shell *shell, t_command *cmd_node, int *main_tube)
+int	handle_last_process(t_shell *shell, t_command *cmd_node, int *tube)
 {
-	close(main_tube[1]);
-	if (dup2(main_tube[0], STDIN_FILENO) == -1)
+	close(tube[1]);
+	if (dup2(tube[0], STDIN_FILENO) == -1)
 	{
 		perror("msh");
 		exit(FAILURE);
@@ -97,7 +97,7 @@ int	handle_last_process(t_shell *shell, t_command *cmd_node, int *main_tube)
 	if (open_files(cmd_node) == -1)
 		exit(FAILURE);
 	shell->cmd = cmd_node->cmd;
-	close(main_tube[0]);
+	close(tube[0]);
 	close_files(cmd_node);
 	execute_cmd(shell);
 	exit(SUCCESS);
@@ -107,8 +107,8 @@ int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 {
 	int		i;
 	int		status;
-	int		main_tube[2];
-	int		aux_tube[2];
+	int		tube[2];
+	int		prev_input;
 	pid_t	*pids;
 
 	i = 0;
@@ -118,13 +118,12 @@ int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 		perror("msh: malloc failure");
 		return (FAILURE);
 	}
-	if (pipe(main_tube) == -1)
-		return (pipe_error(pids));
 	while (cmd_node)
 	{
-		if (cmd_node->next && i > 0)
+		if (cmd_node->next)
 		{
-			if (pipe(aux_tube) == -1)
+			prev_input = tube[0];
+			if (pipe(tube) == -1)
 				return (pipe_error(pids));
 		}
 		if (i == 0)
@@ -137,11 +136,11 @@ int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 				return (FAILURE);
 			}
 			if (pids[i] == 0)
-				handle_first_process(shell, cmd_node, main_tube);
-			close(main_tube[1]);
+				handle_first_process(shell, cmd_node, tube);
+			close(tube[1]);
 		}
 		else if (cmd_node->next && i > 0)
-		{		
+		{
 			pids[i] = fork();
 			if (pids[i] == -1)
 			{
@@ -150,11 +149,9 @@ int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 				return (FAILURE);
 			}
 			if (pids[i] == 0)
-				handle_mid_process(shell, cmd_node, main_tube, aux_tube);
-			close(main_tube[0]);
-			main_tube[0] = aux_tube[0];
-			main_tube[1] = aux_tube[1];
-			close(main_tube[1]);
+				handle_mid_process(shell, cmd_node, prev_input, tube);
+			close(prev_input);
+			close(tube[1]);
 		}
 		else
 		{
@@ -166,8 +163,8 @@ int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 				return (FAILURE);
 			}
 			if (pids[i] == 0)
-				handle_last_process(shell, cmd_node, main_tube);
-			close(main_tube[0]);
+				handle_last_process(shell, cmd_node, tube);
+			close(tube[0]);
 		}
 		i++;
 		cmd_node = cmd_node->next;
