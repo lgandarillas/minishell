@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:21:50 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/26 21:19:03 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/10/26 21:21:43 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ static void	print_cmd_nodes(t_command *cmd_node)
 		printf("NODE:%d\n", cmd_count);
 		if (current_cmd_node->cmd)
 		{
-			i = 0;
-			while (current_cmd_node->cmd[i])
-				printf("cmd[%d]:%s\n", i, current_cmd_node->cmd[i++]);
+			i = -1;
+			while (current_cmd_node->cmd[i++])
+				printf("cmd[%d]:%s\n", i, current_cmd_node->cmd[i]);
 		}
 		else
 			printf("(empty command)\n");
