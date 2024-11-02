@@ -29,6 +29,8 @@ static void	process_prompt(t_shell *shell, char *prompt)
 			shell->cmd = NULL;
 			free_command_nodes(shell->cmd_node, shell);
 		}
+		if (shell->expand_heredoc)
+			free(shell->expand_heredoc);
 		free_tokens(lexer_node);
 	}
 }
