@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 10:52:55 by aquinter          #+#    #+#             */
-/*   Updated: 2024/10/26 15:56:09 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/11/02 13:24:15 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,34 +19,40 @@ int	pipe_error(pid_t *pids)
 	return (FAILURE);
 }
 
-void	wait_processes(t_command *cmd_node, pid_t *pids, int *status)
+int	wait_processes(t_command *cmd_node, pid_t *pids)
 {
 	int	i;
 	int	pid;
 	int	total_cmds;
+	int	status;
 
 	i = 0;
 	total_cmds = total_commands(cmd_node);
+	// printf("%d\n", pids[total_cmds - 1]);
 	while (i < total_cmds)
 	{
-		pid = wait(status);
+		pid = wait(&status);
 		if (pid == -1)
-		{
-			*status = 1;
-			return ;
-		}
+			return (1);
 		if (pid == pids[total_cmds - 1])
 		{
-			if (WIFEXITED(*status) && WEXITSTATUS(*status) == SUCCESS)
-				*status = SUCCESS;
-			else if (WIFEXITED(*status) && WEXITSTATUS(*status) == 127)
-				*status = 127;
+			if (WIFEXITED(status)){
+				// printf("aquiiii\n");
+				return (WEXITSTATUS(status));
+			}
+			else if (WIFSIGNALED(status))
+				return (128 + WTERMSIG(status));
+			else if (WIFSTOPPED(status))
+				return (128 + WSTOPSIG(status));
+			else
+				return (status);
 		}
 		i++;
 	}
+	return (SUCCESS);
 }
 
-int	handle_first_process(t_shell *shell, t_command *cmd_node, int *tube)
+void	handle_first_process(t_shell *shell, t_command *cmd_node, int *tube)
 {
 	close(tube[0]);
 	if (dup2(tube[1], STDOUT_FILENO) == -1)
@@ -59,11 +65,12 @@ int	handle_first_process(t_shell *shell, t_command *cmd_node, int *tube)
 	shell->cmd = cmd_node->cmd;
 	close(tube[1]);
 	close_files(cmd_node);
+	if (!shell->cmd)
+		exit(SUCCESS);
 	execute_cmd(shell);
-	exit(SUCCESS);
 }
 
-int	handle_mid_process(t_shell *shell, t_command *cmd_node, \
+void	handle_mid_process(t_shell *shell, t_command *cmd_node, \
 	int prev_input, int *tube)
 {
 	if (dup2(prev_input, STDIN_FILENO) == -1)
@@ -82,11 +89,12 @@ int	handle_mid_process(t_shell *shell, t_command *cmd_node, \
 	shell->cmd = cmd_node->cmd;
 	close(tube[1]);
 	close_files(cmd_node);
+	if (!shell->cmd)
+		exit(SUCCESS);
 	execute_cmd(shell);
-	exit(SUCCESS);
 }
 
-int	handle_last_process(t_shell *shell, t_command *cmd_node, int *tube)
+void	handle_last_process(t_shell *shell, t_command *cmd_node, int *tube)
 {
 	close(tube[1]);
 	if (dup2(tube[0], STDIN_FILENO) == -1)
@@ -99,8 +107,10 @@ int	handle_last_process(t_shell *shell, t_command *cmd_node, int *tube)
 	shell->cmd = cmd_node->cmd;
 	close(tube[0]);
 	close_files(cmd_node);
+	if (!shell->cmd)
+		exit(SUCCESS);
 	execute_cmd(shell);
-	exit(SUCCESS);
+	
 }
 
 int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
@@ -137,6 +147,7 @@ int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 			}
 			if (pids[i] == 0)
 				handle_first_process(shell, cmd_node, tube);
+			// printf("primer pid %d\n", pids[i]);
 			close(tube[1]);
 		}
 		else if (cmd_node->next && i > 0)
@@ -150,6 +161,7 @@ int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 			}
 			if (pids[i] == 0)
 				handle_mid_process(shell, cmd_node, prev_input, tube);
+			// printf("med pid %d\n", pids[i]);
 			close(prev_input);
 			close(tube[1]);
 		}
@@ -164,12 +176,14 @@ int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 			}
 			if (pids[i] == 0)
 				handle_last_process(shell, cmd_node, tube);
+			// printf("ultimo pid %d\n", pids[i]);
 			close(tube[0]);
 		}
 		i++;
 		cmd_node = cmd_node->next;
 	}
-	wait_processes(shell->cmd_node, pids, &status);
+	status = wait_processes(shell->cmd_node, pids);
+	// printf ("status%d\n", status);
 	free(pids);
 	return (status);
 }
