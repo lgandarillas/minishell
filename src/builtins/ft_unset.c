@@ -54,6 +54,11 @@ int	ft_unset(t_shell *shell)
 			var = ft_strjoin(shell->cmd[i], "=");
 			if (!var)
 				print_error(MEM_ERROR);
+			if (ft_strcmp(shell->cmd[i], "PATH") == 0)
+			{
+				free_matrix(shell->path);
+				shell->path = NULL;
+			}
 			if (ft_getenv(shell->env, var))
 				ft_delenv(shell, shell->env, var);
 			free(var);

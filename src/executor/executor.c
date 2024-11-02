@@ -50,6 +50,11 @@ void	execute_cmd(t_shell *shell)
 	i = 0;
 	if (access(shell->cmd[0], X_OK) == SUCCESS)
 		execve(shell->cmd[0], shell->cmd, shell->env);
+	if (!shell->path)
+	{
+		print_error_cmd(shell->cmd[0]);
+		exit(127);
+	}
 	while (shell->path[i] != NULL)
 	{
 		tmp = build_cmd(shell->path[i], shell->cmd[0]);
