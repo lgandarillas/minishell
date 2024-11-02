@@ -17,7 +17,7 @@ static void	exit_error(char *str)
 	ft_putstr_fd("msh: exit: ", STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
-	exit(EXIT_FAILURE);
+	exit(2);
 }
 
 void	exit_status(char *str)
