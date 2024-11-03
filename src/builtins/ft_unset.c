@@ -37,11 +37,30 @@ static bool	valid_id(char *var)
 	return (true);
 }
 
+static void	unset_variable(t_shell *shell, char *var_name)
+{
+	char	*var;
+
+	var = ft_strjoin(var_name, "=");
+	if (!var)
+	{
+		print_error(MEM_ERROR);
+		return ;
+	}
+	if (ft_strcmp(var_name, "PATH") == 0)
+	{
+		free_matrix(shell->path);
+		shell->path = NULL;
+	}
+	if (ft_getenv(shell->env, var))
+		ft_delenv(shell, shell->env, var);
+	free(var);
+}
+
 int	ft_unset(t_shell *shell)
 {
 	int		i;
 	int		ret;
-	char	*var;
 
 	i = 1;
 	ret = SUCCESS;
@@ -50,19 +69,7 @@ int	ft_unset(t_shell *shell)
 		if (!valid_id(shell->cmd[i]))
 			ret = FAILURE;
 		else
-		{
-			var = ft_strjoin(shell->cmd[i], "=");
-			if (!var)
-				print_error(MEM_ERROR);
-			if (ft_strcmp(shell->cmd[i], "PATH") == 0)
-			{
-				free_matrix(shell->path);
-				shell->path = NULL;
-			}
-			if (ft_getenv(shell->env, var))
-				ft_delenv(shell, shell->env, var);
-			free(var);
-		}
+			unset_variable(shell, shell->cmd[i]);
 		i++;
 	}
 	return (ret);
