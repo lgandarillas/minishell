@@ -12,14 +12,14 @@
 
 #include "../../inc/minishell.h"
 
-int	pipe_error(pid_t *pids)
+static int	pipe_error(pid_t *pids)
 {
 	free(pids);
 	perror("msh: pipe");
 	return (FAILURE);
 }
 
-void	wait_processes(t_command *cmd_node, pid_t *pids, int *status)
+static void	wait_processes(t_command *cmd_node, pid_t *pids, int *status)
 {
 	int	i;
 	int	pid;
@@ -46,7 +46,7 @@ void	wait_processes(t_command *cmd_node, pid_t *pids, int *status)
 	}
 }
 
-int	handle_first_process(t_shell *shell, t_command *cmd_node, int *tube)
+static int	handle_first_process(t_shell *shell, t_command *cmd_node, int *tube)
 {
 	close(tube[0]);
 	if (dup2(tube[1], STDOUT_FILENO) == -1)
@@ -63,7 +63,7 @@ int	handle_first_process(t_shell *shell, t_command *cmd_node, int *tube)
 	exit(SUCCESS);
 }
 
-int	handle_mid_process(t_shell *shell, t_command *cmd_node, \
+static int	handle_mid_process(t_shell *shell, t_command *cmd_node, \
 	int prev_input, int *tube)
 {
 	if (dup2(prev_input, STDIN_FILENO) == -1)
@@ -86,7 +86,7 @@ int	handle_mid_process(t_shell *shell, t_command *cmd_node, \
 	exit(SUCCESS);
 }
 
-int	handle_last_process(t_shell *shell, t_command *cmd_node, int *tube)
+static int	handle_last_process(t_shell *shell, t_command *cmd_node, int *tube)
 {
 	close(tube[1]);
 	if (dup2(tube[0], STDIN_FILENO) == -1)
