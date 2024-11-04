@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/26 11:18:07 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/11/04 22:34:49 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,14 @@ void	execute_cmd(t_shell *shell)
 
 int	execute(t_shell *shell)
 {
-	int			total_cmds;
 	t_command	*cmd_node;
 
 	cmd_node = shell->cmd_node;
 	if (!cmd_node->cmd)
 		return (SUCCESS);
-	total_cmds = total_commands(cmd_node);
-	if (total_cmds == 1 && cmd_node->is_builtin)
+	if (shell->num_cmds == 1 && cmd_node->is_builtin)
 		return (handle_one_builtin(shell));
-	else if (total_cmds == 1 && !cmd_node->is_builtin)
+	else if (shell->num_cmds == 1 && !cmd_node->is_builtin)
 		return (handle_one_cmd(shell));
 	else
 		return (handle_multiple_cmds(shell, cmd_node));

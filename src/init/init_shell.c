@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:01:05 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/14 19:36:42 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/11/04 22:21:39 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static void	print_welcome(void)
 void	init_shell(t_shell *shell, char **envp)
 {
 	shell->status = 0;
+	shell->num_cmds = 0;
 	shell->env = NULL;
 	shell->cmd = NULL;
 	shell->path = NULL;

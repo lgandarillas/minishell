@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:42:25 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/26 11:18:01 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/11/04 22:26:30 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ typedef struct s_command	t_command;
 
 int		execute_builtin(t_shell *shell);
 int		execute(t_shell *shell);
-int		total_commands(t_command *cmd_node);
+int		get_num_cmds(t_command *cmd_node);
 int		open_files(t_command *cmd_node);
 int		close_files(t_command *cmd_node);
 

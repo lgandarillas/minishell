@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:21:50 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/26 21:21:43 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/11/04 22:26:39 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ t_command	*prepare_cmd(t_lexer *lexer_node, t_shell *shell)
 	}
 	clear_cmd(cmd_node, lexer_node);
 	assign_builtin_flag(cmd_node, shell);
+	shell->num_cmds = get_num_cmds(cmd_node);
 	print_cmd_nodes(cmd_node);
 	return (cmd_node);
 }

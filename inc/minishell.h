@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/14 19:35:49 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/11/04 22:20:55 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@
 typedef struct s_shell
 {
 	int			status;
+	int			num_cmds;
 	bool		*expand_heredoc;
 	char		**env;
 	char		**cmd;

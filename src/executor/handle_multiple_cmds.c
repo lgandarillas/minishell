@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 10:52:55 by aquinter          #+#    #+#             */
-/*   Updated: 2024/11/04 22:06:04 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/11/04 22:33:41 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,13 @@ static int	pipe_error(pid_t *pids)
 	return (FAILURE);
 }
 
-static int	wait_processes(t_command *cmd_node, pid_t *pids)
+static int	wait_processes(t_shell *shell, pid_t *pids)
 {
-	int		i;
-	int		total_cmds;
-	int		status;
+	int	i;
+	int	status;
 
 	i = 0;
-	total_cmds = total_commands(cmd_node);
-	while (i < total_cmds - 1)
+	while (i < (shell->num_cmds - 1))
 	{
 		waitpid(pids[i], &status, 0);
 		i++;
@@ -113,7 +111,7 @@ int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 	pid_t	*pids;
 
 	i = 0;
-	pids = ft_calloc(sizeof(pid_t), total_commands(cmd_node));
+	pids = ft_calloc(sizeof(pid_t), shell->num_cmds);
 	if (!pids)
 	{
 		perror("msh: malloc failure");
@@ -170,7 +168,7 @@ int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 		i++;
 		cmd_node = cmd_node->next;
 	}
-	status = wait_processes(shell->cmd_node, pids);
+	status = wait_processes(shell, pids);
 	free(pids);
 	return (status);
 }
