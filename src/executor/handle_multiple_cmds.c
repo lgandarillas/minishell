@@ -6,20 +6,20 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 10:52:55 by aquinter          #+#    #+#             */
-/*   Updated: 2024/11/02 13:24:15 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/11/04 09:35:46 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	pipe_error(pid_t *pids)
+static int	pipe_error(pid_t *pids)
 {
 	free(pids);
 	perror("msh: pipe");
 	return (FAILURE);
 }
 
-int	wait_processes(t_command *cmd_node, pid_t *pids)
+static int	wait_processes(t_command *cmd_node, pid_t *pids)
 {
 	int	i;
 	int	pid;
@@ -52,7 +52,7 @@ int	wait_processes(t_command *cmd_node, pid_t *pids)
 	return (SUCCESS);
 }
 
-void	handle_first_process(t_shell *shell, t_command *cmd_node, int *tube)
+static void	handle_first_process(t_shell *shell, t_command *cmd_node, int *tube)
 {
 	close(tube[0]);
 	if (dup2(tube[1], STDOUT_FILENO) == -1)
@@ -70,7 +70,7 @@ void	handle_first_process(t_shell *shell, t_command *cmd_node, int *tube)
 	execute_cmd(shell);
 }
 
-void	handle_mid_process(t_shell *shell, t_command *cmd_node, \
+static void	handle_mid_process(t_shell *shell, t_command *cmd_node, \
 	int prev_input, int *tube)
 {
 	if (dup2(prev_input, STDIN_FILENO) == -1)
@@ -94,7 +94,7 @@ void	handle_mid_process(t_shell *shell, t_command *cmd_node, \
 	execute_cmd(shell);
 }
 
-void	handle_last_process(t_shell *shell, t_command *cmd_node, int *tube)
+static void	handle_last_process(t_shell *shell, t_command *cmd_node, int *tube)
 {
 	close(tube[1]);
 	if (dup2(tube[0], STDIN_FILENO) == -1)

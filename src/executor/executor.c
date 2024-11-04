@@ -47,6 +47,8 @@ void	execute_cmd(t_shell *shell)
 	int		i;
 	char	*tmp;
 
+	if (!shell->cmd || !shell->cmd[0])
+		return ;
 	i = 0;
 	if (access(shell->cmd[0], X_OK) == SUCCESS)
 		execve(shell->cmd[0], shell->cmd, shell->env);

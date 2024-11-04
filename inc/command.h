@@ -39,4 +39,8 @@ void		clear_cmd(t_command *cmd_node, t_lexer *lexer_node);
 void		free_command_nodes(t_command *cmd_node, t_shell *shell);
 void		handle_redirections(t_command *cmd_node, t_lexer *lexer_node);
 
+void		print_inputs(t_file *file);
+void		print_outputs(t_file *file);
+void		print_cmd_nodes(t_command *cmd_node);
+
 #endif

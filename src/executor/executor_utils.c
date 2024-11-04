@@ -46,6 +46,7 @@ void	free_command_nodes(t_command *cmd_node, t_shell *shell)
 		current = current_next;
 	}
 	free(shell->expand_heredoc);
+	shell->expand_heredoc = NULL;
 }
 
 int	total_commands(t_command *cmd_node)
