@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 10:52:55 by aquinter          #+#    #+#             */
-/*   Updated: 2024/11/04 22:33:41 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/11/05 19:43:41 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ static void	handle_first_process(t_shell *shell, t_command *cmd_node, int *tube)
 }
 
 static void	handle_mid_process(t_shell *shell, t_command *cmd_node, \
-	int prev_input, int *tube)
+	int input, int *tube)
 {
-	if (dup2(prev_input, STDIN_FILENO) == -1)
+	if (dup2(input, STDIN_FILENO) == -1)
 	{
 		perror("msh");
 		exit(FAILURE);
 	}
-	close(prev_input);
+	close(input);
 	if (dup2(tube[1], STDOUT_FILENO) == -1)
 	{
 		perror("msh");
@@ -107,7 +107,7 @@ int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 	int		i;
 	int		status;
 	int		tube[2];
-	int		prev_input;
+	int		input;
 	pid_t	*pids;
 
 	i = 0;
@@ -121,7 +121,7 @@ int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 	{
 		if (cmd_node->next)
 		{
-			prev_input = tube[0];
+			input = tube[0];
 			if (pipe(tube) == -1)
 				return (pipe_error(pids));
 		}
@@ -136,7 +136,6 @@ int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 			}
 			if (pids[i] == 0)
 				handle_first_process(shell, cmd_node, tube);
-			close(tube[1]);
 		}
 		else if (cmd_node->next && i > 0)
 		{
@@ -148,9 +147,8 @@ int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 				return (FAILURE);
 			}
 			if (pids[i] == 0)
-				handle_mid_process(shell, cmd_node, prev_input, tube);
-			close(prev_input);
-			close(tube[1]);
+				handle_mid_process(shell, cmd_node, input, tube);
+			close(input);
 		}
 		else
 		{
@@ -165,6 +163,7 @@ int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 				handle_last_process(shell, cmd_node, tube);
 			close(tube[0]);
 		}
+		close(tube[1]);
 		i++;
 		cmd_node = cmd_node->next;
 	}
