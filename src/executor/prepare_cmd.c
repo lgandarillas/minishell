@@ -6,19 +6,30 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:21:50 by lgandari          #+#    #+#             */
-/*   Updated: 2024/11/04 22:26:39 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/11/05 22:22:08 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static void	assign_builtin_flag(t_command *cmd_node, t_shell *shell)
+static void	assign_flags(t_command *cmd_node, t_shell *shell)
 {
-	while (cmd_node)
+	t_command	*current;
+
+	current = cmd_node;
+	if (current->cmd != NULL)
+		current->is_builtin = is_builtin(shell, current->cmd[0]);
+	current->role = CMD_INITIAL;
+	current = current->next;
+	while (current)
 	{
-		if (cmd_node->cmd != NULL)
-			cmd_node->is_builtin = is_builtin(shell, cmd_node->cmd[0]);
-		cmd_node = cmd_node->next;
+		if (!current->next)
+			current->role = CMD_FINAL;
+		else
+			current->role = CMD_MIDDLE;
+		if (current->cmd != NULL)
+			current->is_builtin = is_builtin(shell, current->cmd[0]);
+		current = current->next;
 	}
 }
 
@@ -33,6 +44,7 @@ static void	append_cmd_node(t_command **cmd_node)
 	new_cmd_node->next = NULL;
 	new_cmd_node->cmd = NULL;
 	new_cmd_node->file = NULL;
+	new_cmd_node->role = -1;
 	new_cmd_node->is_builtin = false;
 	if (!(*cmd_node))
 		*cmd_node = new_cmd_node;
@@ -70,7 +82,7 @@ t_command	*prepare_cmd(t_lexer *lexer_node, t_shell *shell)
 		current_lexer_node = current_lexer_node->next;
 	}
 	clear_cmd(cmd_node, lexer_node);
-	assign_builtin_flag(cmd_node, shell);
+	assign_flags(cmd_node, shell);
 	shell->num_cmds = get_num_cmds(cmd_node);
 	print_cmd_nodes(cmd_node);
 	return (cmd_node);

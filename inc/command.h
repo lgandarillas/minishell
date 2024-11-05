@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 17:15:56 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/14 20:09:22 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/11/05 21:43:54 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_command
 	struct s_command		*next;
 	char					**cmd;
 	bool					is_builtin;
+	int						role;
 	t_file					*file;
 }	t_command;
 
