@@ -98,12 +98,32 @@ static void	handle_process(t_shell *shell, t_command *cmd_node, int input, \
 	exit(exit_code);
 }
 
+static int	exec_cmd_chain(t_shell *shell, t_command *cmd_node, \
+		pid_t *pids, int *tube, int *i)
+{
+	int	input;
+
+	input = tube[0];
+	if (cmd_node->next && pipe(tube) == -1)
+		return (execution_failure(pids));
+	pids[*i] = fork();
+	if (pids[*i] == -1)
+		return (execution_failure(pids));
+	if (pids[*i] == 0)
+		handle_process(shell, cmd_node, input, tube);
+	close(input);
+	close(tube[1]);
+	if (!cmd_node->next)
+		close(tube[0]);
+	(*i)++;
+	return (SUCCESS);
+}
+
 int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 {
 	int		i;
 	int		status;
 	int		tube[2];
-	int		input;
 	pid_t	*pids;
 
 	i = 0;
@@ -112,19 +132,8 @@ int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 		return (FAILURE);
 	while (cmd_node)
 	{
-		input = tube[0];
-		if (cmd_node->next && pipe(tube) == -1)
-			return (execution_failure(pids));
-		pids[i] = fork();
-		if (pids[i] == -1)
-			return (execution_failure(pids));
-		if (pids[i] == 0)
-			handle_process(shell, cmd_node, input, tube);
-		close(input);
-		close(tube[1]);
-		if (!cmd_node->next)
-			close(tube[0]);
-		i++;
+		if (exec_cmd_chain(shell, cmd_node, pids, tube, &i) == FAILURE)
+			return (FAILURE);
 		cmd_node = cmd_node->next;
 	}
 	status = wait_processes(shell, pids);
