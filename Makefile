@@ -66,6 +66,7 @@ SRCS	= $(addprefix $(SRC_DIR), 	\
 	executor/handle_one_cmd.c		\
 	executor/handle_multiple_cmds.c \
 	executor/print_utils.c			\
+	executor/multiple_process.c		\
 	signals/init_signals.c			\
 	signals/eof.c					\
 	signals/quit.c					\

@@ -12,36 +12,6 @@
 
 #include "../../inc/minishell.h"
 
-static int	execution_failure(pid_t *pids)
-{
-	free(pids);
-	perror("msh");
-	return (FAILURE);
-}
-
-static int	wait_processes(t_shell *shell, pid_t *pids)
-{
-	int	i;
-	int	status;
-
-	i = 0;
-	while (i < (shell->num_cmds - 1))
-	{
-		waitpid(pids[i], &status, 0);
-		i++;
-	}
-	waitpid(pids[i], &status, 0);
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	else if (WIFSIGNALED(status))
-		return (128 + WTERMSIG(status));
-	else if (WIFSTOPPED(status))
-		return (128 + WSTOPSIG(status));
-	else
-		return (status);
-	return (SUCCESS);
-}
-
 static bool	handle_tube(t_command *cmd_node, int input, int *tube)
 {
 	if (cmd_node->role == CMD_MIDDLE || cmd_node->role == CMD_FINAL)
@@ -83,32 +53,6 @@ static void	handle_process(t_shell *shell, t_command *cmd_node, int input, \
 		execute_cmd(shell);
 	exit_code = execute_builtin(shell);
 	exit(exit_code);
-}
-
-static t_multiple_cmds	*init_multiple_cmds(t_shell *shell)
-{
-	t_multiple_cmds	*vars;
-
-	vars = malloc(sizeof(t_multiple_cmds));
-	if (!vars)
-		return (NULL);
-	vars->i = 0;
-	vars->pids = ft_calloc(sizeof(pid_t), shell->num_cmds);
-	if (!vars->pids)
-	{
-		free(vars);
-		return (NULL);
-	}
-	return (vars);
-}
-
-static void	free_multiple_cmds(t_multiple_cmds *vars)
-{
-	if (vars)
-	{
-		free(vars->pids);
-		free(vars);
-	}
 }
 
 static int	exec_cmd_chain(t_shell *shell, t_command *cmd_node, \

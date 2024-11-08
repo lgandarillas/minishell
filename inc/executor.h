@@ -22,18 +22,23 @@ typedef struct s_multiple_cmds
 	pid_t	*pids;
 }	t_multiple_cmds;
 
-int		execute_builtin(t_shell *shell);
-int		execute(t_shell *shell);
-int		get_num_cmds(t_command *cmd_node);
-int		open_files(t_command *cmd_node);
-int		close_files(t_command *cmd_node);
+int				execute_builtin(t_shell *shell);
+int				execute(t_shell *shell);
+int				get_num_cmds(t_command *cmd_node);
+int				open_files(t_command *cmd_node);
+int				close_files(t_command *cmd_node);
 
-int		handle_dup(int *std_fds);
-int		restore_std_fds(int *std_fds);
-int		handle_one_builtin(t_shell *shell);
-void	execute_cmd(t_shell *shell);
-int		handle_one_child_process(t_shell *shell, int *std_fds);
-int		handle_one_cmd(t_shell *shell);
-int		handle_multiple_cmds(t_shell *shell, t_command *cmd_node);
+int				handle_dup(int *std_fds);
+int				restore_std_fds(int *std_fds);
+int				handle_one_builtin(t_shell *shell);
+void			execute_cmd(t_shell *shell);
+int				handle_one_child_process(t_shell *shell, int *std_fds);
+int				handle_one_cmd(t_shell *shell);
+int				handle_multiple_cmds(t_shell *shell, t_command *cmd_node);
+
+int				execution_failure(pid_t *pids);
+int				wait_processes(t_shell *shell, pid_t *pids);
+void			free_multiple_cmds(t_multiple_cmds *vars);
+t_multiple_cmds	*init_multiple_cmds(t_shell *shell);
 
 #endif
