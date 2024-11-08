@@ -17,9 +17,8 @@ typedef struct s_command	t_command;
 
 typedef struct s_multiple_cmds
 {
-	int	i;
-	int	tube[2];
-	int	input;
+	int		i;
+	int		tube[2];
 	pid_t	*pids;
 }	t_multiple_cmds;
 
