@@ -131,6 +131,19 @@ static void	free_multiple_cmds(t_multiple_cmds *vars)
 	}
 }
 
+/* NEW */
+static int	handle_fork(t_multiple_cmds *vars)
+{
+	(vars->pids)[vars->i] = fork();
+	if ((vars->pids)[vars->i] == -1)
+	{
+		perror("fork");
+		free(vars->pids);
+		return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
 int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 {
 	t_multiple_cmds	*vars;
@@ -152,38 +165,23 @@ int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 		}
 		if (vars->i == 0)
 		{
-			(vars->pids)[vars->i] = fork();
-			if (vars->pids[vars->i] == -1)
-			{
-				perror("fork");
-				free(vars->pids);
+			if (handle_fork(vars) == FAILURE)
 				return (FAILURE);
-			}
 			if ((vars->pids)[vars->i] == 0)
 				handle_first_process(shell, cmd_node, vars->tube);
 		}
 		else if (cmd_node->next && vars->i > 0)
 		{
-			(vars->pids)[vars->i] = fork();
-			if ((vars->pids)[vars->i] == -1)
-			{
-				perror("fork");
-				free(vars->pids);
+			if (handle_fork(vars) == FAILURE)
 				return (FAILURE);
-			}
 			if ((vars->pids)[vars->i] == 0)
 				handle_mid_process(shell, cmd_node, vars->input, vars->tube);
 			close(vars->input);
 		}
 		else
 		{
-			(vars->pids)[vars->i] = fork();
-			if ((vars->pids)[vars->i] == -1)
-			{
-				perror("fork");
-				free(vars->pids);
+			if (handle_fork(vars) == FAILURE)
 				return (FAILURE);
-			}
 			if ((vars->pids)[vars->i] == 0)
 				handle_last_process(shell, cmd_node, vars->tube);
 			close((vars->tube)[0]);
