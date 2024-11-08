@@ -19,19 +19,6 @@ static int	execution_failure(pid_t *pids)
 	return (FAILURE);
 }
 
-static pid_t	*get_array_pid(t_shell *shell)
-{
-	pid_t	*pids;
-
-	pids = ft_calloc(sizeof(pid_t), shell->num_cmds);
-	if (!pids)
-	{
-		perror("msh: malloc failure");
-		return (NULL);
-	}
-	return (pids);
-}
-
 static int	wait_processes(t_shell *shell, pid_t *pids)
 {
 	int	i;
@@ -98,45 +85,71 @@ static void	handle_process(t_shell *shell, t_command *cmd_node, int input, \
 	exit(exit_code);
 }
 
+static t_multiple_cmds	*init_multiple_cmds(t_shell *shell)
+{
+	t_multiple_cmds	*vars;
+
+	vars = malloc(sizeof(t_multiple_cmds));
+	if (!vars)
+		return (NULL);
+	vars->i = 0;
+	vars->pids = ft_calloc(sizeof(pid_t), shell->num_cmds);
+	if (!vars->pids)
+	{
+		free(vars);
+		return (NULL);
+	}
+	return (vars);
+}
+
+static void	free_multiple_cmds(t_multiple_cmds *vars)
+{
+	if (vars)
+	{
+		free(vars->pids);
+		free(vars);
+	}
+}
+
 static int	exec_cmd_chain(t_shell *shell, t_command *cmd_node, \
-		pid_t *pids, int *tube, int *i)
+	t_multiple_cmds *vars)
 {
 	int	input;
 
-	input = tube[0];
-	if (cmd_node->next && pipe(tube) == -1)
-		return (execution_failure(pids));
-	pids[*i] = fork();
-	if (pids[*i] == -1)
-		return (execution_failure(pids));
-	if (pids[*i] == 0)
-		handle_process(shell, cmd_node, input, tube);
+	input = vars->tube[0];
+	if (cmd_node->next && pipe(vars->tube) == -1)
+		return (execution_failure(vars->pids));
+	(vars->pids)[vars->i] = fork();
+	if ((vars->pids)[vars->i] == -1)
+		return (execution_failure(vars->pids));
+	if ((vars->pids)[vars->i] == 0)
+		handle_process(shell, cmd_node, input, vars->tube);
 	close(input);
-	close(tube[1]);
+	close((vars->tube)[1]);
 	if (!cmd_node->next)
-		close(tube[0]);
-	(*i)++;
+		close((vars->tube)[0]);
+	(vars->i)++;
 	return (SUCCESS);
 }
 
 int	handle_multiple_cmds(t_shell *shell, t_command *cmd_node)
 {
-	int		i;
-	int		status;
-	int		tube[2];
-	pid_t	*pids;
+	t_multiple_cmds	*vars;
+	int				status;
 
-	i = 0;
-	pids = get_array_pid(shell);
-	if (!pids)
+	vars = init_multiple_cmds(shell);
+	if (!vars)
+	{
+		perror("msh: malloc failure");
 		return (FAILURE);
+	}
 	while (cmd_node)
 	{
-		if (exec_cmd_chain(shell, cmd_node, pids, tube, &i) == FAILURE)
+		if (exec_cmd_chain(shell, cmd_node, vars) == FAILURE)
 			return (FAILURE);
 		cmd_node = cmd_node->next;
 	}
-	status = wait_processes(shell, pids);
-	free(pids);
+	status = wait_processes(shell, vars->pids);
+	free_multiple_cmds(vars);
 	return (status);
 }
