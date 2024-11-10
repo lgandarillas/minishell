@@ -44,7 +44,10 @@ static void	shell_loop(t_shell *shell)
 
 	while (true)
 	{
-		prompt = readline(CYAN "msh> " RESET);
+		if (shell->status == 0)
+			prompt = readline(CYAN "msh> " RESET);
+		else
+			prompt = readline(RED "msh> " RESET);
 		if (prompt == NULL)
 			handle_eof(shell);
 		if (*prompt != '\0')

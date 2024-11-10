@@ -15,6 +15,7 @@
 
 # define CYAN  "\033[1;36m"
 # define RESET "\x1b[0m"
+# define RED "\033[1;31m"
 # define SUCCESS 0
 # define FAILURE 1
 # define SYNTAX_ERROR 2
