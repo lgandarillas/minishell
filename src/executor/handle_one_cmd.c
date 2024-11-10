@@ -56,6 +56,19 @@ int	handle_one_child_process(t_shell *shell, int *std_fds)
 	exit(SUCCESS);
 }
 
+static int	create_fork(void)
+{
+	int	pid;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		exit(FAILURE);
+	}
+	return (pid);
+}
+
 int	handle_one_cmd(t_shell *shell)
 {
 	int	pid;
@@ -65,12 +78,7 @@ int	handle_one_cmd(t_shell *shell)
 
 	if (handle_dup(std_fds) == FAILURE)
 		return (FAILURE);
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-		exit (FAILURE);
-	}
+	pid = create_fork();
 	if (pid == 0)
 		handle_one_child_process(shell, std_fds);
 	waitpid(pid, &status, 0);
