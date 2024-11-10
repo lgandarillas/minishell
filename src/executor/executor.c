@@ -65,6 +65,9 @@ void	execute_cmd(t_shell *shell)
 	else if ((shell->cmd[0][0] == '/' || (shell->cmd[0][0] == '.' && \
 		shell->cmd[0][1] == '/')) && access(shell->cmd[0], F_OK) != 0)
 		print_error_cmd(shell->cmd[0], 2, shell);
+	else if (shell->cmd[0][0] == '.' && shell->cmd[0][1] == '/' \
+		&& access(shell->cmd[0], X_OK) != 0)
+		print_error_cmd(shell->cmd[0], 3, shell);
 	if (access(shell->cmd[0], X_OK) == SUCCESS)
 		execve(shell->cmd[0], shell->cmd, shell->env);
 	if (!shell->path)

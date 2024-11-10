@@ -27,6 +27,12 @@ void	print_error_cmd(char *cmd, int error_type, t_shell *shell)
 		shell->status = 127;
 		exit(127);
 	}
+	else if (error_type == 3)
+	{
+		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
+		shell->status = 126;
+		exit(126);
+	}
 	else
 	{
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
