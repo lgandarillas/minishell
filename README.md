@@ -50,4 +50,4 @@ Minishell implements the following built-in functions directly without external 
 	```
 
 ## Contribution
-This project was developed collaboratively by [@lgandarillas](https://github.com/lgandarillas) and [@alejandquintero](https://github.com/alejandquintero).
+This project was developed collaboratively by [@alejandquintero](https://github.com/alejandquintero) and [@lgandarillas](https://github.com/lgandarillas).
