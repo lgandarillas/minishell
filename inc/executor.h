@@ -29,6 +29,7 @@ int				execute(t_shell *shell);
 int				get_num_cmds(t_command *cmd_node);
 int				open_files(t_command *cmd_node);
 int				close_files(t_command *cmd_node);
+void			print_error_cmd(char *cmd, int error_type, t_shell *shell);
 
 int				handle_dup(int *std_fds);
 int				restore_std_fds(int *std_fds);
