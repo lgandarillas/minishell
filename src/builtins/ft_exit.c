@@ -61,6 +61,7 @@ int	ft_exit(t_shell *shell)
 	str = shell->cmd[1];
 	status = shell->status;
 	free_shell(shell);
+	rl_clear_history();
 	printf("exit\n");
 	if (!str)
 		exit(status);
