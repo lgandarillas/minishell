@@ -85,27 +85,3 @@ int	execute(t_shell *shell)
 	else
 		return (handle_multiple_cmds(shell, cmd_node));
 }
-
-/*
-	else
-		return (handle_multiple_cmds(shell)); // sin implementar
-	while (cmd_node)
-	{
-		shell->cmd = cmd_node->cmd;
-		if (cmd_node->is_builtin)
-			status = execute_builtin(shell);
-		else
-		{
-			pid = fork();
-			if (pid == -1)
-				printf("Error creating fork\n");
-			if (pid == 0)
-				execute_cmd(shell);
-			wait(&status);
-			if (WIFEXITED(status))
-				status = WEXITSTATUS(status);
-		}
-		cmd_node = cmd_node->next;
-		return (SUCCESS);
-}
-*/
