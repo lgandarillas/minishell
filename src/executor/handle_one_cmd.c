@@ -87,12 +87,7 @@ int	handle_one_cmd(t_shell *shell)
 	if (WIFEXITED(status))
 	{
 		exit_code = WEXITSTATUS(status);
-		if (exit_code == SUCCESS)
-			return (SUCCESS);
-		else if (exit_code == 126)
-			return (126);
-		else
-			return (127);
+		return (exit_code);
 	}
 	return (FAILURE);
 }
