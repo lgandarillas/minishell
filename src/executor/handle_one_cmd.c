@@ -61,6 +61,7 @@ int	handle_one_cmd(t_shell *shell)
 	int	pid;
 	int	std_fds[2];
 	int	status;
+	int	exit_code;
 
 	if (handle_dup(std_fds) == FAILURE)
 		return (FAILURE);
@@ -75,10 +76,15 @@ int	handle_one_cmd(t_shell *shell)
 	waitpid(pid, &status, 0);
 	if (restore_std_fds(std_fds) == -1)
 		return (FAILURE);
-	if (WIFEXITED(status) && WEXITSTATUS(status) == SUCCESS)
-		return (SUCCESS);
-	else if (WIFEXITED(status) && WEXITSTATUS(status) == 127)
-		return (127);
-	else
-		return (FAILURE);
+	if (WIFEXITED(status))
+	{
+		exit_code = WEXITSTATUS(status);
+		if (exit_code == SUCCESS)
+			return (SUCCESS);
+		else if (exit_code == 126)
+			return (126);
+		else
+			return (127);
+	}
+	return (FAILURE);
 }
