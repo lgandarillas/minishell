@@ -36,25 +36,42 @@ char	*build_cmd(char *path, char *cmd)
 	return (command);
 }
 
-void	print_error_cmd(char *cmd)
+void	print_error_cmd(char *cmd, int error_type)
 {
 	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd(": command not found\n", STDERR_FILENO);
+	if (error_type == 1)
+		ft_putstr_fd(": Is a directory\n", STDERR_FILENO);
+	else if (error_type == 2)
+		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
+	else
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
 }
 
 void	execute_cmd(t_shell *shell)
 {
-	int		i;
-	char	*tmp;
+	struct stat	info;
+	char		*tmp;
+	int			i;
 
 	if (!shell->cmd || !shell->cmd[0])
 		return ;
 	i = 0;
+	if (stat(shell->cmd[0], &info) == 0 && S_ISDIR(info.st_mode))
+	{
+		print_error_cmd(shell->cmd[0], 1);
+		exit(126);
+	}
+	else if ((shell->cmd[0][0] == '/' || (shell->cmd[0][0] == '.' && \
+		shell->cmd[0][1] == '/')) && access(shell->cmd[0], F_OK) != 0)
+	{
+		print_error_cmd(shell->cmd[0], 2);
+		exit(127);
+	}
 	if (access(shell->cmd[0], X_OK) == SUCCESS)
 		execve(shell->cmd[0], shell->cmd, shell->env);
 	if (!shell->path)
 	{
-		print_error_cmd(shell->cmd[0]);
+		print_error_cmd(shell->cmd[0], 0);
 		exit(127);
 	}
 	while (shell->path[i] != NULL)
@@ -67,7 +84,7 @@ void	execute_cmd(t_shell *shell)
 		free(tmp);
 		i++;
 	}
-	print_error_cmd(shell->cmd[0]);
+	print_error_cmd(shell->cmd[0], 0);
 	exit(127);
 }
 

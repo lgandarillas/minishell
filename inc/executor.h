@@ -13,6 +13,8 @@
 #ifndef EXECUTOR_H
 # define EXECUTOR_H
 
+# include <sys/stat.h>
+
 typedef struct s_command	t_command;
 
 typedef struct s_multiple_cmds
