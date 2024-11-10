@@ -24,8 +24,8 @@ void	print_error_cmd(char *cmd, int error_type, t_shell *shell)
 	else if (error_type == 2)
 	{
 		ft_putstr_fd(": No such file or directory\n", STDERR_FILENO);
-		shell->status = 2;
-		exit(2);
+		shell->status = 127;
+		exit(127);
 	}
 	else if (error_type == 3)
 	{
