@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_process.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:46:23 by lgandari          #+#    #+#             */
-/*   Updated: 2024/11/08 17:46:26 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/11/11 20:07:40 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,41 @@ int	execution_failure(pid_t *pids)
 	return (FAILURE);
 }
 
+void	catch_status(int status, bool *newline)
+{
+	if (WIFSIGNALED(status) && *newline == true)
+	{
+		if (128 + WTERMSIG(status) == 131)
+			printf("Quit");
+		printf("\n");
+		*newline = false;
+	}
+}
+
 int	wait_processes(t_shell *shell, pid_t *pids)
 {
-	int	i;
-	int	status;
+	int		i;
+	int		status;
+	bool	newline;
 
 	i = 0;
+	status = 0;
+	newline = true;
 	while (i < (shell->num_cmds - 1))
 	{
 		waitpid(pids[i], &status, 0);
+		catch_status(status, &newline);
 		i++;
 	}
 	waitpid(pids[i], &status, 0);
+	catch_status(status, &newline);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	else if (WIFSIGNALED(status))
 		return (128 + WTERMSIG(status));
 	else if (WIFSTOPPED(status))
 		return (128 + WSTOPSIG(status));
-	else
-		return (status);
-	return (SUCCESS);
+	return (status);
 }
 
 t_multiple_cmds	*init_multiple_cmds(t_shell *shell)

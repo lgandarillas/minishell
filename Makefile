@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/10/26 11:14:33 by aquinter         ###   ########.fr        #
+#    Updated: 2024/11/11 19:10:11 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,10 +68,10 @@ SRCS	= $(addprefix $(SRC_DIR), 	\
 	executor/print_utils.c			\
 	executor/multiple_process.c		\
 	executor/error_utils.c			\
-	signals/init_signals.c			\
 	signals/eof.c					\
 	signals/quit.c					\
 	signals/interrupt.c				\
+	signals/signals.c				\
 	heredoc/heredoc.c				\
 	heredoc/heredoc_expander.c		\
 	heredoc/delete_heredoc.c		\

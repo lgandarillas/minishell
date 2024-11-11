@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:42:25 by lgandari          #+#    #+#             */
-/*   Updated: 2024/11/04 22:26:30 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/11/11 20:05:58 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int				handle_multiple_cmds(t_shell *shell, t_command *cmd_node);
 
 int				execution_failure(pid_t *pids);
 int				wait_processes(t_shell *shell, pid_t *pids);
+void			catch_status(int status, bool *newline);
 void			free_multiple_cmds(t_multiple_cmds *vars);
 t_multiple_cmds	*init_multiple_cmds(t_shell *shell);
 

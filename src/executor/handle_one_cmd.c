@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_one_cmd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:03:44 by lgandari          #+#    #+#             */
-/*   Updated: 2024/10/21 18:03:46 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/11/11 20:07:00 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	handle_one_builtin(t_shell *shell)
 
 int	handle_one_child_process(t_shell *shell, int *std_fds)
 {
+	init_child_signals();
 	if (open_files(shell->cmd_node) == -1)
 	{
 		restore_std_fds(std_fds);
@@ -71,11 +72,12 @@ static int	create_fork(void)
 
 int	handle_one_cmd(t_shell *shell)
 {
-	int	pid;
-	int	std_fds[2];
-	int	status;
-	int	exit_code;
+	int		pid;
+	int		std_fds[2];
+	int		status;
+	bool	newline;
 
+	newline = true;
 	if (handle_dup(std_fds) == FAILURE)
 		return (FAILURE);
 	pid = create_fork();
@@ -84,10 +86,12 @@ int	handle_one_cmd(t_shell *shell)
 	waitpid(pid, &status, 0);
 	if (restore_std_fds(std_fds) == -1)
 		return (FAILURE);
+	catch_status(status, &newline);
 	if (WIFEXITED(status))
-	{
-		exit_code = WEXITSTATUS(status);
-		return (exit_code);
-	}
+		return (WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+		return (128 + WTERMSIG(status));
+	else if (WIFSTOPPED(status))
+		return (128 + WSTOPSIG(status));
 	return (FAILURE);
 }

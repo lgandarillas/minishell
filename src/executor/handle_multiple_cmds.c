@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 10:52:55 by aquinter          #+#    #+#             */
-/*   Updated: 2024/11/08 17:34:15 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/11/11 19:14:09 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	handle_process(t_shell *shell, t_command *cmd_node, int input, \
 {
 	int	exit_code;
 
+	init_child_signals();
 	if (!handle_tube(cmd_node, input, tube))
 		exit(FAILURE);
 	close(tube[0]);

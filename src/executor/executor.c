@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/11/04 22:34:49 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/11/11 20:03:25 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	execute(t_shell *shell)
 {
 	t_command	*cmd_node;
 
+	ignore_signals();
 	cmd_node = shell->cmd_node;
 	if (!cmd_node->cmd)
 		return (SUCCESS);
@@ -87,6 +88,5 @@ int	execute(t_shell *shell)
 		return (handle_one_builtin(shell));
 	else if (shell->num_cmds == 1 && !cmd_node->is_builtin)
 		return (handle_one_cmd(shell));
-	else
-		return (handle_multiple_cmds(shell, cmd_node));
+	return (handle_multiple_cmds(shell, cmd_node));
 }
