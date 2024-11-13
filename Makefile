@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/11/11 19:10:11 by aquinter         ###   ########.fr        #
+#    Updated: 2024/11/13 22:56:07 by aquinter         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,7 @@ SRCS	= $(addprefix $(SRC_DIR), 	\
 	heredoc/heredoc.c				\
 	heredoc/heredoc_expander.c		\
 	heredoc/delete_heredoc.c		\
+	heredoc/heredoc_utils.c			\
 	)
 
 OBJS	= $(SRCS:.c=.o)

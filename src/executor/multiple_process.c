@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 17:46:23 by lgandari          #+#    #+#             */
-/*   Updated: 2024/11/11 20:07:40 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/11/13 22:38:47 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ void	catch_status(int status, bool *newline)
 	if (WIFSIGNALED(status) && *newline == true)
 	{
 		if (128 + WTERMSIG(status) == 131)
-			printf("Quit");
-		printf("\n");
+			printf("Quit\n");
+		else if (128 + WTERMSIG(status) == 130)
+			printf("\n");
 		*newline = false;
 	}
 }

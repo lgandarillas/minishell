@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgandari <lgandari@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 19:19:46 by lgandari          #+#    #+#             */
-/*   Updated: 2024/11/03 19:19:47 by lgandari         ###   ########.fr       */
+/*   Updated: 2024/11/13 20:58:17 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	print_cmd_nodes(t_command *cmd_node)
 		if (current_cmd_node->cmd)
 		{
 			i = -1;
-			while (current_cmd_node->cmd[i++])
+			while (current_cmd_node->cmd[++i])
 				printf("cmd[%d]:%s\n", i, current_cmd_node->cmd[i]);
 		}
 		else

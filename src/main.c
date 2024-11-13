@@ -6,11 +6,13 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/11/11 18:45:39 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/11/13 22:04:56 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+int	g_sig;
 
 static void	process_prompt(t_shell *shell, char *prompt)
 {
@@ -24,9 +26,11 @@ static void	process_prompt(t_shell *shell, char *prompt)
 		if (shell->status == 0)
 		{
 			shell->cmd_node = prepare_cmd(lexer_node, shell);
-			handle_heredoc(shell->cmd_node, shell);
-			shell->status = execute(shell);
-			shell->cmd = NULL;
+			if (handle_heredoc(shell->cmd_node, shell))
+			{
+				shell->status = execute(shell);
+				shell->cmd = NULL;
+			}
 			free_command_nodes(shell->cmd_node, shell);
 		}
 		if (shell->expand_heredoc != NULL)
@@ -44,11 +48,14 @@ static void	shell_loop(t_shell *shell)
 
 	while (true)
 	{
+		g_sig = 0;
 		init_signals();
 		if (shell->status == 0)
 			prompt = readline(CYAN "msh> " RESET);
 		else
 			prompt = readline(RED "msh> " RESET);
+		if (g_sig == 1)
+			shell->status = 130;
 		if (prompt == NULL)
 			handle_eof(shell);
 		if (*prompt != '\0')

@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:31:51 by lgandari          #+#    #+#             */
-/*   Updated: 2024/11/04 22:20:55 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/11/13 19:52:02 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 # include "error_messages.h"
 # include "command.h"
 # include "heredoc.h"
+
+extern int	g_sig;
 
 typedef struct s_shell
 {

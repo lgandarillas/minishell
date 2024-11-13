@@ -6,13 +6,13 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/13 16:27:46 by aquinter          #+#    #+#             */
-/*   Updated: 2024/08/30 16:49:16 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/11/13 21:01:33 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static bool	syntax_error(char *str)
+static int	syntax_error(char *str)
 {
 	if (str != NULL)
 	{
@@ -26,7 +26,7 @@ static bool	syntax_error(char *str)
 	return (SYNTAX_ERROR);
 }
 
-bool	parser(t_lexer *lexer_node, t_shell *shell)
+int	parser(t_lexer *lexer_node, t_shell *shell)
 {
 	if (lexer_node->is_pipe)
 		return (syntax_error(lexer_node->argv[0]));
