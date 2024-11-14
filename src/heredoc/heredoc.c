@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 11:27:36 by lgandari          #+#    #+#             */
-/*   Updated: 2024/11/13 22:56:26 by aquinter         ###   ########.fr       */
+/*   Updated: 2024/11/14 20:06:04 by aquinter         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ static int	write_heredoc(int fd, char *delimiter, bool expand, t_shell *shell)
 		if (g_sig == 2)
 			return (handle_hd_signal_status(line, shell));
 		if (ft_strcmp(line, delimiter) == 0)
-		{
-			free(line);
-			break ;
-		}
+			return (free(line), 0);
 		if (expand == true)
 			output_line = expand_heredoc_line(line, shell);
 		else
@@ -99,10 +96,7 @@ bool	handle_heredoc(t_command *cmd, t_shell *shell)
 		{
 			if (file->is_heredoc)
 			{
-				if (shell->expand_heredoc[num] == true)
-					expand = true;
-				else
-					expand = false;
+				expand = shell->expand_heredoc[num];
 				if (handle_single_heredoc(file, num, expand, shell) < 0)
 					return (false);
 				num++;
