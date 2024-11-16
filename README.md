@@ -1,7 +1,7 @@
 # Minishell
 
 A shell inspired by bash, developed as part of the 42 curriculum. This shell interprets and executes commands, handles pipes and redirections, and includes a set of built-in commands.
-<br>
+<br><br>
 This project was developed collaboratively by [@alejandquintero](https://github.com/alejandquintero) and [@lgandarillas](https://github.com/lgandarillas).
 
 ## Overview
@@ -12,6 +12,8 @@ Minishell is designed to:
 - Provide support for pipes (`|`) and redirections (`<`, `>`, `>>`, `<<`).
 - Include environment variable handling (`$VAR` and `$?`).
 - Support interactive shell control with `Ctrl-C`, `Ctrl-D`, and `Ctrl-\`.
+
+![Minishell Demo](./assets/msh_demo.gif)
 
 ## Setup and Usage
 
@@ -33,20 +35,14 @@ Minishell is designed to:
 
 3. Run the shell:
 	```bash
-	./minishell
+	./mnishell
 	```
 
 ## Features
 
 ### Built-in Commands
 Minishell implements the following built-in functions directly without external executables:
-- `echo`
-- `cd`
-- `pwd`
-- `export`
-- `unset`
-- `env`
-- `exit`
+- `echo`, `cd`, `pwd`, `export`, `unset`, `env`, `exit`
 
 ### Additional Features
 - **Quoting**: Supports single (`'`) and double (`"`) quotes for string handling.
