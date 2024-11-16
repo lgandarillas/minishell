@@ -6,7 +6,7 @@
 #    By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/07 00:00:00 by lgandari_aq       #+#    #+#              #
-#    Updated: 2024/11/13 22:56:07 by aquinter         ###   ########.fr        #
+#    Updated: 2024/11/16 15:55:56 by lgandari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,9 @@ RED		= \033[0;31m
 GREEN	= \033[0;32m
 NC		= \033[0m
 
-CFLAGS	= -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS	= -Wall -Werror -Wextra
 RLFLAG 	= -lreadline
+DFLAG	= -g3 -fsanitize=address
 CC		= cc
 RM		= rm -f
 
@@ -84,7 +85,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 	@make all -sC $(LIBFT_PATH)
-	@$(CC) $(CFLAGS) $(OBJS) -I ../../inc/minishell.h $(LIBFT) $(RLFLAG) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) -I ../../inc/minishell.h $(LIBFT) $(RLFLAG) $(DFLAG) -o $(NAME)
 	@echo "$(GREEN)Compiling minishell...$(NC)"
 
 clean:
@@ -99,7 +100,5 @@ fclean: clean
 
 re: fclean all
 
-reaq: fclean aq
-
-.PHONY: all clean fclean re reaq
+.PHONY: all clean fclean re
 .SILENT:
