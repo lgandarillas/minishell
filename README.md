@@ -15,13 +15,13 @@ Minishell is designed to:
 
 ### Built-in Commands
 Minishell implements the following built-in functions directly without external executables:
-- `echo` with `-n` option
-- `cd` with relative or absolute paths
-- `pwd` (no options)
-- `export` (no options)
-- `unset` (no options)
-- `env` (no options)
-- `exit` with optional exit status
+- `echo`
+- `cd`
+- `pwd`
+- `export`
+- `unset`
+- `env`
+- `exit`
 
 ### Additional Features
 - **Quoting**: Supports single (`'`) and double (`"`) quotes for string handling.
@@ -31,13 +31,16 @@ Minishell implements the following built-in functions directly without external 
 
 ## Setup and Usage
 
-1. Clone the repository:
+1. Clone the repository and submodules
 	```bash
 	git clone https://github.com/lgandarillas/minishell.git
 	```
 	```bash
 	cd minishell
 	```
+    ```
+    git submodule update --init --remote libft_v2
+    ```
 
 2. Compile the project:
 	```bash
