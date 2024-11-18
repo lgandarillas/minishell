@@ -28,12 +28,18 @@ Minishell is designed to:
     git submodule update --init --remote libft_v2
     ```
 
-2. Compile the project:
+2. Install Dependecies
+    ```bash
+    sudo apt update
+    sudo apt install libreadline-dev
+    ```
+
+3. Compile the project:
 	```bash
 	make
 	```
 
-3. Run the shell:
+4. Run the shell:
 	```bash
 	./mnishell
 	```
