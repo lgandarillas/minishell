@@ -41,7 +41,7 @@ Minishell is designed to:
 
 4. Run the shell:
 	```bash
-	./mnishell
+	./minishell
 	```
 
 ## Features
