@@ -1,4 +1,4 @@
-# Minishell
+# [Minishell | 42 School - Rank 03]
 
 A shell inspired by bash, developed as part of the 42 curriculum. This shell interprets and executes commands, handles pipes and redirections, and includes a set of built-in commands.
 <br><br>
