@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:01:05 by lgandari          #+#    #+#             */
-/*   Updated: 2024/11/11 18:45:32 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/04 22:52:48 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char	**create_env(void)
 
 	env = ft_calloc(4, sizeof(char *));
 	if (!env)
-		print_error(MEM_ERROR);
+		print_error(MEM_ERROR, false);
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 		exit_matrix(MEM_ERROR, env);

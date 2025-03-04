@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 13:40:32 by aquinter          #+#    #+#             */
-/*   Updated: 2024/07/15 22:31:14 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/04 22:54:57 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	unset_variable(t_shell *shell, char *var_name)
 	var = ft_strjoin(var_name, "=");
 	if (!var)
 	{
-		print_error(MEM_ERROR);
+		print_error(MEM_ERROR, false);
 		return ;
 	}
 	if (ft_strcmp(var_name, "PATH") == 0)

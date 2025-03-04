@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:40:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/11/11 20:03:25 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/04 22:55:22 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	try_exec_in_path(t_shell *shell)
 	{
 		tmp = build_cmd(shell->path[i], shell->cmd[0]);
 		if (!tmp)
-			print_error("error cmd");
+			print_error("error cmd", false);
 		if (access(tmp, X_OK) == SUCCESS)
 			execve(tmp, shell->cmd, shell->env);
 		free(tmp);

@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 19:43:21 by lgandari          #+#    #+#             */
-/*   Updated: 2024/07/25 15:24:39 by lgandari         ###   ########.fr       */
+/*   Updated: 2025/03/04 22:53:03 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ void	exit_matrix(char *msg, char **matrix)
 {
 	if (matrix != NULL)
 		free_matrix(matrix);
-	print_error(msg);
+	print_error(msg, false);
 }

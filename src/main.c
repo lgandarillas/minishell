@@ -6,7 +6,7 @@
 /*   By: aquinter <aquinter@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 16:43:33 by lgandari          #+#    #+#             */
-/*   Updated: 2024/11/13 22:04:56 by aquinter         ###   ########.fr       */
+/*   Updated: 2025/03/04 22:52:22 by lgandari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int argc, char **argv, char **envp)
 	t_shell	shell;
 
 	if (argc != 1 || !argv[0])
-		print_error("Error. Usage: ./minishell\n");
+		print_error("Error. Usage: ./minishell\n", false);
 	init_shell(&shell, envp);
 	shell_loop(&shell);
 	free_shell(&shell);
